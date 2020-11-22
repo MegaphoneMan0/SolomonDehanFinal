@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BidLibrary.Library
 {
-    class Product
+    public class Product
     {
     }
 }

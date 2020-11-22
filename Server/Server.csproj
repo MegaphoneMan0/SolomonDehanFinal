@@ -98,5 +98,11 @@
   <ItemGroup>
     <None Include="Other\App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BidLibrary\BidLibrary.csproj">
+      <Project>{ba068d4d-a6b9-4afc-adbf-5be3d4c59b5a}</Project>
+      <Name>BidLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
