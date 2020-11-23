@@ -8,6 +8,9 @@ using BidLibrary.Library;
 
 namespace Server.Model
 {
+    /// <summary>
+    /// The database that contains most of the information the controller needs
+    /// </summary>
     class Database
     {
         //parameters
