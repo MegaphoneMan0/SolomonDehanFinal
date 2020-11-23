@@ -45,10 +45,11 @@ namespace Server.Controller
         }//sendToClients
 
 
-        public void OnMessage(MessageEventArgs messageEventArgs)
-        {
-
-        }
+        //public void OnMessage(MessageEventArgs messageEventArgs)
+        //{
+            //okay, so i need to somehow use a github library to make this work but i don't know how to do that. 
+            //emailing either jorge or a TA
+        //}
 
 
     }
