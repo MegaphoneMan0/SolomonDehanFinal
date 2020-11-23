@@ -10,14 +10,30 @@ namespace Server.Model
 {
     class Database
     {
+        //parameters
+
+        /// <summary>
+        /// a list of users which are hard coded
+        /// </summary>
         private List<User> userLibrary = new List<User>();
 
+        /// <summary>
+        /// a list of available products that clients can bid on. Only includes products available for bidding
+        /// </summary>
         private List<Product> productLibrary = new List<Product>();
 
+        /// <summary>
+        /// a list of clients that are connected to the server
+        /// </summary>
         private List<Client> clientLibrary = new List<Client>();
 
+        /// <summary>
+        /// a list of bids associated with the products in the productlibrary
+        /// </summary>
         private List<Bid> bidLibrary = new List<Bid>();
 
+        
+        //methods
 
         /// <summary>
         /// Default constructor
