@@ -8,5 +8,9 @@ namespace Server.View
 {
     interface ProductAdder
     {
+        /// <summary>
+        /// uncertain of the point of this, but we'll see
+        /// </summary>
+        void addProduct();
     }
 }
