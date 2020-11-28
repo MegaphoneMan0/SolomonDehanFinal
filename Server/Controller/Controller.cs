@@ -69,6 +69,37 @@ namespace Server.Controller
         public void ReadMessage(Message message)
         {
             //reads a message and reacts appropriatly 
+
+            MessageType messageType = message.getMessageType();
+
+            switch(messageType)
+            {
+                case Credential_Information:
+                    //if the credential info is correct
+                    if(VerifyUser(message.getUserName(), message.getPassword()))
+                    {
+
+                    }//if
+
+                    break;
+
+                case Credential_Information_Verification:
+
+
+                    break;
+
+                case Product_List_Information:
+
+
+                    break;
+
+                case New_Bid:
+
+
+                    break;
+
+            }
+
         }//ReadMessage
 
 
