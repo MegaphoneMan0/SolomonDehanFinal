@@ -16,5 +16,10 @@ namespace Server.View
         {
             InitializeComponent();
         }
+
+        private void uxAddButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
