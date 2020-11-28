@@ -38,10 +38,10 @@ namespace Server.Controller
         }//communicator
 
         /// <summary>
-        /// This method will use websockets to send all connected clients the updated list of products
+        /// This method will use websockets to send a message to one or all clients
         /// </summary>
-        /// <param name="products"></param>
-        public void sendToClients(List<Product> products)
+        /// <param name="message">The message that needs to be sent</param>
+        public void sendMessageToClients(Message message)
         {
 
             string msg = "";
@@ -52,6 +52,9 @@ namespace Server.Controller
         
                 
         }//sendToClients
+
+        
+        public void 
 
         /// <summary>
         /// This method is run whenever the communicator recieves a message from a client

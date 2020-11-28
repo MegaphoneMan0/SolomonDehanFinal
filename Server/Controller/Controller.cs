@@ -71,16 +71,27 @@ namespace Server.Controller
             //reads a message and reacts appropriatly 
 
             MessageType messageType = message.getMessageType();
+            
 
             switch(messageType)
             {
                 case Credential_Information:
+                    string userName = message.getUserName();
+                    string password = message.getPassword();
+
+                    Message newMessage;
+
                     //if the credential info is correct
                     if(VerifyUser(message.getUserName(), message.getPassword()))
                     {
-
+                        newMessage = new Message(Credential_Information_Verification, userName, password, true);
                     }//if
+                    else
+                    {
+                        newMessage = new Message(Credential_Information_Verification, userName, password, false);
+                    }
 
+                    communicator.sendMessageToClients(newMessage);
                     break;
 
                 case Credential_Information_Verification:
@@ -98,7 +109,7 @@ namespace Server.Controller
 
                     break;
 
-            }
+            }//switch
 
         }//ReadMessage
 

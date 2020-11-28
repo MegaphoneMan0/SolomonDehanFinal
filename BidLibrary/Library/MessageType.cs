@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BidLibrary.Library
 {
     //john
-    enum MessageType
+    public enum MessageType
     {
 
         Credential_Information,
