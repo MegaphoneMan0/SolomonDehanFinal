@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BidLibrary.Library
 {
     //john
-    class Message
+    public class Message
     {
     }
 }

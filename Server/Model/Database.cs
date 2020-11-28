@@ -141,7 +141,7 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// a method to add a product
+        /// a method to add a product given a string
         /// </summary>
         /// <param name="name">the name of the new product</param>
         public void addProduct(string name)
@@ -149,7 +149,16 @@ namespace Server.Model
             Product productToAdd = new Product(name);
 
             productLibrary.Add(productToAdd);
-        }
+        }//addproduct
+
+        /// <summary>
+        /// a method to add a product given a product
+        /// </summary>
+        /// <param name="p">the product to add</param>
+        public void addProduct(Product p)
+        {
+            productLibrary.Add(p);
+        }//addproduct
 
         /// <summary>
         /// adds a client to the client library
