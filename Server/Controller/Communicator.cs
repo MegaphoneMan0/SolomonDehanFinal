@@ -8,6 +8,8 @@ using BidLibrary.Library;
 using System.Net.WebSockets;
 using System.Net;
 using System.Net.Sockets;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
 
 namespace Server.Controller
@@ -49,6 +51,7 @@ namespace Server.Controller
         //{
             //okay, so i need to somehow use a github library to make this work but i don't know how to do that. 
             //emailing either jorge or a TA
+            //found the DLL, added it in to the repo
         //}
 
 
