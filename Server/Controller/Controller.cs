@@ -9,7 +9,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller
+    class Controller : ReadMessage
     {
         /// <summary>
         /// a database of users and clients
@@ -70,6 +70,8 @@ namespace Server.Controller
         {
             //reads a message and reacts appropriatly 
         }//ReadMessage
+
+
 
     }//class
 }//namespace
