@@ -12,12 +12,12 @@ using WebSocketSharp;
 using WebSocketSharp.Server;
 
 
-namespace Server.Controller
+namespace Server.Controller 
 {
     /// <summary>
     /// handles communicating information to and from connected clients
     /// </summary>
-    class Communicator 
+    class Communicator : WebSocketBehavior
     {
         //properties
 
@@ -43,16 +43,56 @@ namespace Server.Controller
         /// <param name="products"></param>
         public void sendToClients(List<Product> products)
         {
-            //no idea how to do this yet
+
+            string msg = "";
+            //need to make a message with the list of products and all that fun jazz
+            //then serialize the message with JSON
+
+            Sessions.Broadcast(msg);
+        
+                
         }//sendToClients
 
+        /// <summary>
+        /// This method is run whenever the communicator recieves a message from a client
+        /// </summary>
+        /// <param name="e">e.Data is the serialized string from the client</param>
+        public void OnMessage(MessageEventArgs e)
+        {
 
-        //public void OnMessage(MessageEventArgs messageEventArgs)
-        //{
-            //okay, so i need to somehow use a github library to make this work but i don't know how to do that. 
-            //emailing either jorge or a TA
-            //found the DLL, added it in to the repo
-        //}
+            string msg = e.Data;
+
+            //then convert the string to a "message" type. Message isn't done yet, I'll do this later
+
+        }//OnMessage
+        
+        /// <summary>
+        /// This method is run when a connection from a client is opened
+        /// </summary>
+        /// <param name="e">event arguments from the client</param>
+        public void OnOpen(MessageEventArgs e)
+        {
+
+            //needs to be done after I get read message and controller done
+
+        }//OnClose
+
+        /// <summary>
+        /// This method is run when a connection from a client is closed
+        /// </summary>
+        /// <param name="e">event arguments from the client</param>
+        public void OnClose(MessageEventArgs e)
+        {
+
+            //needs to be done after I get read message and controller done
+
+        }//OnClose
+
+
+
+
+
+
 
 
     }
