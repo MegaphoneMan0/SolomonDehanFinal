@@ -27,6 +27,11 @@ namespace Server.Controller
         /// </summary>
         private ReadMessage readMessageHandler;
 
+        /// <summary>
+        /// interface that updates the client list whenever OnClose or OnOpen 
+        /// </summary>
+        private UpdateClientList updateClientListHandler;
+
 
         //methods
 
@@ -54,7 +59,7 @@ namespace Server.Controller
         }//sendToClients
 
        
-        //THIS MAY CAUSE ISSUES, IDK HOW TO DO THE OVERRIDE THINGY
+        //THIS MAY CAUSE ISSUES, IDK HOW TO DO THE OVERRIDE THINGY SO IT'S GREEN UNDERLINED IDK MAN
 
         /// <summary>
         /// This method is run whenever the communicator recieves a message from a client
@@ -97,8 +102,28 @@ namespace Server.Controller
         /// <param name="e">event arguments from the client</param>
         public void OnOpen(MessageEventArgs e)
         {
+            //first, we need to update the list of sessions
 
-            //needs to be done after I get read message and controller done
+            //get a list of session IDs
+            List<IWebSocketSession> sessionList = Sessions.Sessions.ToList();
+
+            //turn them into strings for the controller
+            List<string> vs = new List<string>();
+            foreach(IWebSocketSession i in sessionList)
+            {
+                vs.Add(i.ID);
+            }//foreach
+
+            List<Product> updatedProducts = updateClientListHandler.UpdateClientList(vs);
+
+            //now, we need to send the client the product list in the database. This is done with the return of updateClientList
+            //first, we serialize
+
+            Message message = new Message(MessageType.Product_List_Information,updatedProducts);
+
+            string msg = JsonConvert.SerializeObject(message);
+
+            Send(msg);
 
         }//OnClose
 
@@ -109,7 +134,19 @@ namespace Server.Controller
         public void OnClose(MessageEventArgs e)
         {
 
-            //needs to be done after I get read message and controller done
+            //get a list of session IDs
+            List<IWebSocketSession> sessionList = Sessions.Sessions.ToList();
+
+            //turn them into strings for the controller
+            List<string> vs = new List<string>();
+            foreach (IWebSocketSession i in sessionList)
+            {
+                vs.Add(i.ID);
+            }//foreach
+
+            updateClientListHandler.UpdateClientList(vs);
+
+            //in this case we can ignore the return of UpdateClientList
 
         }//OnClose
 

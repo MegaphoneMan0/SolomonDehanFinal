@@ -55,6 +55,7 @@
     <Compile Include="Controller\Communicator.cs" />
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\ReadMessage.cs" />
+    <Compile Include="Controller\UpdateClientList.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\User.cs" />

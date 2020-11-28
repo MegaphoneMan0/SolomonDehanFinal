@@ -123,6 +123,21 @@ namespace Server.Controller
 
         }//ReadMessage
 
+        /// <summary>
+        /// updates the client list in the view
+        /// </summary>
+        /// <param name="clientList">the list of clients to be pushed to the view</param>
+        public List<Product> UpdateClientList(List<string> clientList)
+        {
+
+            //NOOOO fucking clue how to do update the form
+
+
+
+            //this is the return, that's easy
+            List<Product> products = database.returnAllProducts();
+            return products;
+        }
 
 
     }//class
