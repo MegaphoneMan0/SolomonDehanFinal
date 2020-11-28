@@ -13,7 +13,8 @@ namespace Server.Controller
         /// reads the message from the client and reacts depending on the message type
         /// </summary>
         /// <param name="message">the message that needs interpreting</param>
-        void ReadMessage(Message message);
+        /// <returns>the message (if its credential verification) or null if it's a new bid</returns>
+        Message ReadMessage(Message message);
         
 
     }

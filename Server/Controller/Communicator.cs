@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Sockets;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using Newtonsoft.Json;
 
 
 namespace Server.Controller 
@@ -37,6 +38,8 @@ namespace Server.Controller
 
         }//communicator
 
+
+       
         /// <summary>
         /// This method will use websockets to send a message to one or all clients
         /// </summary>
@@ -44,17 +47,14 @@ namespace Server.Controller
         public void sendMessageToClients(Message message)
         {
 
-            string msg = "";
-            //need to make a message with the list of products and all that fun jazz
-            //then serialize the message with JSON
-
+            string msg = JsonConvert.SerializeObject(message);
             Sessions.Broadcast(msg);
         
                 
         }//sendToClients
 
-        
-        public void 
+       
+        //THIS MAY CAUSE ISSUES, IDK HOW TO DO THE OVERRIDE THINGY
 
         /// <summary>
         /// This method is run whenever the communicator recieves a message from a client
@@ -62,10 +62,32 @@ namespace Server.Controller
         /// <param name="e">e.Data is the serialized string from the client</param>
         public void OnMessage(MessageEventArgs e)
         {
-
+            //alright, fun fact, there doesn't seem to be any way of singleing out a certian client except in here or in one of the other On_____ methods
+            //cool
+            //so we need to refactor sendMessageToClients to just return the serialized string. Not what I wanted but it'll work
+            //actually, I think that isn't even needed anymore.
+            //I'll just have read message return the string, or null if it doesn't need it
+            //sendmessage can go back to being the session.broacast bit that it was before
+            
             string msg = e.Data;
 
-            //then convert the string to a "message" type. Message isn't done yet, I'll do this later
+            Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
+
+            Message returnMessage = readMessageHandler.ReadMessage(newMessage);
+
+            //if the return message is not null then we need to send the reply
+            if(returnMessage != null)
+            {
+                //re-serializing
+                string reply = JsonConvert.SerializeObject(returnMessage);
+
+                Send(reply);
+            }//if
+            else
+            {
+                //we do nothing!
+            }//else
+
 
         }//OnMessage
         

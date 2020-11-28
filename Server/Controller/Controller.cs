@@ -7,6 +7,7 @@ using BidLibrary.Library;
 using Server.Model;
 using Server.View;
 
+
 namespace Server.Controller
 {
     class Controller : ReadMessage
@@ -66,7 +67,8 @@ namespace Server.Controller
         /// reads the message from the client and reacts depending on the message type
         /// </summary>
         /// <param name="message">the message that is being read</param>
-        public void ReadMessage(Message message)
+        /// <returns>the message (if its credential verification) or null if it's a new bid</returns>
+        public Message ReadMessage(Message message)
         {
             //reads a message and reacts appropriatly 
 
@@ -75,7 +77,7 @@ namespace Server.Controller
 
             switch(messageType)
             {
-                case Credential_Information:
+                case MessageType.Credential_Information:
                     string userName = message.getUserName();
                     string password = message.getPassword();
 
@@ -84,30 +86,38 @@ namespace Server.Controller
                     //if the credential info is correct
                     if(VerifyUser(message.getUserName(), message.getPassword()))
                     {
-                        newMessage = new Message(Credential_Information_Verification, userName, password, true);
+                        newMessage = new Message(MessageType.Credential_Information_Verification, userName, password, true);
                     }//if
                     else
                     {
-                        newMessage = new Message(Credential_Information_Verification, userName, password, false);
-                    }
+                        newMessage = new Message(MessageType.Credential_Information_Verification, userName, password, false);
+                    }//else
 
-                    communicator.sendMessageToClients(newMessage);
+                    return newMessage;
                     break;
 
-                case Credential_Information_Verification:
+                case MessageType.New_Bid:
+                    //the new bid is already verified to be good
+                    Product newProduct = message.getProducts().First<Product>();
+                    Bid newBid = newProduct.getBid();
 
+                    //first, let's get the existing product from our database
+                    Product existingProduct = database.searchProduct(newProduct.getID());
 
+                    //then we can update that product with our new bid
+                    existingProduct.setBid(newBid);
+
+                    //swank, time to log that bid in the bid library
+                    database.addBid(newBid);
+                    return null;
                     break;
 
-                case Product_List_Information:
+                default:
 
-
+                    //if the message isn't one of these two type we do nothing
+                    return null;
                     break;
 
-                case New_Bid:
-
-
-                    break;
 
             }//switch
 
