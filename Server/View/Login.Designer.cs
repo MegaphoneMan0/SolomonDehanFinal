@@ -1,7 +1,7 @@
 ﻿
 namespace Server.View
 {
-    partial class Login
+    partial class uxLoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -77,7 +77,7 @@ namespace Server.View
             this.uxPasswordLabel.TabIndex = 4;
             this.uxPasswordLabel.Text = "Password";
             // 
-            // Login
+            // uxLoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -87,7 +87,7 @@ namespace Server.View
             this.Controls.Add(this.uxPasswordBox);
             this.Controls.Add(this.uxUsernameBox);
             this.Controls.Add(this.uxLoginButton);
-            this.Name = "Login";
+            this.Name = "uxLoginForm";
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

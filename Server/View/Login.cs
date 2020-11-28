@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Server.View
 {
-    public partial class Login : Form
+    public partial class uxLoginForm : Form
     {
-        public Login()
+        public uxLoginForm()
         {
             InitializeComponent();
         }
