@@ -199,6 +199,14 @@ namespace Server.Model
             bidLibrary.Remove(b);
         }
 
+        /// <summary>
+        /// returns all bids in the database
+        /// </summary>
+        /// <returns>the bidlibrary</returns>
+        public static List<Bid> getAllBids()
+        {
+            return bidLibrary;
+        }
 
 
     }//database

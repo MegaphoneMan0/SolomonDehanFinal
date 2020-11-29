@@ -10,7 +10,7 @@ namespace Server.View
     public interface Observer
     {
         /// <summary>
-        /// TBH, no idea what this does. I'll figure it out!
+        /// OOOOOOKAY, it doesn't actually say that we need to use states, so i'm pitching this thing soon
         /// </summary>
         /// <param name="state">who knows</param>
         void Update(State state);

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using BidLibrary.Library;
 using Server.Model;
 using Server.View;
@@ -17,6 +19,10 @@ namespace Server.Controller
         //ALRIGHT, I NEED TO FIND HOW I DID IT EARLIER THIS YEAR. PRETTY SURE I CAN REPLICATE THAT... SORT OF
         //FUCK
 
+        //aight, the max amount of time that we can support is a bit longer that 24 days
+        //effectively, we could probably get away with bit a bit longer than that, but that's the safe bound
+        public System.Timers.Timer aTimer = new System.Timers.Timer();
+        
 
 
         /// <summary>
@@ -124,6 +130,9 @@ namespace Server.Controller
                     //first, let's get the existing product from our database
                     Product existingProduct = Database.searchProduct(newProduct.getID());
 
+                    //second, we need to get rid of it's existing bid in the database
+                    Database.removeBid(existingProduct.getBid());
+
                     //then we can update that product with our new bid
                     existingProduct.setBid(newBid);
 
@@ -135,7 +144,19 @@ namespace Server.Controller
                     List<Product> products = Database.returnAllProducts();
 
                     newMessage = new Message(MessageType.Product_List_Information, products);
-                    
+
+
+
+
+                    //alright, I need to update the bidtimers and such
+
+                    //copying a lot of this out of an earlier lab, lets hope it flies
+                    SetMostCurrentTimer();
+
+
+
+
+
                     return newMessage;
                     break;
 
@@ -169,7 +190,79 @@ namespace Server.Controller
         public void LoadInitialProducts()
         {
             //this needs to load the products from a file into the database. How? WHO KNOWS
+
+
+
         }
+
+        /// <summary>
+        /// This will set the active timer, which will trigger OnTimedEvent. OnTimedEvent should also set the next timer
+        /// </summary>
+        /// <param name="amountOfTime">the amount of time till the bid is up in milliseconds</param>
+        private void SetTimer(int amountOfTime)
+        {
+
+            aTimer = new System.Timers.Timer(amountOfTime);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = false;
+            aTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// this event is tripped whenever aTimer goes off
+        /// </summary>
+        /// <param name="source">who knows</param>
+        /// <param name="e">*shrug*</param>
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+
+            //the timer's up, let's do this
+            Console.WriteLine("One of the bid timers is up");
+
+            SetMostCurrentTimer();
+
+
+        }//onTimedEvent
+
+        /// <summary>
+        /// This is just because I had to use this exact same giant block of code twice. Looks cleaner this way.
+        /// All it does is set a "nextTimer" to the highest possible value, then checks which timer in all of the bids is the lowest.
+        /// This method is called whenever a new bid is added or whenever the current timer goes off. 
+        /// </summary>
+        private void SetMostCurrentTimer()
+        {
+            int nextTimer = 2147483500;
+            bool nothing = false;//if this bool is still false by the end, it means there was nothing and we need to just get rid of the timer
+
+            //determine the next timer
+            foreach (Bid b in Database.getAllBids())
+            {
+                double timeSpanInMill = b.getTimer();
+                int intTimeSpan = Convert.ToInt32(timeSpanInMill);
+
+                if ((intTimeSpan < nextTimer) & (intTimeSpan > 0))
+                {
+                    nextTimer = intTimeSpan;
+                    nothing = true;
+                }//if
+
+            }//foreach
+
+            if (nothing)
+            {
+                aTimer.Dispose();
+
+                SetTimer(nextTimer);
+            }//if
+            else
+            {
+                aTimer.Dispose();
+
+            }//else
+        }
+
+
 
 
 
