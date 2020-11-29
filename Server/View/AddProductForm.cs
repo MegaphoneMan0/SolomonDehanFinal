@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Server.View
 {
-    public partial class AddProductForm : Form
+    public partial class uxAddProductForm : Form
     {
-        public AddProductForm()
+        public uxAddProductForm()
         {
             InitializeComponent();
         }

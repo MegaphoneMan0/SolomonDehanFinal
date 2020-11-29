@@ -7,7 +7,7 @@ using static System.Windows.Forms.AxHost;
 
 namespace Server.View
 {
-    interface Observer
+    public interface Observer
     {
         /// <summary>
         /// TBH, no idea what this does. I'll figure it out!

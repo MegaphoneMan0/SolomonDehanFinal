@@ -1,7 +1,7 @@
 ﻿
 namespace Server.View
 {
-    partial class AddProductForm
+    partial class uxAddProductForm
     {
         /// <summary>
         /// Required designer variable.
@@ -51,14 +51,14 @@ namespace Server.View
             this.uxAddButton.UseVisualStyleBackColor = true;
             this.uxAddButton.Click += new System.EventHandler(this.uxAddButton_Click);
             // 
-            // AddProductForm
+            // uxAddProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(319, 489);
             this.Controls.Add(this.uxAddButton);
             this.Controls.Add(this.uxProductsToAddBox);
-            this.Name = "AddProductForm";
+            this.Name = "uxAddProductForm";
             this.Text = "Add Product";
             this.ResumeLayout(false);
 
