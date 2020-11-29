@@ -12,10 +12,7 @@ namespace Server.Controller
 {
     class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater
     {
-        /// <summary>
-        /// a database of users and clients
-        /// </summary>
-        private Database database;
+        
 
         /// <summary>
         /// a list of observers that update based on the form
@@ -28,12 +25,20 @@ namespace Server.Controller
         private Communicator communicator;
 
         /// <summary>
+        /// default constructor
+        /// </summary>
+        public Controller()
+        {
+            
+        }
+
+        /// <summary>
         /// Adds a product to the database
         /// </summary>
         /// <param name="p"></param>
         public void UpdateProduct(Product p)
         {
-            database.addProduct(p);
+            Database.addProduct(p);
         }//UpdateProduct
 
         /// <summary>
@@ -44,7 +49,7 @@ namespace Server.Controller
         /// <returns>returns true of the username and password matched. Returns false if they did not</returns>
         public bool VerifyUser(string username,string password)
         {
-            User user = database.searchUser(username);
+            User user = Database.searchUser(username);
 
             if(user == null)
             {
@@ -102,13 +107,13 @@ namespace Server.Controller
                     Bid newBid = newProduct.getBid();
 
                     //first, let's get the existing product from our database
-                    Product existingProduct = database.searchProduct(newProduct.getID());
+                    Product existingProduct = Database.searchProduct(newProduct.getID());
 
                     //then we can update that product with our new bid
                     existingProduct.setBid(newBid);
 
                     //swank, time to log that bid in the bid library
-                    database.addBid(newBid);
+                    Database.addBid(newBid);
                     return null;
                     break;
 
@@ -135,7 +140,7 @@ namespace Server.Controller
 
 
             //this is the return, that's easy
-            List<Product> products = database.returnAllProducts();
+            List<Product> products = Database.returnAllProducts();
             return products;
         }
 

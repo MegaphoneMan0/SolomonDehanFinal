@@ -51,6 +51,19 @@ namespace Server.Model
         }//User
 
         /// <summary>
+        /// constructor for the user which sets the password, ID, and access rights
+        /// </summary>
+        /// <param name="id">The ID of the user</param>
+        /// <param name="pass">the password of the user</param>
+        /// <param name="level">the access level of the user (true for admin, false for normal)</param>
+        public User(string id, string pass,bool level)
+        {
+            userID = id;
+            password = pass;
+            admin = level;
+        }//User
+
+        /// <summary>
         /// getter for the user ID
         /// </summary>
         /// <returns>the ID of the user</returns>

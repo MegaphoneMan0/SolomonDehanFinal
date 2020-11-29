@@ -11,47 +11,48 @@ namespace Server.Model
     /// <summary>
     /// The database that contains most of the information the controller needs
     /// </summary>
-    class Database
+    static class Database
     {
         //parameters
+
+       
 
         /// <summary>
         /// a list of users which are hard coded
         /// </summary>
-        private List<User> userLibrary = new List<User>();
+        private static List<User> userLibrary = new List<User>() 
+        { 
+            new User("jdehan", "password123", true), 
+            new User("jackfrost0", "password123", true),
+            new User("jorge","password123",false)
+        };
 
         /// <summary>
         /// a list of available products that clients can bid on. Only includes products available for bidding
         /// </summary>
-        private List<Product> productLibrary = new List<Product>();
+        private static List<Product> productLibrary;
 
         /// <summary>
         /// a list of clients that are connected to the server
         /// </summary>
-        private List<Client> clientLibrary = new List<Client>();
+        private static List<Client> clientLibrary;
 
         /// <summary>
         /// a list of bids associated with the products in the productlibrary
         /// </summary>
-        private List<Bid> bidLibrary = new List<Bid>();
+        private static List<Bid> bidLibrary;
 
         
         //methods
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Database()
-        {
-
-        }//Database
+        
 
         /// <summary>
         /// This method returns a product with the matching ID
         /// </summary>
         /// <param name="ID">The StringID of the desired Product</param>
         /// <returns>The desired product. If this product does not exist return is "null"</returns>
-        public Product searchProduct(string ID)
+        public static Product searchProduct(string ID)
         {
             foreach(Product p in productLibrary)
             {
@@ -70,7 +71,7 @@ namespace Server.Model
         /// </summary>
         /// <param name="ID">The UserID of the desired User</param>
         /// <returns>The desired User. If this product does not exist return is "null"</returns>
-        public User searchUser(string ID)
+        public static User searchUser(string ID)
         {
             foreach (User p in userLibrary)
             {
@@ -88,7 +89,7 @@ namespace Server.Model
         /// </summary>
         /// <param name="id">The ID of the desired Client</param>
         /// <returns>The desired client. If this client does not exist return is "null"</returns>
-        public Client searchClient(double id)
+        public static Client searchClient(double id)
         {
             foreach (Client client in clientLibrary)
             {
@@ -104,7 +105,7 @@ namespace Server.Model
         /// Returns the userLibrary in it's entirety
         /// </summary>
         /// <returns></returns>
-        public List<User> returnAllUsers()
+        public static List<User> returnAllUsers()
         {
             return userLibrary;
         }//returnAllUsers
@@ -113,7 +114,7 @@ namespace Server.Model
         /// returns the product library
         /// </summary>
         /// <returns>the product library as a list of products</returns>
-        public List<Product> returnAllProducts()
+        public static List<Product> returnAllProducts()
         {
             return productLibrary;
         }
@@ -123,7 +124,7 @@ namespace Server.Model
         /// </summary>
         /// <param name="username">username of the new user</param>
         /// <param name="password">password of the new user</param>
-        public void addUser(string username, string password)
+        public static void addUser(string username, string password)
         {
             User newUser = new User(username, password);
         }
@@ -132,7 +133,7 @@ namespace Server.Model
         /// a method to remove a user
         /// </summary>
         /// <param name="username">the username of the user to remove</param>
-        public void removeUser(string username)
+        public static void removeUser(string username)
         {
             User userToRemove = searchUser(username);
 
@@ -144,7 +145,7 @@ namespace Server.Model
         /// a method to add a product given a string
         /// </summary>
         /// <param name="name">the name of the new product</param>
-        public void addProduct(string name)
+        public static void addProduct(string name)
         {
             Product productToAdd = new Product(name);
 
@@ -155,7 +156,7 @@ namespace Server.Model
         /// a method to add a product given a product
         /// </summary>
         /// <param name="p">the product to add</param>
-        public void addProduct(Product p)
+        public static void addProduct(Product p)
         {
             productLibrary.Add(p);
         }//addproduct
@@ -164,7 +165,7 @@ namespace Server.Model
         /// adds a client to the client library
         /// </summary>
         /// <param name="c">a unique string of numbers to identify the client</param>
-        public void addClient(double c)
+        public static void addClient(double c)
         {
             Client clientToAdd = new Client(c);
         }
@@ -173,7 +174,7 @@ namespace Server.Model
         /// removes a client from the client library
         /// </summary>
         /// <param name="c">the identifier of the client to be removed</param>
-        public void removeClient(double c)
+        public static void removeClient(double c)
         {
             Client clientToRemove = searchClient(c);
 
@@ -184,7 +185,7 @@ namespace Server.Model
         /// adds a bid to the bid library
         /// </summary>
         /// <param name="b">the bid to be added</param>
-        public void addBid(Bid b)
+        public static void addBid(Bid b)
         {
             bidLibrary.Add(b);
         }
@@ -193,7 +194,7 @@ namespace Server.Model
         /// removes a bid from the bid library
         /// </summary>
         /// <param name="b">the bid to be removed</param>
-        public void removeBid(Bid b)
+        public static void removeBid(Bid b)
         {
             bidLibrary.Remove(b);
         }
