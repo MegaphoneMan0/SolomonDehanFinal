@@ -1,4 +1,5 @@
-﻿using Server.Model;
+﻿using BidLibrary.Library;
+using Server.Model;
 using Server.View;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,31 @@ namespace Server
         {
             formState = State.Monitoring;
             InitializeComponent();
+            List<Product> products = Database.returnAllProducts();
+            List<string> productNames = new List<string>();
+            foreach(Product p in products)
+            {
+                productNames.Add(p.getID());
+            }
+            uxProductListBox.DataSource = productNames;
+
+            List<Client> clients = Database.returnAllClients();
+            List<double> clientNames = new List<double>();
+            foreach (Client c in clients)
+            {
+                clientNames.Add(c.getID());
+            }
+            uxClientListBox.DataSource = clientNames;
+
         }//constructor
 
         private void uxAddButton_Click(object sender, EventArgs e)
         {
             formState = State.Adding_A_Product;
-            Application.Run(new uxAddProductForm());
+
+            uxAddProductForm productFrom = new uxAddProductForm(new Controller.Controller(this));
+            productFrom.ShowDialog();
+
         }//button click
 
         /// <summary>
@@ -43,11 +63,23 @@ namespace Server
             formState = state;
             if(formState == State.Adding_A_Product)
             {
-                uxProductListBox.DataSource = Database.returnAllProducts();
+                List<Product> products = Database.returnAllProducts();
+                List<string> productNames = new List<string>();
+                foreach (Product p in products)
+                {
+                    productNames.Add(p.getID());
+                }
+                uxProductListBox.DataSource = productNames;
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
-                uxClientListBox.DataSource = Database.returnAllClients();
+                List<Client> clients = Database.returnAllClients();
+                List<double> clientNames = new List<double>();
+                foreach (Client c in clients)
+                {
+                    clientNames.Add(c.getID());
+                }
+                uxClientListBox.DataSource = clientNames;
             }//else if
             else
             {

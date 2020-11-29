@@ -27,52 +27,75 @@ namespace BidLibrary.Library
 
         public Message(MessageType mType, string name, string pass)
         {
-
+            type = mType;
+            userName = name;
+            password = pass;
+            products = null;
+            newBid = null;
+            credentialVerification = false;
         }
 
         public Message(MessageType mType, string name, string pass, bool verification)
         {
-
+            type = mType;
+            userName = name;
+            password = pass;
+            products = null;
+            newBid = null;
+            credentialVerification = verification;
         }
 
         public Message(MessageType mType, List<Product> lProduct)
         {
-
+            type = mType;
+            userName = null;
+            password = null;
+            products = lProduct;
+            newBid = null;
+            credentialVerification = false;
         }
 
         public Message(MessageType mType, Product product, Bid bid)
         {
+            type = mType;
+            userName = null;
+            password = null;
 
+            List<Product> productList = new List<Product>() { product};
+            products = productList;
+
+            newBid = bid;
+            credentialVerification = false;
         }
 
         public MessageType getMessageType()
         {
-
+            return type;
         }
 
         public string getUserName()
         {
-
+            return userName;
         }
 
         public string getPassword()
         {
-
+            return password;
         }
 
         public List<Product> getProducts()
         {
-
+            return products;
         }
 
         public Bid getNewBid()
         {
-
+            return newBid;
         }
 
         public bool getCredentialVerification()
         {
-
+            return credentialVerification;
         }
 
 

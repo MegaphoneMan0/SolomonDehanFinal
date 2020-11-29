@@ -33,14 +33,14 @@ namespace Server.Controller
         /// <summary>
         /// the communicator which handles communication between the server and connected clients
         /// </summary>
-        private Communicator communicator;
+        private Communicator communicator = new Communicator();
 
         /// <summary>
         /// default constructor
         /// </summary>
-        public Controller()
+        public Controller(Observer o)
         {
-            
+            observer = o;
         }
 
         /// <summary>
@@ -56,8 +56,11 @@ namespace Server.Controller
             List<Product> products = Database.returnAllProducts();
             Message newMessage = new Message(MessageType.Product_List_Information, products);
 
-            //send out the updated list
-            communicator.sendMessageToClients(newMessage);
+            //send out the updated list if there are any connected clients
+            if (Database.returnAllClients().Count > 0)
+            {
+                communicator.sendMessageToClients(newMessage);
+            }//if
 
             //this isn't done, I need to do something with the observer to update the server form
             observer.Update(State.Adding_A_Product);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.View
 {
-    interface UserVerifier
+    public interface UserVerifier
     {
         /// <summary>
         /// Verify's the user's login credentials

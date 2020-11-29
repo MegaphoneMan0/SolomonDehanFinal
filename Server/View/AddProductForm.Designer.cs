@@ -36,11 +36,6 @@ namespace Server.View
             // uxProductsToAddBox
             // 
             this.uxProductsToAddBox.FormattingEnabled = true;
-            this.uxProductsToAddBox.Items.AddRange(new object[] {
-            "Iphone 4s",
-            "Civilization Revolution",
-            "Goldfish packet",
-            "The entire Russian Governement"});
             this.uxProductsToAddBox.Location = new System.Drawing.Point(12, 12);
             this.uxProductsToAddBox.Name = "uxProductsToAddBox";
             this.uxProductsToAddBox.Size = new System.Drawing.Size(295, 394);

@@ -30,17 +30,17 @@ namespace Server.Model
         /// <summary>
         /// a list of available products that clients can bid on. Only includes products available for bidding
         /// </summary>
-        private static List<Product> productLibrary;
+        private static List<Product> productLibrary = new List<Product>();
 
         /// <summary>
         /// a list of clients that are connected to the server
         /// </summary>
-        private static List<Client> clientLibrary;
+        private static List<Client> clientLibrary = new List<Client>();
 
         /// <summary>
         /// a list of bids associated with the products in the productlibrary
         /// </summary>
-        private static List<Bid> bidLibrary;
+        private static List<Bid> bidLibrary = new List<Bid>();
 
         
         //methods

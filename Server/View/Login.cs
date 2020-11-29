@@ -22,8 +22,10 @@ namespace Server.View
         /// <summary>
         /// constructor
         /// </summary>
-        public uxLoginForm()
+        public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP)
         {
+            userVerifier = uv;
+            initialProductsLoader = LIP;
             initialProductsLoader.LoadInitialProducts();
             InitializeComponent();
 
@@ -44,9 +46,10 @@ namespace Server.View
 
             if (verification)
             {
-                
-                Application.Run(new uxServerForm());
-                
+                uxServerForm serverForm = new uxServerForm();
+                this.Hide();
+                serverForm.ShowDialog();
+                this.Close();
             }
             else
             {

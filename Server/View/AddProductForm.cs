@@ -13,23 +13,25 @@ namespace Server.View
 {
     public partial class uxAddProductForm : Form
     {
-        public uxAddProductForm()
+        public uxAddProductForm(ProductUpdater PU)
         {
+            productUpdaterHandler = PU;
             InitializeComponent();
+            uxProductsToAddBox.DataSource = productsThatCanBeAdded;
         }
 
         //just hard coded these into the listbox's "items" property
-        /*
-        private static List<Product> productsThatCanBeAdded = new List<Product>()
+        
+        private static List<string> productsThatCanBeAdded = new List<string>()
         {
-            new Product("Iphone 4s"),
-            new Product("Civilization Revolution"),
-            new Product("Goldfish Packet"),
-            new Product("The entire Russian government")
+            "Iphone 4s",
+            "Civilization Revolution",
+            "Goldfish Packet",
+            "The entire Russian government"
         };
-        */
+        
 
-        ProductUpdater productUpdaterHandler;
+        private ProductUpdater productUpdaterHandler;
 
 
         private void uxAddButton_Click(object sender, EventArgs e)
@@ -38,7 +40,10 @@ namespace Server.View
             Product newProduct = new Product(uxProductsToAddBox.SelectedItem.ToString());
 
             productUpdaterHandler.UpdateProduct(newProduct);
-            
+
+            productsThatCanBeAdded.Remove(newProduct.getID());
+
+            this.Close();
 
         }
     }

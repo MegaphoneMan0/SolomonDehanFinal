@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server.View
 {
-    interface ProductUpdater
+    public interface ProductUpdater
     {
         /// <summary>
         /// sends the new product to the database

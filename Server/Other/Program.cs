@@ -19,7 +19,8 @@ namespace Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new uxLoginForm());
+            Controller.Controller c = new Controller.Controller(new uxServerForm());
+            Application.Run(new uxLoginForm(c,c));
 
             //starting a webSocketServer at port 8001
             var wss = new WebSocketServer(8001);
