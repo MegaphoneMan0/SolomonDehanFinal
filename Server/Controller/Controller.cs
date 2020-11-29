@@ -10,7 +10,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage
+    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater
     {
         /// <summary>
         /// a database of users and clients

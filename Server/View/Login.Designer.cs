@@ -44,6 +44,7 @@ namespace Server.View
             this.uxLoginButton.TabIndex = 0;
             this.uxLoginButton.Text = "Login";
             this.uxLoginButton.UseVisualStyleBackColor = true;
+            this.uxLoginButton.Click += new System.EventHandler(this.uxLoginButton_Click);
             // 
             // uxUsernameBox
             // 
