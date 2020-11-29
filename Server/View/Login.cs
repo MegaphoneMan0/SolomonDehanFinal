@@ -24,7 +24,9 @@ namespace Server.View
         /// </summary>
         public uxLoginForm()
         {
+            initialProductsLoader.LoadInitialProducts();
             InitializeComponent();
+
         }
 
         /// <summary>
@@ -42,7 +44,7 @@ namespace Server.View
 
             if (verification)
             {
-                initialProductsLoader.LoadInitialProducts();
+                
                 Application.Run(new uxServerForm());
                 
             }

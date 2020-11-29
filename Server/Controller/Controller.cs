@@ -147,14 +147,10 @@ namespace Server.Controller
 
 
 
-
                     //alright, I need to update the bidtimers and such
 
                     //copying a lot of this out of an earlier lab, lets hope it flies
                     SetMostCurrentTimer();
-
-
-
 
 
                     return newMessage;
@@ -187,11 +183,20 @@ namespace Server.Controller
             return products;
         }
 
+        /// <summary>
+        /// This method is called from the login screen when it's constructed to load the initial products from the file at the given address
+        /// </summary>
         public void LoadInitialProducts()
         {
             //this needs to load the products from a file into the database. How? WHO KNOWS
+            //this is based of the example on the microsoft docs
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
 
-
+            foreach(string s in lines)
+            {
+                Product product = new Product(s);
+                Database.addProduct(product);
+            }//foreach
 
         }
 
