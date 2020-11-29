@@ -60,6 +60,14 @@ namespace Server.Controller
             communicator.sendMessageToClients(newMessage);
 
             //this isn't done, I need to do something with the observer to update the server form
+
+
+
+
+
+
+
+
         }//UpdateProduct
 
         /// <summary>
