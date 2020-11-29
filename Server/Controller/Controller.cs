@@ -12,7 +12,12 @@ namespace Server.Controller
 {
     class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater
     {
-        
+        //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
+        //SHIT
+        //ALRIGHT, I NEED TO FIND HOW I DID IT EARLIER THIS YEAR. PRETTY SURE I CAN REPLICATE THAT... SORT OF
+        //FUCK
+
+
 
         /// <summary>
         /// a list of observers that update based on the form
@@ -39,6 +44,8 @@ namespace Server.Controller
         public void UpdateProduct(Product p)
         {
             Database.addProduct(p);
+
+            //this isn't done, I need to do something with the observer to update the server form
         }//UpdateProduct
 
         /// <summary>
@@ -114,7 +121,14 @@ namespace Server.Controller
 
                     //swank, time to log that bid in the bid library
                     Database.addBid(newBid);
-                    return null;
+
+                    //now we need to create a message containing the new bid to send out to our clients.
+                    //this is going to be basically the same as when we send the whole product list
+                    List<Product> products = Database.returnAllProducts();
+
+                    newMessage = new Message(MessageType.Product_List_Information, products);
+                    
+                    return newMessage;
                     break;
 
                 default:

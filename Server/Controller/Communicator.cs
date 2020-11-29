@@ -86,7 +86,16 @@ namespace Server.Controller
                 //re-serializing
                 string reply = JsonConvert.SerializeObject(returnMessage);
 
-                Send(reply);
+                //checking if it is a newBid to be communicated to all, or just a client verification
+                if (returnMessage.getMessageType() == MessageType.Product_List_Information)
+                {
+                    Sessions.Broadcast(reply);
+                }//if
+                else
+                {
+                    Send(reply);
+                }//else        
+                
             }//if
             else
             {
