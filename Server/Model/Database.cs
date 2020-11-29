@@ -118,6 +118,15 @@ namespace Server.Model
         {
             return productLibrary;
         }
+        
+        /// <summary>
+        /// returns the client library
+        /// </summary>
+        /// <returns>the client library as a list of clients</returns>
+        public static List<Client> returnAllClients()
+        {
+            return clientLibrary;
+        }
 
         /// <summary>
         /// a method to add a new user
@@ -127,7 +136,7 @@ namespace Server.Model
         public static void addUser(string username, string password)
         {
             User newUser = new User(username, password);
-        }
+        }//addUser
 
         /// <summary>
         /// a method to remove a user

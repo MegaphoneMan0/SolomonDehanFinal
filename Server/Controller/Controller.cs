@@ -12,7 +12,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts, Observer
+    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts
     {
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
         //SHIT
@@ -28,7 +28,7 @@ namespace Server.Controller
         /// <summary>
         /// a list of observers that update based on the form
         /// </summary>
-        private List<Observer> observers;
+        private Observer observer;
 
         /// <summary>
         /// the communicator which handles communication between the server and connected clients
@@ -60,20 +60,11 @@ namespace Server.Controller
             communicator.sendMessageToClients(newMessage);
 
             //this isn't done, I need to do something with the observer to update the server form
-
+            observer.Update(State.Adding_A_Product);
 
 
 
         }//UpdateProduct
-
-        /// <summary>
-        /// Keeps the controller informed of the view's state
-        /// </summary>
-        /// <param name="state"></param>
-        public void Update(State state)
-        {
-
-        }//Update
 
         /// <summary>
         /// Verify's the user's login credentials
@@ -83,6 +74,8 @@ namespace Server.Controller
         /// <returns>returns true of the username and password matched. Returns false if they did not</returns>
         public bool VerifyUser(string username,string password)
         {
+            observer.Update(State.Recieved_Credentials);
+
             User user = Database.searchUser(username);
 
             if(user == null)
@@ -93,10 +86,12 @@ namespace Server.Controller
             {
                 if (user.getPassword().Equals(password))
                 {
+                    observer.Update(State.Aproved);
                     return true;
                 }//if
                 else
                 {
+                    observer.Update(State.Denied);
                     return false;
                 }//else
             }//else
@@ -136,6 +131,7 @@ namespace Server.Controller
                     break;
 
                 case MessageType.New_Bid:
+                    
                     //the new bid is already verified to be good
                     Product newProduct = message.getProducts().First<Product>();
                     Bid newBid = newProduct.getBid();
@@ -165,7 +161,7 @@ namespace Server.Controller
                     //copying a lot of this out of an earlier lab, lets hope it flies
                     SetMostCurrentTimer();
 
-
+                    observer.Update(State.Recieved_New_Bid);
                     return newMessage;
                     break;
 
@@ -187,12 +183,13 @@ namespace Server.Controller
         public List<Product> UpdateClientList(List<string> clientList)
         {
 
-            //NOOOO fucking clue how to do update the form
 
+            //since there isn't a difference in the controller between how we handle losing a client or recieving a new one, I just say that we recieved a new one.
+            observer.Update(State.Recieved_New_Client);
 
 
             //this is the return, that's easy
-            List<Product> products = Database.returnAllProducts();
+            List <Product> products = Database.returnAllProducts();
             return products;
         }
 

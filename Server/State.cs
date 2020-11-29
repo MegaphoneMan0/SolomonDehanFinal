@@ -14,8 +14,8 @@ namespace Server
         Aproved,
         Denied,
         Recieved_New_Bid,
-        Recieved_New_Client
-
+        Recieved_New_Client,
+        Lost_Client
 
 
     }
