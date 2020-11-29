@@ -14,20 +14,36 @@ namespace Server
 {
     public partial class uxServerForm : Form, Observer
     {
+
+        private State formState;
+
         public uxServerForm()
         {
+            formState = State.Monitoring;
             InitializeComponent();
         }
 
         private void uxAddButton_Click(object sender, EventArgs e)
         {
+            formState = State.Adding_A_Product;
             Application.Run(new uxAddProductForm());
         }
 
+        /// <summary>
+        /// this is called once a product has been added to the database
+        /// </summary>
+        public void addProduct()
+        {
+            formState = State.Monitoring;
+        }
 
         public void Update(State state)
         {
-            //no idea how states work, should probably figure that out (or check if I even need to use them at all
+            formState = state;
+            if(formState == State.Adding_A_Product)
+            {
+                ux
+            }
         }
 
     }

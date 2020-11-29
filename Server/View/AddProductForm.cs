@@ -31,6 +31,7 @@ namespace Server.View
 
         ProductUpdater productUpdaterHandler;
 
+
         private void uxAddButton_Click(object sender, EventArgs e)
         {
 

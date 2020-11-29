@@ -8,6 +8,13 @@ namespace Server
 {
     public enum State
     {
+        Monitoring,
+        Adding_A_Product,
+        Recieved_Credentials,
+        Aproved,
+        Denied,
+        Recieved_New_Bid,
+        Recieved_New_Client
 
 
 

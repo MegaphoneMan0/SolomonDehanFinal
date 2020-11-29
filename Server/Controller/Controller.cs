@@ -12,7 +12,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts
+    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts, Observer
     {
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
         //SHIT
@@ -64,11 +64,16 @@ namespace Server.Controller
 
 
 
-
-
-
-
         }//UpdateProduct
+
+        /// <summary>
+        /// Keeps the controller informed of the view's state
+        /// </summary>
+        /// <param name="state"></param>
+        public void Update(State state)
+        {
+
+        }//Update
 
         /// <summary>
         /// Verify's the user's login credentials
