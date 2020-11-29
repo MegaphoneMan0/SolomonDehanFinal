@@ -10,7 +10,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater
+    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts
     {
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
         //SHIT
@@ -43,7 +43,15 @@ namespace Server.Controller
         /// <param name="p"></param>
         public void UpdateProduct(Product p)
         {
+            //add the new product to the database
             Database.addProduct(p);
+
+            //create a new message with all of the products
+            List<Product> products = Database.returnAllProducts();
+            Message newMessage = new Message(MessageType.Product_List_Information, products);
+
+            //send out the updated list
+            communicator.sendMessageToClients(newMessage);
 
             //this isn't done, I need to do something with the observer to update the server form
         }//UpdateProduct
@@ -156,6 +164,11 @@ namespace Server.Controller
             //this is the return, that's easy
             List<Product> products = Database.returnAllProducts();
             return products;
+        }
+
+        public void LoadInitialProducts()
+        {
+            //this needs to load the products from a file into the database. How? WHO KNOWS
         }
 
 

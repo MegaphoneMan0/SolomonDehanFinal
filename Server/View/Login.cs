@@ -15,7 +15,9 @@ namespace Server.View
         /// <summary>
         /// the interface from the controller
         /// </summary>
-        private UserVerifier userVerifier; 
+        private UserVerifier userVerifier;
+
+        private LoadInitialProducts initialProductsLoader;
 
         /// <summary>
         /// constructor
@@ -40,7 +42,9 @@ namespace Server.View
 
             if (verification)
             {
+                initialProductsLoader.LoadInitialProducts();
                 Application.Run(new uxServerForm());
+                
             }
             else
             {
