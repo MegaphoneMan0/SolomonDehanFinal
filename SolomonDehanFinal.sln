@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{240CCF85-8224-4F22-BC7B-765E79FCF617}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{E0242C99-1585-4E4C-ACF3-E2E4FAFE7896}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BA068D4D-A6B9-4AFC-ADBF-5BE3D4C59B5A} = {BA068D4D-A6B9-4AFC-ADBF-5BE3D4C59B5A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BidLibrary", "BidLibrary\BidLibrary.csproj", "{BA068D4D-A6B9-4AFC-ADBF-5BE3D4C59B5A}"
 EndProject
