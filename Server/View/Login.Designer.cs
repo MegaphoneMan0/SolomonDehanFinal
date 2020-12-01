@@ -89,7 +89,6 @@ namespace Server.View
             this.Controls.Add(this.uxUsernameBox);
             this.Controls.Add(this.uxLoginButton);
             this.Name = "uxLoginForm";
-            this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

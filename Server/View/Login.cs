@@ -39,7 +39,7 @@ namespace Server.View
             userVerifier = uv;
             initialProductsLoader = LIP;
             initialProductsLoader.LoadInitialProducts();
-            Name = s;
+            Text = s;
             InitializeComponent();
 
         }
