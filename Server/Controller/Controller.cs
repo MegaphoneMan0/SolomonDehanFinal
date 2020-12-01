@@ -260,9 +260,9 @@ namespace Server.Controller
             bool nothing = false;//if this bool is still false by the end, it means there was nothing and we need to just get rid of the timer
 
             //determine the next timer
-            foreach (Bid b in Database.getAllBids())
+            foreach (Product p in Database.returnAllProducts())
             {
-                double timeSpanInMill = b.getTimer();
+                double timeSpanInMill = p.getTimer();
                 int intTimeSpan = Convert.ToInt32(timeSpanInMill);
 
                 if ((intTimeSpan < nextTimer) & (intTimeSpan > 0))

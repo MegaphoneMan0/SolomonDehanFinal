@@ -17,9 +17,9 @@ namespace BidLibrary.Library
         private string productID;
 
         /// <summary>
-        /// the highestBid for this product
+        /// a list of bids ordered from highest to lowest. Each bid is from a unique client, no client should be on the list multiple times
         /// </summary>
-        private Bid highestBid;
+        private List<Bid> bidList;
 
         /// <summary>
         /// the amount of time left on to bid

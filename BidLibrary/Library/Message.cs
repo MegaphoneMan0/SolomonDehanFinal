@@ -22,6 +22,11 @@ namespace BidLibrary.Library
 
         private bool credentialVerification;
 
+        /// <summary>
+        /// this is for win lose noti. Client doesn't even need to worry about it, server is the only one that needs it
+        /// </summary>
+        private string clientID;
+
 
         //methods
 
@@ -95,7 +100,15 @@ namespace BidLibrary.Library
             return credentialVerification;
         }
 
+        public string getClientID()
+        {
+            return clientID;
+        }
 
+        public void setClientID(string ID)
+        {
+            clientID = ID;
+        }
 
 
     }

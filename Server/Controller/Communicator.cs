@@ -11,7 +11,7 @@ using System.Net.Sockets;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Newtonsoft.Json;
-
+using Server.Model;
 
 namespace Server.Controller 
 {
@@ -51,10 +51,20 @@ namespace Server.Controller
         /// <param name="message">The message that needs to be sent</param>
         public void sendMessageToClients(Message message)
         {
+            //ALRIGHT
+            //WE NEED TO REFACTOR THIS TO BE ABLE TO SEND TO CERTAIN CLIENTS IF MESSAGETYPE IS WIN_LOSE_NOTI
 
-            string msg = JsonConvert.SerializeObject(message);
-            Sessions.Broadcast(msg);
-        
+            if (message.getMessageType() == MessageType.Win_Lose_Noti)
+            {
+
+            }//if
+
+            else
+            {
+                //this is if it needs to be sent to all, cool, who cares
+                string msg = JsonConvert.SerializeObject(message);
+                Sessions.Broadcast(msg);
+            }//else
                 
         }//sendToClients
 
@@ -73,12 +83,16 @@ namespace Server.Controller
             //actually, I think that isn't even needed anymore.
             //I'll just have read message return the string, or null if it doesn't need it
             //sendmessage can go back to being the session.broacast bit that it was before
-            
+
+            Client thisClient = Database.searchClient(ID);
+
             string msg = e.Data;
 
             Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
 
             Message returnMessage = readMessageHandler.ReadMessage(newMessage);
+
+            
 
             //if the return message is not null then we need to send the reply
             if(returnMessage != null)
@@ -91,9 +105,14 @@ namespace Server.Controller
                 {
                     Sessions.Broadcast(reply);
                 }//if
-                else
+                else if(returnMessage.getMessageType() == MessageType.Credential_Information_Verification)
                 {
                     Send(reply);
+
+                }//else if
+                else
+                {
+                    //uncertain if anything needs to go here, leaving it for now
                 }//else        
                 
             }//if
@@ -113,17 +132,15 @@ namespace Server.Controller
         {
             //first, we need to update the list of sessions
 
+            //Client newClient = new Client(clientID);
+            //ID is the websocket-sharp generated ID
+            Database.addClient(ID);
+            
+
             //get a list of session IDs
-            List<IWebSocketSession> sessionList = Sessions.Sessions.ToList();
+            List<string> sessionList = Sessions.ActiveIDs.ToList();
 
-            //turn them into strings for the controller
-            List<string> vs = new List<string>();
-            foreach(IWebSocketSession i in sessionList)
-            {
-                vs.Add(i.ID);
-            }//foreach
-
-            List<Product> updatedProducts = updateClientListHandler.UpdateClientList(vs);
+            List<Product> updatedProducts = updateClientListHandler.UpdateClientList(sessionList);
 
             //now, we need to send the client the product list in the database. This is done with the return of updateClientList
             //first, we serialize
@@ -142,6 +159,8 @@ namespace Server.Controller
         /// <param name="e">event arguments from the client</param>
         public void OnClose(MessageEventArgs e)
         {
+
+            Database.removeClient(ID);
 
             //get a list of session IDs
             List<IWebSocketSession> sessionList = Sessions.Sessions.ToList();

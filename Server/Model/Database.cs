@@ -89,7 +89,7 @@ namespace Server.Model
         /// </summary>
         /// <param name="id">The ID of the desired Client</param>
         /// <returns>The desired client. If this client does not exist return is "null"</returns>
-        public static Client searchClient(double id)
+        public static Client searchClient(string id)
         {
             foreach (Client client in clientLibrary)
             {
@@ -173,8 +173,8 @@ namespace Server.Model
         /// <summary>
         /// adds a client to the client library
         /// </summary>
-        /// <param name="c">a unique string of numbers to identify the client</param>
-        public static void addClient(double c)
+        /// <param name="c">a string to identify the client</param>
+        public static void addClient(string c)
         {
             Client clientToAdd = new Client(c);
         }
@@ -183,7 +183,7 @@ namespace Server.Model
         /// removes a client from the client library
         /// </summary>
         /// <param name="c">the identifier of the client to be removed</param>
-        public static void removeClient(double c)
+        public static void removeClient(string c)
         {
             Client clientToRemove = searchClient(c);
 
@@ -216,6 +216,9 @@ namespace Server.Model
         {
             return bidLibrary;
         }
+
+
+        
 
 
     }//database
