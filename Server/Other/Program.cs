@@ -2,6 +2,7 @@
 using Server.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -21,7 +22,6 @@ namespace Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Controller.Controller c = new Controller.Controller(new uxServerForm());
 
 
             IPAddress localIP;
@@ -33,27 +33,77 @@ namespace Server
             }
             string port = "8002";
 
-            //if (InputBox(""))
-            //{
+            if (InputBox("Host Port", "Enter port number:", ref port) != DialogResult.OK)
+            {
+                return;
+            }
+            int portNum = Convert.ToInt32(port);
 
-            //}
+            Controller.Controller c = new Controller.Controller(new uxServerForm());
+
+            uxLoginForm lf = new uxLoginForm(c, c, String.Format("{0}:{1}", localIP, port));
+
 
             //starting a webSocketServer at port 8002
-            var wss = new WebSocketServer(port);
+            WebSocketServer wss = new WebSocketServer(localIP, portNum);//localIP
 
+            //I THINK this will work
             wss.AddWebSocketService<Communicator>("/communicator");
 
             //start the server
             wss.Start();
 
 
-            Application.Run(new uxLoginForm(c, c));
+            Application.Run(lf);
 
-            Console.WriteLine("Press Enter to exit.");
-            Console.ReadLine();
+            
 
             // Stop the server
             wss.Stop();
         }//main
+
+        // From http://www.csharp-examples.net/inputbox/
+        public static DialogResult InputBox(string title, string promptText, ref string value)
+        {
+            Form form = new Form();
+            Label label = new Label();
+            TextBox textBox = new TextBox();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
+
+            form.Text = title;
+            label.Text = promptText;
+            textBox.Text = value;
+
+            buttonOk.Text = "OK";
+            buttonCancel.Text = "Cancel";
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+            label.SetBounds(9, 20, 372, 13);
+            textBox.SetBounds(12, 36, 372, 20);
+            buttonOk.SetBounds(228, 72, 75, 23);
+            buttonCancel.SetBounds(309, 72, 75, 23);
+
+            label.AutoSize = true;
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(396, 107);
+            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
+
     }//program
 }//server
