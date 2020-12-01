@@ -13,7 +13,8 @@ namespace BidLibrary.Library
         Credential_Information,
         Credential_Information_Verification,
         Product_List_Information,
-        New_Bid
+        New_Bid,
+        Win_Lose_Noti
 
 
     }

@@ -241,6 +241,12 @@ namespace Server.Controller
             SetMostCurrentTimer();
 
 
+            //now need to notify the clients
+
+            //remove product and send updated list
+
+
+
         }//onTimedEvent
 
         /// <summary>
