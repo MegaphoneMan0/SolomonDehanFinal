@@ -56,7 +56,9 @@ namespace Server.Controller
 
             if (message.getMessageType() == MessageType.Win_Lose_Noti)
             {
-
+                string cID = message.getClientID();
+                string msg = JsonConvert.SerializeObject(message);
+                Sessions.SendTo(cID,msg);
             }//if
 
             else

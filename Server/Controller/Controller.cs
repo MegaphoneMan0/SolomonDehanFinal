@@ -147,16 +147,24 @@ namespace Server.Controller
                     
                     //the new bid is already verified to be good
                     Product newProduct = message.getProducts().First<Product>();
-                    Bid newBid = newProduct.getBid();
+                    Bid newBid = message.getNewBid();
 
                     //first, let's get the existing product from our database
                     Product existingProduct = Database.searchProduct(newProduct.getID());
 
-                    //second, we need to get rid of it's existing bid in the database
-                    Database.removeBid(existingProduct.getBid());
+                    
 
                     //then we can update that product with our new bid
-                    existingProduct.setBid(newBid);
+                    //existingProduct.setBid(newBid);
+
+                    foreach(Bid bid in existingProduct.getBidList())
+                    {
+                        if (bid.getBidder().Equals(message.getClientID()))
+                        {
+
+                        }//if
+                    }//foreach
+
 
                     //swank, time to log that bid in the bid library
                     Database.addBid(newBid);
@@ -242,10 +250,19 @@ namespace Server.Controller
             bidList.Remove(highestBid);
 
             //first, we'll send the winner their noti
-            highestBid.
-            Message message = new Message(MessageType.Win_Lose_Noti, true,);
+            string clientID = highestBid.getBidder();
+            Message message = new Message(MessageType.Win_Lose_Noti, true,clientID);
 
             communicator.sendMessageToClients(message);
+
+            //next all of the LOSERS
+
+            foreach(Bid b in bidList)
+            {
+                string cID = b.getBidder();
+                Message mes = new Message(MessageType.Win_Lose_Noti, false, cID);
+                communicator.sendMessageToClients(message);
+            }
 
 
         }

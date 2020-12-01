@@ -21,6 +21,9 @@ namespace BidLibrary.Library
         /// </summary>
         private List<Bid> bidList;
 
+        
+        
+
         /// <summary>
         /// the amount of time left on to bid
         /// </summary>
