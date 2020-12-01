@@ -55,14 +55,11 @@ namespace BidLibrary.Library
             credentialVerification = false;
         }
 
-        public Message(MessageType mType, Product product, Bid bid)
+        public Message(MessageType mType, Bid bid)
         {
             type = mType;
             userName = null;
             password = null;
-
-            List<Product> productList = new List<Product>() { product};
-            products = productList;
 
             newBid = bid;
             credentialVerification = false;

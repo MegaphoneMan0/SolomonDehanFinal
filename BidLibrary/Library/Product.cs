@@ -21,6 +21,10 @@ namespace BidLibrary.Library
         /// </summary>
         private Bid highestBid;
 
+        /// <summary>
+        /// the amount of time left on to bid
+        /// </summary>
+        private double bidTimer;
 
         //methods
 
@@ -78,7 +82,23 @@ namespace BidLibrary.Library
         }
 
 
+        /// <summary>
+        /// getter for the bidTimer
+        /// </summary>
+        /// <returns>the double that represents the timer</returns>
+        public double getTimer()
+        {
+            return bidTimer;
+        }//getTimer
 
+        /// <summary>
+        /// setter for the bidTimer
+        /// </summary>
+        /// <param name="timer">the double for the amount of time left on the timer</param>
+        public void setTimer(double timer)
+        {
+            bidTimer = timer;
+        }//setTimer
 
 
     }
