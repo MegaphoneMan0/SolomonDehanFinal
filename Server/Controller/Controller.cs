@@ -21,8 +21,17 @@ namespace Server.Controller
 
         //aight, the max amount of time that we can support is a bit longer that 24 days
         //effectively, we could probably get away with bit a bit longer than that, but that's the safe bound
-        public System.Timers.Timer aTimer = new System.Timers.Timer();
+        //public System.Timers.Timer aTimer = new System.Timers.Timer();
         
+
+
+
+
+
+
+
+
+
 
 
         /// <summary>
@@ -162,7 +171,7 @@ namespace Server.Controller
                     //alright, I need to update the bidtimers and such
 
                     //copying a lot of this out of an earlier lab, lets hope it flies
-                    SetMostCurrentTimer();
+                   // SetMostCurrentTimer();
 
                     observer.Update(State.Recieved_New_Bid);
                     return newMessage;
@@ -213,6 +222,21 @@ namespace Server.Controller
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+        //the timer stuff that lol don't actually need
+
+
+        /*
         /// <summary>
         /// This will set the active timer, which will trigger OnTimedEvent. OnTimedEvent should also set the next timer
         /// </summary>
@@ -285,6 +309,13 @@ namespace Server.Controller
 
             }//else
         }
+
+        */
+
+
+
+
+
 
 
 
