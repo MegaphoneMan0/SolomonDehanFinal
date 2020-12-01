@@ -75,10 +75,11 @@ namespace BidLibrary.Library
             credentialVerification = false;
         }
 
-        public Message(MessageType mType, bool winLose)
+        public Message(MessageType mType, bool winLose,string cID)
         {
             type = mType;
             winOrLose = winLose;
+            clientID = cID;
 
         }
 

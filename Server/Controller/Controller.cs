@@ -242,7 +242,9 @@ namespace Server.Controller
             bidList.Remove(highestBid);
 
             //first, we'll send the winner their noti
-            Message message = new Message(MessageType.Win_Lose_Noti,)
+            Message message = new Message(MessageType.Win_Lose_Noti, true);
+
+            communicator.sendMessageToClients(message);
 
 
         }
