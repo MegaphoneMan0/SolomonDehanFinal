@@ -152,16 +152,18 @@ namespace Server.Controller
                     //first, let's get the existing product from our database
                     Product existingProduct = Database.searchProduct(newProduct.getID());
 
-                    
+
 
                     //then we can update that product with our new bid
                     //existingProduct.setBid(newBid);
+                    List<Bid> bidList = existingProduct.getBidList();
 
-                    foreach(Bid bid in existingProduct.getBidList())
+                    foreach(Bid bid in bidList)
                     {
                         if (bid.getBidder().Equals(message.getClientID()))
                         {
-
+                            bidList.Remove(bid);
+                            bidList.Add(newBid);
                         }//if
                     }//foreach
 
@@ -245,7 +247,8 @@ namespace Server.Controller
             //first we get the bidlist
             List<Bid> bidList = product.getBidList();
             //then we grab the highest bid, that's the winner
-            Bid highestBid = bidList.ElementAt(0);
+            int count = bidList.Count;
+            Bid highestBid = bidList.ElementAt(count-1);
             //then we remove it, the remaining bids belong to the losers
             bidList.Remove(highestBid);
 
@@ -261,7 +264,7 @@ namespace Server.Controller
             {
                 string cID = b.getBidder();
                 Message mes = new Message(MessageType.Win_Lose_Noti, false, cID);
-                communicator.sendMessageToClients(message);
+                communicator.sendMessageToClients(mes);
             }
 
 
