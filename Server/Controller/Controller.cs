@@ -59,6 +59,12 @@ namespace Server.Controller
         /// <param name="p"></param>
         public void UpdateProduct(Product p)
         {
+            //make a random between 1,000,000 and max
+            Random rand = new Random();
+            int random = rand.Next(1000000, int.MaxValue);
+
+            p.setTimer(random);
+
             //add the new product to the database
             Database.addProduct(p);
 
@@ -244,31 +250,38 @@ namespace Server.Controller
             //throw new NotImplementedException();
 
             //still need to implament, but this is for when the admin decides that the time is up on the bidding for a specific item
+
+            //this is only applicable if there are any bids to begin with
             //first we get the bidlist
             List<Bid> bidList = product.getBidList();
-            //then we grab the highest bid, that's the winner
-            int count = bidList.Count;
-            Bid highestBid = bidList.ElementAt(count-1);
-            //then we remove it, the remaining bids belong to the losers
-            bidList.Remove(highestBid);
-
-            //first, we'll send the winner their noti
-            string clientID = highestBid.getBidder();
-            Message message = new Message(MessageType.Win_Lose_Noti, true,clientID);
-
-            communicator.sendMessageToClients(message);
-
-            //next all of the LOSERS
-
-            foreach(Bid b in bidList)
+            
+            if(bidList != null)
             {
-                string cID = b.getBidder();
-                Message mes = new Message(MessageType.Win_Lose_Noti, false, cID);
-                communicator.sendMessageToClients(mes);
-            }
+                //then we grab the highest bid, that's the winner
+                int count = bidList.Count;
+                Bid highestBid = bidList.ElementAt(count - 1);
+                //then we remove it, the remaining bids belong to the losers
+                bidList.Remove(highestBid);
+
+                //first, we'll send the winner their noti
+                string clientID = highestBid.getBidder();
+                Message message = new Message(MessageType.Win_Lose_Noti, true, clientID);
+
+                communicator.sendMessageToClients(message);
+
+                //next all of the LOSERS
+
+                foreach (Bid b in bidList)
+                {
+                    string cID = b.getBidder();
+                    Message mes = new Message(MessageType.Win_Lose_Noti, false, cID);
+                    communicator.sendMessageToClients(mes);
+                }//foreach
+            }//if
+            
 
 
-        }
+        }//timesup
 
 
 
