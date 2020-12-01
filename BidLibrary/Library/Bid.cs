@@ -25,7 +25,7 @@ namespace BidLibrary.Library
         /// <summary>
         /// the ID of the client who placed this bid
         /// </summary>
-        private double highestBidder;
+        private string highestBidder;
 
 
         //methods
@@ -52,8 +52,8 @@ namespace BidLibrary.Library
         /// <summary>
         /// getter for the highestBidder
         /// </summary>
-        /// <returns>the double that represents the highestBidder</returns>
-        public double getBidder()
+        /// <returns>the string that represents the highestBidder</returns>
+        public string getBidder()
         {
             return highestBidder;
         }//getBid
@@ -61,8 +61,8 @@ namespace BidLibrary.Library
         /// <summary>
         /// setter for the highestBidder
         /// </summary>
-        /// <param name="bidder">the double that represents the id of the highestBidder</param>
-        public void setBidder(double bidder)
+        /// <param name="bidder">the string that represents the id of the highestBidder</param>
+        public void setBidder(string bidder)
         {
             highestBidder = bidder;
         }//setBid
