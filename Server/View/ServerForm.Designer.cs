@@ -32,11 +32,12 @@ namespace Server
             this.uxAddButton = new System.Windows.Forms.Button();
             this.uxProductListBox = new System.Windows.Forms.ListBox();
             this.uxClientListBox = new System.Windows.Forms.ListBox();
+            this.uxStopBidding = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uxAddButton
             // 
-            this.uxAddButton.Location = new System.Drawing.Point(170, 359);
+            this.uxAddButton.Location = new System.Drawing.Point(327, 355);
             this.uxAddButton.Name = "uxAddButton";
             this.uxAddButton.Size = new System.Drawing.Size(156, 80);
             this.uxAddButton.TabIndex = 0;
@@ -60,11 +61,22 @@ namespace Server
             this.uxClientListBox.Size = new System.Drawing.Size(232, 329);
             this.uxClientListBox.TabIndex = 2;
             // 
+            // uxStopBidding
+            // 
+            this.uxStopBidding.Location = new System.Drawing.Point(12, 355);
+            this.uxStopBidding.Name = "uxStopBidding";
+            this.uxStopBidding.Size = new System.Drawing.Size(156, 80);
+            this.uxStopBidding.TabIndex = 3;
+            this.uxStopBidding.Text = "Stop Bidding";
+            this.uxStopBidding.UseVisualStyleBackColor = true;
+            this.uxStopBidding.Click += new System.EventHandler(this.uxStopBidding_Click);
+            // 
             // uxServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 447);
+            this.Controls.Add(this.uxStopBidding);
             this.Controls.Add(this.uxClientListBox);
             this.Controls.Add(this.uxProductListBox);
             this.Controls.Add(this.uxAddButton);
@@ -79,6 +91,7 @@ namespace Server
         private System.Windows.Forms.Button uxAddButton;
         private System.Windows.Forms.ListBox uxProductListBox;
         private System.Windows.Forms.ListBox uxClientListBox;
+        private System.Windows.Forms.Button uxStopBidding;
     }
 }
 

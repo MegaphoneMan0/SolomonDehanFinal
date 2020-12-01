@@ -46,7 +46,7 @@ namespace Server.View
 
             if (verification)
             {
-                uxServerForm serverForm = new uxServerForm();
+                uxServerForm serverForm = new uxServerForm(new Controller.Controller(new uxServerForm()));
                 this.Hide();
                 serverForm.ShowDialog();
                 this.Close();

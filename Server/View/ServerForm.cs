@@ -19,8 +19,19 @@ namespace Server
 
         private State formState;
 
+        private TimesUp TimesUpHandler;
+
+        //default constructor
         public uxServerForm()
         {
+
+        }
+
+        public uxServerForm(TimesUp timesUp)
+        {
+
+            TimesUpHandler = timesUp;
+
             formState = State.Monitoring;
             InitializeComponent();
             List<Product> products = Database.returnAllProducts();
@@ -32,7 +43,7 @@ namespace Server
             uxProductListBox.DataSource = productNames;
 
             List<Client> clients = Database.returnAllClients();
-            List<double> clientNames = new List<double>();
+            List<string> clientNames = new List<string>();
             foreach (Client c in clients)
             {
                 clientNames.Add(c.getID());
@@ -74,7 +85,7 @@ namespace Server
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
                 List<Client> clients = Database.returnAllClients();
-                List<double> clientNames = new List<double>();
+                List<string> clientNames = new List<string>();
                 foreach (Client c in clients)
                 {
                     clientNames.Add(c.getID());
@@ -89,5 +100,11 @@ namespace Server
             }//else
         }
 
+        private void uxStopBidding_Click(object sender, EventArgs e)
+        {
+            Product product = Database.searchProduct(uxProductListBox.SelectedItem.ToString());
+            product.setTimer(0);
+            TimesUpHandler.TimesUp(product);
+        }
     }
 }

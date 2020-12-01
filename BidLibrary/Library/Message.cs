@@ -27,6 +27,11 @@ namespace BidLibrary.Library
         /// </summary>
         private string clientID;
 
+        /// <summary>
+        /// a bool with true representing a win and false represeting a lose
+        /// </summary>
+        private bool winOrLose;
+
 
         //methods
 
@@ -68,6 +73,13 @@ namespace BidLibrary.Library
 
             newBid = bid;
             credentialVerification = false;
+        }
+
+        public Message(MessageType mType, bool winLose)
+        {
+            type = mType;
+            winOrLose = winLose;
+
         }
 
         public MessageType getMessageType()

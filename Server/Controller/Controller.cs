@@ -12,7 +12,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts
+    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts, TimesUp
     {
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
         //SHIT
@@ -23,7 +23,8 @@ namespace Server.Controller
         //effectively, we could probably get away with bit a bit longer than that, but that's the safe bound
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         
-
+        //lol, jk, no timers necessary
+        //creating the thingy on the form
 
 
 
@@ -217,8 +218,32 @@ namespace Server.Controller
             foreach(string s in lines)
             {
                 Product product = new Product(s);
+                
+                //make a random between 1,000,000 and max
+                Random rand = new Random();
+                int random = rand.Next(1000000, int.MaxValue);
+
+                product.setTimer(random);
                 Database.addProduct(product);
             }//foreach
+
+        }
+
+        public void TimesUp(Product product)
+        {
+            //throw new NotImplementedException();
+
+            //still need to implament, but this is for when the admin decides that the time is up on the bidding for a specific item
+            //first we get the bidlist
+            List<Bid> bidList = product.getBidList();
+            //then we grab the highest bid, that's the winner
+            Bid highestBid = bidList.ElementAt(0);
+            //then we remove it, the remaining bids belong to the losers
+            bidList.Remove(highestBid);
+
+            //first, we'll send the winner their noti
+            Message message = new Message(MessageType.Win_Lose_Noti,)
+
 
         }
 

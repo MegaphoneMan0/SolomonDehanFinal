@@ -64,21 +64,21 @@ namespace BidLibrary.Library
         }
 
         /// <summary>
-        /// getter for the highestBid
+        /// getter for the list of bids
         /// </summary>
-        /// <returns>the highestBid</returns>
-        public Bid getBid()
+        /// <returns>the list of bids</returns>
+        public List<Bid> getBidList()
         {
-            return highestBid;
+            return bidList;
         }
 
         /// <summary>
-        /// setter for the highestBid
+        /// setter for the bidList
         /// </summary>
-        /// <param name="bid">the Bid that you want the highestBid to be</param>
-        public void setBid(Bid bid)
+        /// <param name="bid">the list of bids for this product</param>
+        public void setBid(List<Bid> bids)
         {
-            highestBid = bid;
+            bidList = bids;
         }
 
 
