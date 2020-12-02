@@ -12,7 +12,6 @@ using System.Net;
 using System.Net.Sockets;
 using WebSocketSharp;
 using Newtonsoft.Json;
-using WebSocketSharp;
 using WebSocketSharp.Server;
 using WebSocket = WebSocketSharp.WebSocket;
 
@@ -21,11 +20,15 @@ namespace Client.Controller
     class Controller : WebSocketBehavior, UserVerifier
     {
 
+
+        private bool returned = false;
+        private bool verified = false;
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         private WebSocket ws;
             public Controller(WebSocket socket)
         {
             ws = socket;
+            ws.OnMessage += (sender, e) => ReadMessage(e.Data);
         }
 
 
@@ -34,11 +37,20 @@ namespace Client.Controller
         public bool VerifyUser(string username, string password)
         {
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
-            Console.WriteLine(username + " " + password);
+            //Console.WriteLine(username + " " + password);
             sendMessageToServer(newMessage);
-            Console.WriteLine(newMessage.getPassword());
-            Console.WriteLine(newMessage.getUserName());
-            return true;
+            //Console.WriteLine(newMessage.getPassword());
+            //Console.WriteLine(newMessage.getUserName());
+            
+            if (verified)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
         
 
@@ -50,20 +62,28 @@ namespace Client.Controller
 
         public void sendMessageToServer(Message message)
         {
-
-            string msg = JsonConvert.SerializeObject(message);
+            Console.WriteLine("password before serial: " + message.getPassword());
+            var msg = JsonConvert.SerializeObject(message);
+            // Message othertest = (Message)JsonConvert.DeserializeObject(msg);
+            // Console.WriteLine("this is the deserialized password: " + othertest.getPassword());
+            //double far = 2.14;
+           //string msg = JsonConvert.SerializeObject(far);
             if (ws.IsAlive) {
                 ws.Send(msg); 
             }
             
-           // Sessions.Broadcast(msg);
+            Message test = JsonConvert.DeserializeObject<Message>(msg);
+            Console.WriteLine("this is the deserialized password: "+test.getPassword());
+            // Sessions.Broadcast(msg);
 
 
         }
 
+        /*
+
         protected override void OnMessage(MessageEventArgs e)
         {
-            
+            Console.WriteLine("on message");
             string msg = e.Data;
 
             Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
@@ -74,15 +94,19 @@ namespace Client.Controller
 
 
         }
-
+        */
         /// <summary>
         /// reads the message from the client and reacts depending on the message type
         /// </summary>
         /// <param name="message">the message that is being read</param>
         /// <returns></returns>
-        public void ReadMessage(Message message)
+        public void ReadMessage(string msg)
         {
+            Message message = JsonConvert.DeserializeObject<Message>(msg);
 
+           
+
+            Console.WriteLine("reading message");
             MessageType messageType = message.getMessageType();
 
 
@@ -113,7 +137,7 @@ namespace Client.Controller
 
         public void returnedCredentials(bool v)
         {
-
+            verified = v;
         }
 
 
