@@ -80,5 +80,13 @@ namespace Server.Model
             currentBids = products;
         }
 
+
+        public override string ToString()
+        {
+            return clientID;
+        }
+
+
+
     }
 }

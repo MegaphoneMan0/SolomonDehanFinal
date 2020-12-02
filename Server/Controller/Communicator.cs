@@ -13,6 +13,7 @@ using WebSocketSharp.Server;
 using Newtonsoft.Json;
 using Server.Model;
 using Newtonsoft.Json.Serialization;
+using System.ComponentModel;
 
 namespace Server.Controller 
 {
@@ -83,12 +84,14 @@ namespace Server.Controller
         /// <param name="e">e.Data is the serialized string from the client</param>
         protected override void OnMessage(MessageEventArgs e)
         {
+            /*
             //alright, fun fact, there doesn't seem to be any way of singleing out a certian client except in here or in one of the other On_____ methods
             //cool
             //so we need to refactor sendMessageToClients to just return the serialized string. Not what I wanted but it'll work
             //actually, I think that isn't even needed anymore.
             //I'll just have read message return the string, or null if it doesn't need it
             //sendmessage can go back to being the session.broacast bit that it was before
+            */
 
             Client thisClient = Database.searchClient(ID);
 
@@ -97,9 +100,6 @@ namespace Server.Controller
             string msg = e.Data;
 
 
-            
-
-            
 
             Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
 
@@ -158,12 +158,14 @@ namespace Server.Controller
             //get a list of session IDs
             List<string> sessionList = Sessions.ActiveIDs.ToList();
 
-            List<Product> updatedProducts = updateClientListHandler.UpdateClientList(sessionList);
+
+
+            BindingList<Product> updatedProducts = updateClientListHandler.UpdateClientList(sessionList);
 
             //now, we need to send the client the product list in the database. This is done with the return of updateClientList
             //first, we serialize
 
-            Message message = new Message(MessageType.Product_List_Information,updatedProducts);
+            Message message = new Message(MessageType.Product_List_Information,updatedProducts.ToList());
 
             string msg = JsonConvert.SerializeObject(message);
 

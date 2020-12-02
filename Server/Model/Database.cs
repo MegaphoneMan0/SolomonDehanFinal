@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,17 +31,17 @@ namespace Server.Model
         /// <summary>
         /// a list of available products that clients can bid on. Only includes products available for bidding
         /// </summary>
-        private static List<Product> productLibrary = new List<Product>();
+        private static BindingList<Product> productLibrary = new BindingList<Product>();
 
         /// <summary>
         /// a list of clients that are connected to the server
         /// </summary>
-        private static List<Client> clientLibrary = new List<Client>();
+        private static BindingList<Client> clientLibrary = new BindingList<Client>();
 
         /// <summary>
         /// a list of bids associated with the products in the productlibrary
         /// </summary>
-        private static List<Bid> bidLibrary = new List<Bid>();
+        private static BindingList<Bid> bidLibrary = new BindingList<Bid>();
 
         
         //methods
@@ -114,7 +115,7 @@ namespace Server.Model
         /// returns the product library
         /// </summary>
         /// <returns>the product library as a list of products</returns>
-        public static List<Product> returnAllProducts()
+        public static BindingList<Product> returnAllProducts()
         {
             return productLibrary;
         }
@@ -123,7 +124,7 @@ namespace Server.Model
         /// returns the client library
         /// </summary>
         /// <returns>the client library as a list of clients</returns>
-        public static List<Client> returnAllClients()
+        public static BindingList<Client> returnAllClients()
         {
             return clientLibrary;
         }
@@ -213,7 +214,7 @@ namespace Server.Model
         /// returns all bids in the database
         /// </summary>
         /// <returns>the bidlibrary</returns>
-        public static List<Bid> getAllBids()
+        public static BindingList<Bid> getAllBids()
         {
             return bidLibrary;
         }

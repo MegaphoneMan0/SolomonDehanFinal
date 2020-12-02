@@ -28,27 +28,23 @@ namespace Server
             InitializeComponent();
 
             formState = State.Monitoring;
-            
-            List<Product> products = Database.returnAllProducts();
+
+            /*
+            BindingList<Product> products = Database.returnAllProducts();
             List<string> productNames = new List<string>();
             foreach (Product p in products)
             {
                 productNames.Add(p.getID());
             }
-            uxProductListBox.DataSource = productNames;
+            
 
-            List<Client> clients = Database.returnAllClients();
-            List<string> clientNames = new List<string>();
-            foreach (Client c in clients)
-            {
-                clientNames.Add(c.getID());
-            }
-            uxClientListBox.DataSource = clientNames;
+            uxProductListBox.DataSource = Database.returnAllProducts();
+            */
 
+            BindingList<Client> clients = Database.returnAllClients();
+            
+            uxClientListBox.DataSource = clients;
 
-
-
-            //
 
 
             string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
@@ -70,21 +66,24 @@ namespace Server
             TimesUpHandler = timesUp;
 
             formState = State.Monitoring;
-            List<Product> products = Database.returnAllProducts();
-            List<string> productNames = new List<string>();
+            BindingList<Product> products = Database.returnAllProducts();
+            BindingList<string> productNames = new BindingList<string>();
             foreach(Product p in products)
             {
                 productNames.Add(p.getID());
             }
             uxProductListBox.DataSource = productNames;
 
-            List<Client> clients = Database.returnAllClients();
-            List<string> clientNames = new List<string>();
-            foreach (Client c in clients)
-            {
-                clientNames.Add(c.getID());
-            }
-            uxClientListBox.DataSource = clientNames;
+
+
+
+
+
+            BindingList<Client> clients = Database.returnAllClients();
+
+            uxClientListBox.DataSource = clients;
+
+
 
 
 
@@ -112,7 +111,7 @@ namespace Server
             formState = state;
             if(formState == State.Adding_A_Product)
             {
-                List<Product> products = Database.returnAllProducts();
+                BindingList<Product> products = Database.returnAllProducts();
                 List<string> productNames = new List<string>();
                 foreach (Product p in products)
                 {
@@ -122,7 +121,7 @@ namespace Server
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
-                List<Client> clients = Database.returnAllClients();
+                BindingList<Client> clients = Database.returnAllClients();
                 List<string> clientNames = new List<string>();
                 foreach (Client c in clients)
                 {
@@ -137,7 +136,7 @@ namespace Server
             {
                 //we'll do both, why not
 
-                List<Product> products = Database.returnAllProducts();
+                BindingList<Product> products = Database.returnAllProducts();
                 List<string> productNames = new List<string>();
                 foreach (Product p in products)
                 {
@@ -146,7 +145,7 @@ namespace Server
                 uxProductListBox = new ListBox();
                 uxProductListBox.DataSource = productNames;
 
-                List<Client> clients = Database.returnAllClients();
+                BindingList<Client> clients = Database.returnAllClients();
                 List<string> clientNames = new List<string>();
                 foreach (Client c in clients)
                 {

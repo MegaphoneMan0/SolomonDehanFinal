@@ -72,8 +72,8 @@ namespace Server.Controller
             Database.addProduct(p);
 
             //create a new message with all of the products
-            List<Product> products = Database.returnAllProducts();
-            Message newMessage = new Message(MessageType.Product_List_Information, products);
+            BindingList<Product> products = Database.returnAllProducts();
+            Message newMessage = new Message(MessageType.Product_List_Information, products.ToList());
 
             //send out the updated list if there are any connected clients
             if (Database.returnAllClients().Count > 0)
@@ -182,9 +182,9 @@ namespace Server.Controller
 
                     //now we need to create a message containing the new bid to send out to our clients.
                     //this is going to be basically the same as when we send the whole product list
-                    List<Product> products = Database.returnAllProducts();
+                    BindingList<Product> products = Database.returnAllProducts();
 
-                    newMessage = new Message(MessageType.Product_List_Information, products);
+                    newMessage = new Message(MessageType.Product_List_Information, products.ToList());
 
 
 
@@ -212,7 +212,7 @@ namespace Server.Controller
         /// updates the client list in the view
         /// </summary>
         /// <param name="clientList">the list of clients to be pushed to the view</param>
-        public List<Product> UpdateClientList(List<string> clientList)
+        public BindingList<Product> UpdateClientList(List<string> clientList)
         {
 
 
@@ -221,7 +221,7 @@ namespace Server.Controller
 
 
             //this is the return, that's easy
-            List <Product> products = Database.returnAllProducts();
+            BindingList <Product> products = Database.returnAllProducts();
             return products;
         }
 
