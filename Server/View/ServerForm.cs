@@ -65,6 +65,7 @@ namespace Server
 
         public uxServerForm(TimesUp timesUp)
         {
+            InitializeComponent();
 
             TimesUpHandler = timesUp;
 
@@ -85,7 +86,6 @@ namespace Server
             }
             uxClientListBox.DataSource = clientNames;
 
-            InitializeComponent();
 
 
         }//constructor
@@ -131,6 +131,7 @@ namespace Server
                 uxClientListBox = new ListBox();
                 uxClientListBox.DataSource = clientNames;
                 //this.Show();
+                
             }//else if
             else
             {

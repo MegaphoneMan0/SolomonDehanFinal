@@ -27,10 +27,11 @@ namespace Server.View
         /// </summary>
         public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP)
         {
+            InitializeComponent();
+
             userVerifier = uv;
             initialProductsLoader = LIP;
             initialProductsLoader.LoadInitialProducts();
-            InitializeComponent();
 
         }
 
@@ -39,12 +40,14 @@ namespace Server.View
         /// </summary>
         public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP, string s, uxServerForm usf)
         {
+            InitializeComponent();
+
             userVerifier = uv;
             initialProductsLoader = LIP;
             initialProductsLoader.LoadInitialProducts();
             Text = s;
             uxServer = usf;
-            InitializeComponent();
+            
 
         }
 
@@ -63,11 +66,13 @@ namespace Server.View
 
             if (verification)
             {
-                //uxServerForm serverForm = new uxServerForm(new Controller.Controller(new uxServerForm()));
+                uxServerForm serverForm = new uxServerForm(new Controller.Controller(new uxServerForm()));
                 
 
                 this.Hide();
-                uxServer.ShowDialog();
+                //uxServer.ShowDialog();
+
+                serverForm.ShowDialog(); 
                 this.Close();
             }
             else

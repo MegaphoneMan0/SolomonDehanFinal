@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,36 +10,33 @@ namespace BidLibrary.Library
     
     public class Message
     {
-        
-        private MessageType type;
 
-        private string userName;
+        [JsonProperty] private MessageType type;
 
-        private string password;
+        [JsonProperty] private string userName;
 
-        private List<Product> products;
+        [JsonProperty] private string password;
 
-        private Bid newBid;
+        [JsonProperty] private List<Product> products;
 
-        private bool credentialVerification;
+        [JsonProperty] private Bid newBid;
+
+        [JsonProperty] private bool credentialVerification;
 
         /// <summary>
         /// this is for win lose noti. Client doesn't even need to worry about it, server is the only one that needs it
         /// </summary>
-        private string clientID;
+        [JsonProperty] private string clientID;
 
         /// <summary>
         /// a bool with true representing a win and false represeting a lose
         /// </summary>
-        private bool winOrLose;
+        [JsonProperty] private bool winOrLose;
 
 
         //methods
 
-        public Message()
-        {
-
-        }
+        
 
         public Message(MessageType mType, string name, string pass)
         {

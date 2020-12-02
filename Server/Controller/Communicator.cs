@@ -12,6 +12,7 @@ using WebSocketSharp;
 using WebSocketSharp.Server;
 using Newtonsoft.Json;
 using Server.Model;
+using Newtonsoft.Json.Serialization;
 
 namespace Server.Controller 
 {
@@ -91,10 +92,19 @@ namespace Server.Controller
 
             Client thisClient = Database.searchClient(ID);
 
+            //e.RawData.ToString();
+
             string msg = e.Data;
 
-            Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
 
+            
+
+            
+
+            double newMessage = JsonConvert.DeserializeObject<double>(msg);
+
+            //Console.WriteLine(newMessage.getUserName());
+            /*
             Message returnMessage = readMessageHandler.ReadMessage(newMessage);
 
             
@@ -103,6 +113,7 @@ namespace Server.Controller
             if(returnMessage != null)
             {
                 //re-serializing
+                
                 string reply = JsonConvert.SerializeObject(returnMessage);
 
                 //checking if it is a newBid to be communicated to all, or just a client verification
@@ -126,7 +137,7 @@ namespace Server.Controller
                 //we do nothing!
             }//else
 
-
+            */
         }//OnMessage
         
         /// <summary>
