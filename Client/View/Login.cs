@@ -11,9 +11,9 @@ using Client.Controller;
 
 namespace Client.View
 {
-    public partial class uxLoginForm : Form
+    public partial class uxLoginForm : Form, Observer
     {
-        
+        private State formState;
         private UserVerifier userVerifier;
 
         /// <summary>
@@ -24,6 +24,13 @@ namespace Client.View
             userVerifier = uv;
             InitializeComponent();
 
+        }
+
+
+        public void Update(State state)
+        {
+            formState = state;
+            
         }
 
        
@@ -39,7 +46,7 @@ namespace Client.View
             string userName = uxUsernameBox.Text;
             string password = uxPasswordBox.Text;
 
-            bool verification = userVerifier.VerifyUser(userName, password);
+            userVerifier.VerifyUser(userName, password);
 
             if (verification)
             {

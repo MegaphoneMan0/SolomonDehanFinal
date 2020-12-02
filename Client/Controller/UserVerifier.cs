@@ -14,7 +14,7 @@ namespace Client.Controller
         /// <param name="username">the username of the user</param>
         /// <param name="password">the password of the user</param>
         /// <returns>returns true of the username and password matched. Returns false if they did not</returns>
-        bool VerifyUser(string username, string password);
+        void VerifyUser(string username, string password);
 
     }
 }

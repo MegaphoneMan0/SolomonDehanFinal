@@ -14,19 +14,26 @@ using WebSocketSharp;
 using Newtonsoft.Json;
 using WebSocketSharp.Server;
 using WebSocket = WebSocketSharp.WebSocket;
+using Client.View;
 
 namespace Client.Controller
 {
     class Controller : WebSocketBehavior, UserVerifier
     {
 
+        /// <summary>
+        /// a list of observers that update based on the form
+        /// </summary>
+        private Observer observer;
+
 
         private bool returned = false;
         private bool verified = false;
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         private WebSocket ws;
-            public Controller(WebSocket socket)
+            public Controller(WebSocket socket, Observer o)
         {
+            observer = o;
             ws = socket;
             ws.OnMessage += (sender, e) => ReadMessage(e.Data);
         }
@@ -34,22 +41,12 @@ namespace Client.Controller
 
 
 
-        public bool VerifyUser(string username, string password)
+        public void VerifyUser(string username, string password)
         {
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
-            //Console.WriteLine(username + " " + password);
             sendMessageToServer(newMessage);
-            //Console.WriteLine(newMessage.getPassword());
-            //Console.WriteLine(newMessage.getUserName());
+            observer.Update(Client.State.loginPageWFR);
             
-            if (verified)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
             
         }
         
