@@ -34,8 +34,10 @@ namespace Client.Controller
         public bool VerifyUser(string username, string password)
         {
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
+            Console.WriteLine(username + " " + password);
             sendMessageToServer(newMessage);
-            
+            Console.WriteLine(newMessage.getPassword());
+            Console.WriteLine(newMessage.getUserName());
             return true;
         }
         
@@ -59,7 +61,7 @@ namespace Client.Controller
 
         }
 
-        public void OnMessage(MessageEventArgs e)
+        protected override void OnMessage(MessageEventArgs e)
         {
             
             string msg = e.Data;
