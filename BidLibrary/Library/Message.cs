@@ -36,6 +36,11 @@ namespace BidLibrary.Library
 
         //methods
 
+        public Message()
+        {
+
+        }
+
         
 
         public Message(MessageType mType, string name, string pass)
