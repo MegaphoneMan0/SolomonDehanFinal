@@ -34,20 +34,6 @@ namespace Server.Controller
 
 
 
-        /*
-        protected WebSocketServer _webSocketServer;
-
-        
-        public void Start()
-        {
-            _webSocketServer = new WebSocketServer("ws://192.168.184.128:8000");
-            _webSocketServer.AddWebSocketService<WebSocketServer>("Test");
-
-            _webSocketServer.Start();
-        }
-        */
-
-
 
         //methods
 
