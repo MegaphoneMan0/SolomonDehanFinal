@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using WebSocketSharp;
 using Client.View;
 using Client.Controller;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -20,16 +21,41 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Controller.Controller c = new Controller.Controller();
+            /*
+            using(var ws = new WebSocket("ws://192.168.184.128:8000/"))
+            {
+                ws.OnMessage += async (sender, e) =>
+                {
+
+                    await Task.FromResult<object>(null);
+                    Console.WriteLine(e.Data);
+                };
+
+                ws.Connect();
+                ws.Send("This is a test message");
+                Controller.Controller c = new Controller.Controller(ws);
+                Application.Run(new uxLoginForm(c));
+            }
+            */
+            //ws://192.168.184.128:8000/
+            
+            string ip = "192.168.184.128", port = "800";
+            using (WebSocket ws = new WebSocket("ws://192.168.184.128:8000/"))
+            {
+                Uri s = ws.Url;
+                Console.WriteLine("current URL we are trying  " + s.ToString());
+                // var exampleSocket = new WebSocket("wss://192.168.184.128:8000/communicator");
+                if (ws.IsAlive)
+                {
+                    Console.WriteLine("CONNECTED TO THE SERVER");
+                }
+                ws.Connect();
+                Controller.Controller c = new Controller.Controller(ws);
+                Application.Run(new uxLoginForm(c));
+            }
             
 
-            
-            string ip = "192.168.184.128", port = "8000";
-            WebSocket ws = new WebSocket("ws://192.168.184.128:8000/communicator");
-            
-            ws.Connect();
 
-            Application.Run(new uxLoginForm(c));
 
 
 
