@@ -12,7 +12,9 @@ using System.Net;
 using System.Net.Sockets;
 using WebSocketSharp;
 using Newtonsoft.Json;
+using WebSocketSharp;
 using WebSocketSharp.Server;
+using WebSocket = WebSocketSharp.WebSocket;
 
 namespace Client.Controller
 {
@@ -20,8 +22,11 @@ namespace Client.Controller
     {
 
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
-
-
+        private WebSocket ws;
+            public Controller(WebSocket socket)
+        {
+            ws = socket;
+        }
 
 
 
@@ -45,7 +50,11 @@ namespace Client.Controller
         {
 
             string msg = JsonConvert.SerializeObject(message);
-            Sessions.Broadcast(msg);
+            if (ws.IsAlive) {
+                ws.Send(msg); 
+            }
+            
+           // Sessions.Broadcast(msg);
 
 
         }
