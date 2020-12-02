@@ -17,6 +17,7 @@ using System.Threading;
 
 namespace Server
 {
+
     static class Program
     {
         /// <summary>
@@ -39,7 +40,7 @@ namespace Server
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
                 localIP = endPoint.Address;
             }
-            string port = "8002";
+            string port = "8000";
 
             if (InputBox("Host Port", "Enter port number:", ref port) != DialogResult.OK)
             {
@@ -52,15 +53,23 @@ namespace Server
             uxLoginForm lf = new uxLoginForm(c, c, String.Format("{0}:{1}", localIP, port));
 
 
-            //starting a webSocketServer at port 8002
+            //starting a webSocketServer at port 8000
             WebSocketServer wss = new WebSocketServer(localIP, portNum);//localIP
 
             //I THINK this will work
-            wss.AddWebSocketService<Communicator>("/communicator");
-
+            wss.AddWebSocketService("/communicator", () =>
+            {
+                Communicator comm = new Communicator();
+                return comm;
+            }
+            );
+            Console.WriteLine(wss.Address);
+            Console.WriteLine(wss.Port);
+            
+           
             //start the server
             wss.Start();
-
+            Console.WriteLine(wss.IsListening);
 
             Application.Run(lf);
 

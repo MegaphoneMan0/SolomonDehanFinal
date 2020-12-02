@@ -33,6 +33,22 @@ namespace Server.Controller
         private UpdateClientList updateClientListHandler;
 
 
+
+
+        protected WebSocketServer _webSocketServer;
+
+
+        public void Start()
+        {
+            _webSocketServer = new WebSocketServer("ws://192.168.184.128:8000");
+            _webSocketServer.AddWebSocketService<WebSocketServer>("Test");
+
+            _webSocketServer.Start();
+        }
+
+
+
+
         //methods
 
         /// <summary>
@@ -130,7 +146,7 @@ namespace Server.Controller
         /// This method is run when a connection from a client is opened
         /// </summary>
         /// <param name="e">event arguments from the client</param>
-        public void OnOpen(MessageEventArgs e)
+        protected override void OnOpen()
         {
             //first, we need to update the list of sessions
 
@@ -161,7 +177,7 @@ namespace Server.Controller
         /// This method is run when a connection from a client is closed
         /// </summary>
         /// <param name="e">event arguments from the client</param>
-        public void OnClose(MessageEventArgs e)
+        protected override void OnClose(MessageEventArgs e)
         {
 
             Database.removeClient(ID);

@@ -24,11 +24,14 @@ namespace Client
             Application.Run(new uxLoginForm(c));
 
             
-            string ip = "192.168.184.128", port = "8002";
-            WebSocket ws = new WebSocket("ws://192.168.184.128:8002/communicator");
+            string ip = "192.168.184.128", port = "8000";
+            using (WebSocket ws = new WebSocket("ws://192.168.184.128:8000/communicator"))
+            {
+                ws.Connect();
+            }
 
 
-            ws.Connect();
+                
 
         }
     }
