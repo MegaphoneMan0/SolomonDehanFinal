@@ -101,10 +101,10 @@ namespace Server.Controller
 
             
 
-            double newMessage = JsonConvert.DeserializeObject<double>(msg);
+            Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
 
-            //Console.WriteLine(newMessage.getUserName());
-            /*
+            Console.WriteLine(newMessage.getUserName());
+            
             Message returnMessage = readMessageHandler.ReadMessage(newMessage);
 
             
@@ -137,7 +137,7 @@ namespace Server.Controller
                 //we do nothing!
             }//else
 
-            */
+            
         }//OnMessage
         
         /// <summary>
