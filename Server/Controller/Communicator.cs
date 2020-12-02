@@ -34,10 +34,10 @@ namespace Server.Controller
 
 
 
-
+        /*
         protected WebSocketServer _webSocketServer;
 
-
+        
         public void Start()
         {
             _webSocketServer = new WebSocketServer("ws://192.168.184.128:8000");
@@ -45,7 +45,7 @@ namespace Server.Controller
 
             _webSocketServer.Start();
         }
-
+        */
 
 
 
@@ -177,7 +177,7 @@ namespace Server.Controller
         /// This method is run when a connection from a client is closed
         /// </summary>
         /// <param name="e">event arguments from the client</param>
-        protected override void OnClose(MessageEventArgs e)
+        public void OnClose(MessageEventArgs e)
         {
 
             Database.removeClient(ID);
