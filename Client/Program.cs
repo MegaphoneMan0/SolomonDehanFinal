@@ -21,17 +21,17 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Controller.Controller c = new Controller.Controller();
-            Application.Run(new uxLoginForm(c));
+            
 
             
             string ip = "192.168.184.128", port = "8000";
-            using (WebSocket ws = new WebSocket("ws://192.168.184.128:8000/communicator"))
-            {
-                ws.Connect();
-            }
+            WebSocket ws = new WebSocket("ws://192.168.184.128:8000/communicator");
+            
+            ws.Connect();
+
+            Application.Run(new uxLoginForm(c));
 
 
-                
 
         }
     }
