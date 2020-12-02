@@ -134,7 +134,7 @@ namespace BidLibrary.Library
         /// <summary>
         /// THE BIG BOI CONSTRUCTOR
         /// </summary>
-        public Message(MessageType mType, string userN, string pass, List<Product> productList, Bid bid, bool credV, string ID, bool winLose )
+        [JsonConstructor] public Message(MessageType mType, string userN, string pass, List<Product> productList, Bid bid, bool credV, string ID, bool winLose )
         {
             type = mType;
             userName = userN;
