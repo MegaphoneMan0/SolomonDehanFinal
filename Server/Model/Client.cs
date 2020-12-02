@@ -1,6 +1,7 @@
 ﻿using BidLibrary.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Server.Model
     /// <summary>
     /// An object that represents the clients connected to the server
     /// </summary>
-    class Client
+    class Client : INotifyPropertyChanged
     {
         //parameters
 
@@ -23,6 +24,8 @@ namespace Server.Model
         /// A list of Products that the client currently has a Bid on
         /// </summary>
         private List<Product> currentBids;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         //methods

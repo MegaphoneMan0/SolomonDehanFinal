@@ -51,10 +51,13 @@ namespace Server.Controller
         public Controller(Observer o)
         {
             observer = o;
-            communicator = new Communicator(this, this);
+            communicator = new Communicator(this);
         }
 
-       
+        public Controller()
+        {
+
+        }
 
         /// <summary>
         /// Adds a product to the database

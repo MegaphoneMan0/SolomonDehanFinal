@@ -29,21 +29,13 @@ namespace Server
 
             formState = State.Monitoring;
 
-            /*
-            BindingList<Product> products = Database.returnAllProducts();
-            List<string> productNames = new List<string>();
-            foreach (Product p in products)
-            {
-                productNames.Add(p.getID());
-            }
             
-
-            uxProductListBox.DataSource = Database.returnAllProducts();
-            */
 
             BindingList<Client> clients = Database.returnAllClients();
+            clients.ListChanged += Clients_ListChanged;
             
             uxClientListBox.DataSource = clients;
+
 
 
 
@@ -58,6 +50,8 @@ namespace Server
             uxProductListBox.DataSource = productList;
 
         }
+
+        
 
         public uxServerForm(TimesUp timesUp)
         {
@@ -76,11 +70,12 @@ namespace Server
 
 
 
+            
 
 
 
             BindingList<Client> clients = Database.returnAllClients();
-
+            clients.ListChanged += Clients_ListChanged;
             uxClientListBox.DataSource = clients;
 
 
@@ -88,6 +83,21 @@ namespace Server
 
 
         }//constructor
+
+
+        private void Clients_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            
+
+
+
+        }
+
+
+        private void refreshForm()
+        {
+        }
+
 
         private void uxAddButton_Click(object sender, EventArgs e)
         {
@@ -121,21 +131,15 @@ namespace Server
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
-                BindingList<Client> clients = Database.returnAllClients();
-                List<string> clientNames = new List<string>();
-                foreach (Client c in clients)
-                {
-                    clientNames.Add(c.getID());
-                }
-                uxClientListBox = new ListBox();
-                uxClientListBox.DataSource = clientNames;
-                //this.Show();
+                
+
+                uxClientListBox.DataSource = Database.clientLibrary;
                 
             }//else if
             else
             {
                 //we'll do both, why not
-
+                /*
                 BindingList<Product> products = Database.returnAllProducts();
                 List<string> productNames = new List<string>();
                 foreach (Product p in products)
@@ -154,7 +158,7 @@ namespace Server
                 uxClientListBox = new ListBox();
                 uxClientListBox.DataSource = clientNames;
 
-
+                */
             }//else
         }
 

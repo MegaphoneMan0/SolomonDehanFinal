@@ -27,18 +27,19 @@ namespace Server.Controller
         /// <summary>
         /// interface that allows the communicator to call the "readmessage" method from the controller  
         /// </summary>
-        private ReadMessage readMessageHandler;
+        //private ReadMessage readMessageHandler;
 
         /// <summary>
         /// interface that updates the client list whenever OnClose or OnOpen 
         /// </summary>
-        private UpdateClientList updateClientListHandler;
+        //private UpdateClientList updateClientListHandler;
 
-
+        private Controller c;
 
 
         //methods
 
+        /*
         /// <summary>
         /// default constructor
         /// </summary>
@@ -47,7 +48,11 @@ namespace Server.Controller
             readMessageHandler = RM;
             updateClientListHandler = UCL;
         }//communicator
-
+        */
+        public Communicator(Controller controller)
+        {
+            c = controller;
+        }
 
        
         /// <summary>
@@ -105,7 +110,7 @@ namespace Server.Controller
 
             Console.WriteLine(newMessage.getUserName());
             
-            Message returnMessage = readMessageHandler.ReadMessage(newMessage);
+            Message returnMessage = c.ReadMessage(newMessage);
 
             
 
@@ -160,7 +165,7 @@ namespace Server.Controller
 
 
 
-            BindingList<Product> updatedProducts = updateClientListHandler.UpdateClientList(sessionList);
+            BindingList<Product> updatedProducts = c.UpdateClientList(sessionList);
 
             //now, we need to send the client the product list in the database. This is done with the return of updateClientList
             //first, we serialize
@@ -192,7 +197,7 @@ namespace Server.Controller
                 vs.Add(i.ID);
             }//foreach
 
-            updateClientListHandler.UpdateClientList(vs);
+            c.UpdateClientList(vs);
 
             //in this case we can ignore the return of UpdateClientList
 

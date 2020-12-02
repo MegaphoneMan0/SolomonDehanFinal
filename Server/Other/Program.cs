@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using WebSocketSharp.Server;
 using WebSocketSharp;
 using WebSocketSharp.Net;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,36 +48,23 @@ namespace Server
             int portNum = Convert.ToInt32(port);
 
 
-            uxServerForm usf = new uxServerForm();
-
-            Controller.Controller c = new Controller.Controller(usf);
-
-            uxLoginForm lf = new uxLoginForm(c, c, String.Format("{0}:{1}", localIP, port), usf);
-
-
-            //starting a webSocketServer at port 8000
-            WebSocketServer wss = new WebSocketServer(portNum);//localIP
-
-            //I THINK this will work
-            wss.AddWebSocketService("/communicator", () =>{
-                Communicator server = new Communicator(c,c);
-                return server;
-            }
-            );
-            Console.WriteLine(wss.Address);
-            Console.WriteLine(wss.Port);
             
-           
-            //start the server
-            wss.Start();
-            Console.WriteLine(wss.IsListening);
+
+            //Controller.Controller c = new Controller.Controller();
+
+            uxLoginForm lf = new uxLoginForm(String.Format("{0}:{1}", localIP, port));
+
+
+            
+
+
+            
 
             Application.Run(lf);
 
             
 
-            // Stop the server
-            wss.Stop();
+            
         }//main
 
         // From http://www.csharp-examples.net/inputbox/

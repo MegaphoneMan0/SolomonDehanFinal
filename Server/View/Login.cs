@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using WebSocketSharp.Server;
 
 namespace Server.View
 {
@@ -38,16 +39,33 @@ namespace Server.View
         /// <summary>
         /// constructor with IP given
         /// </summary>
-        public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP, string s, uxServerForm usf)
+        public uxLoginForm(string s)
         {
             InitializeComponent();
-
-            userVerifier = uv;
-            initialProductsLoader = LIP;
+            uxServer = new uxServerForm();
+            Controller.Controller c = new Controller.Controller(uxServer);
+            userVerifier = c;
+            initialProductsLoader = c;
             initialProductsLoader.LoadInitialProducts();
             Text = s;
-            uxServer = usf;
-            
+            //uxServer = usf;
+
+
+            //I THINK this will work
+            //starting a webSocketServer at port 8000
+            WebSocketServer wss = new WebSocketServer(8000);//localIP
+            wss.AddWebSocketService("/communicator", () => {
+                Communicator server = new Communicator(c);
+                return server;
+            }
+            );
+
+
+            //start the server
+            wss.Start();
+
+
+
 
         }
 
@@ -66,13 +84,12 @@ namespace Server.View
 
             if (verification)
             {
-                uxServerForm serverForm = new uxServerForm(new Controller.Controller(new uxServerForm()));
                 
 
                 this.Hide();
-                //uxServer.ShowDialog();
+                uxServer.ShowDialog();
 
-                serverForm.ShowDialog(); 
+                //serverForm.ShowDialog(); 
                 this.Close();
             }
             else
