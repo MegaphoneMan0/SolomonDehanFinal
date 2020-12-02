@@ -40,7 +40,7 @@ namespace Client
             //ws://192.168.184.128:8000/
             
             string ip = "192.168.184.128", port = "800";
-            using (WebSocket ws = new WebSocket("ws://192.168.184.128:8000/"))
+            using (WebSocket ws = new WebSocket("ws://10.130.48.21:8000/communicator"))
             {
                 Uri s = ws.Url;
                 Console.WriteLine("current URL we are trying  " + s.ToString());
