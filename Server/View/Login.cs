@@ -32,6 +32,19 @@ namespace Server.View
         }
 
         /// <summary>
+        /// constructor
+        /// </summary>
+        public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP, string s)
+        {
+            userVerifier = uv;
+            initialProductsLoader = LIP;
+            initialProductsLoader.LoadInitialProducts();
+            Text = s;
+            InitializeComponent();
+
+        }
+
+        /// <summary>
         /// an event handler for when a user clicks the login button
         /// </summary>
         /// <param name="sender"></param>
