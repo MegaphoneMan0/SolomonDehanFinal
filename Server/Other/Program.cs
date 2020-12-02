@@ -54,15 +54,10 @@ namespace Server
 
 
             //starting a webSocketServer at port 8000
-            WebSocketServer wss = new WebSocketServer(localIP, portNum);//localIP
+            WebSocketServer wss = new WebSocketServer(portNum);//localIP
 
             //I THINK this will work
-            wss.AddWebSocketService("/communicator", () =>
-            {
-                Communicator comm = new Communicator();
-                return comm;
-            }
-            );
+            wss.AddWebSocketService<Communicator>("/communicator");
             Console.WriteLine(wss.Address);
             Console.WriteLine(wss.Port);
             
