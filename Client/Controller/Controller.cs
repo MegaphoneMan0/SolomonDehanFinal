@@ -16,7 +16,7 @@ using WebSocketSharp.Server;
 
 namespace Client.Controller
 {
-    class Controller : WebSocketBehavior
+    class Controller : WebSocketBehavior, UserVerifier
     {
 
         //public System.Timers.Timer aTimer = new System.Timers.Timer();

@@ -31,7 +31,7 @@ namespace Client
             //Product sample = uxListBox.SelectedItem;
             Product sample = new Product();
             Bid newBid = new Bid();
-            double bidAMT = Convert.ToDouble(uxInput);
+            double bidAMT = Convert.ToDouble(uxInput.Text);
             List<Bid> bidList = sample.getBidList();
             Bid topBid = bidList[(bidList.Count-1)];
             if(topBid.getBid() < bidAMT)

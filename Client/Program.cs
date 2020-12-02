@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp;
+using Client.View;
+using Client.Controller;
 
 namespace Client
 {
@@ -18,7 +20,8 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Bid501());
+            Controller.Controller c = new Controller.Controller();
+            Application.Run(new uxLoginForm(c));
 
             
             string ip = "192.168.184.128", port = "8002";

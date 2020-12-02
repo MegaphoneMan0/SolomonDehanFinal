@@ -11,7 +11,7 @@ using Client.Controller;
 
 namespace Client.View
 {
-    public partial class uxLoginForm : Form, UserVerifier
+    public partial class uxLoginForm : Form
     {
         
         private UserVerifier userVerifier;
@@ -26,10 +26,7 @@ namespace Client.View
 
         }
 
-        public bool VerifyUser(string username, string password)
-        {
-            return userVerifier.VerifyUser(username, password);
-        }
+       
 
         /// <summary>
         /// an event handler for when a user clicks the login button
@@ -42,7 +39,7 @@ namespace Client.View
             string userName = uxUsernameBox.Text;
             string password = uxPasswordBox.Text;
 
-            bool verification = VerifyUser(userName, password);
+            bool verification = userVerifier.VerifyUser(userName, password);
 
             if (verification)
             {
