@@ -55,6 +55,7 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\UpdateBid.cs" />
     <Compile Include="Data\DatabaseProxy.cs" />
+    <Compile Include="State.cs" />
     <Compile Include="View\Bid501.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +71,7 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\UserVerifier.cs" />
+    <Compile Include="View\Observer.cs" />
     <EmbeddedResource Include="View\Bid501.resx">
       <DependentUpon>Bid501.cs</DependentUpon>
     </EmbeddedResource>
