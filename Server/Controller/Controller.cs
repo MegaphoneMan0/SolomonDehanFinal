@@ -54,6 +54,8 @@ namespace Server.Controller
             communicator = new Communicator(this, this);
         }
 
+       
+
         /// <summary>
         /// Adds a product to the database
         /// </summary>

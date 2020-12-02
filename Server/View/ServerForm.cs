@@ -25,6 +25,42 @@ namespace Server
         public uxServerForm()
         {
             //uxClientListBox = new ListBox();
+            InitializeComponent();
+
+            formState = State.Monitoring;
+            
+            List<Product> products = Database.returnAllProducts();
+            List<string> productNames = new List<string>();
+            foreach (Product p in products)
+            {
+                productNames.Add(p.getID());
+            }
+            uxProductListBox.DataSource = productNames;
+
+            List<Client> clients = Database.returnAllClients();
+            List<string> clientNames = new List<string>();
+            foreach (Client c in clients)
+            {
+                clientNames.Add(c.getID());
+            }
+            uxClientListBox.DataSource = clientNames;
+
+
+
+
+            //
+
+
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
+
+            List<string> productList = new List<string>();
+            foreach (string s in lines)
+            {
+                productList.Add(s);
+            }//foreach
+
+            uxProductListBox.DataSource = productList;
+
         }
 
         public uxServerForm(TimesUp timesUp)
@@ -33,7 +69,6 @@ namespace Server
             TimesUpHandler = timesUp;
 
             formState = State.Monitoring;
-            InitializeComponent();
             List<Product> products = Database.returnAllProducts();
             List<string> productNames = new List<string>();
             foreach(Product p in products)
@@ -49,6 +84,9 @@ namespace Server
                 clientNames.Add(c.getID());
             }
             uxClientListBox.DataSource = clientNames;
+
+            InitializeComponent();
+
 
         }//constructor
 
@@ -90,12 +128,32 @@ namespace Server
                 {
                     clientNames.Add(c.getID());
                 }
+                uxClientListBox = new ListBox();
                 uxClientListBox.DataSource = clientNames;
+                //this.Show();
             }//else if
             else
             {
+                //we'll do both, why not
 
-                
+                List<Product> products = Database.returnAllProducts();
+                List<string> productNames = new List<string>();
+                foreach (Product p in products)
+                {
+                    productNames.Add(p.getID());
+                }
+                uxProductListBox = new ListBox();
+                uxProductListBox.DataSource = productNames;
+
+                List<Client> clients = Database.returnAllClients();
+                List<string> clientNames = new List<string>();
+                foreach (Client c in clients)
+                {
+                    clientNames.Add(c.getID());
+                }
+                uxClientListBox = new ListBox();
+                uxClientListBox.DataSource = clientNames;
+
 
             }//else
         }

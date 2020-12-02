@@ -20,6 +20,8 @@ namespace Server.View
 
         private LoadInitialProducts initialProductsLoader;
 
+        private uxServerForm uxServer;
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -35,12 +37,13 @@ namespace Server.View
         /// <summary>
         /// constructor with IP given
         /// </summary>
-        public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP, string s)
+        public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP, string s, uxServerForm usf)
         {
             userVerifier = uv;
             initialProductsLoader = LIP;
             initialProductsLoader.LoadInitialProducts();
             Text = s;
+            uxServer = usf;
             InitializeComponent();
 
         }
@@ -60,9 +63,11 @@ namespace Server.View
 
             if (verification)
             {
-                uxServerForm serverForm = new uxServerForm(new Controller.Controller(new uxServerForm()));
+                //uxServerForm serverForm = new uxServerForm(new Controller.Controller(new uxServerForm()));
+                
+
                 this.Hide();
-                serverForm.ShowDialog();
+                uxServer.ShowDialog();
                 this.Close();
             }
             else

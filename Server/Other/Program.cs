@@ -48,9 +48,12 @@ namespace Server
             }
             int portNum = Convert.ToInt32(port);
 
-            Controller.Controller c = new Controller.Controller(new uxServerForm());
 
-            uxLoginForm lf = new uxLoginForm(c, c, String.Format("{0}:{1}", localIP, port));
+            uxServerForm usf = new uxServerForm();
+
+            Controller.Controller c = new Controller.Controller(usf);
+
+            uxLoginForm lf = new uxLoginForm(c, c, String.Format("{0}:{1}", localIP, port), usf);
 
 
             //starting a webSocketServer at port 8000
