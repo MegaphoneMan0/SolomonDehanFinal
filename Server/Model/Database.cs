@@ -177,6 +177,7 @@ namespace Server.Model
         public static void addClient(string c)
         {
             Client clientToAdd = new Client(c);
+            clientLibrary.Add(clientToAdd);
         }
 
         /// <summary>

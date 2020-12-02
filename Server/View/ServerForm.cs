@@ -24,7 +24,7 @@ namespace Server
         //default constructor
         public uxServerForm()
         {
-
+            //uxClientListBox = new ListBox();
         }
 
         public uxServerForm(TimesUp timesUp)

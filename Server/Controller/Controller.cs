@@ -43,7 +43,7 @@ namespace Server.Controller
         /// <summary>
         /// the communicator which handles communication between the server and connected clients
         /// </summary>
-        private Communicator communicator = new Communicator();
+        private Communicator communicator; 
 
         /// <summary>
         /// default constructor
@@ -51,6 +51,7 @@ namespace Server.Controller
         public Controller(Observer o)
         {
             observer = o;
+            communicator = new Communicator(this, this);
         }
 
         /// <summary>

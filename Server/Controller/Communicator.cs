@@ -54,9 +54,10 @@ namespace Server.Controller
         /// <summary>
         /// default constructor
         /// </summary>
-        public Communicator()
+        public Communicator(ReadMessage RM, UpdateClientList UCL)
         {
-
+            readMessageHandler = RM;
+            updateClientListHandler = UCL;
         }//communicator
 
 

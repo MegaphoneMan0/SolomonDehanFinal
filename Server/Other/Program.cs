@@ -57,7 +57,11 @@ namespace Server
             WebSocketServer wss = new WebSocketServer(portNum);//localIP
 
             //I THINK this will work
-            wss.AddWebSocketService<Communicator>("/communicator");
+            wss.AddWebSocketService("/communicator", () =>{
+                Communicator server = new Communicator(c,c);
+                return server;
+            }
+            );
             Console.WriteLine(wss.Address);
             Console.WriteLine(wss.Port);
             
