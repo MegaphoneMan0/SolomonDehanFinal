@@ -32,7 +32,7 @@ namespace Server.View
         }
 
         /// <summary>
-        /// constructor
+        /// constructor with IP given
         /// </summary>
         public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP, string s)
         {
