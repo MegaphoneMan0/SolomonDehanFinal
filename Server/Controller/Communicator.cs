@@ -137,6 +137,8 @@ namespace Server.Controller
             //Client newClient = new Client(clientID);
             //ID is the websocket-sharp generated ID
             Database.addClient(ID);
+
+            Console.WriteLine("SOMEONE CONNECTED");
             
 
             //get a list of session IDs
