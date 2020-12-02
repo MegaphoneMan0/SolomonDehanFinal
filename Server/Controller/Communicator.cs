@@ -77,7 +77,7 @@ namespace Server.Controller
         /// This method is run whenever the communicator recieves a message from a client
         /// </summary>
         /// <param name="e">e.Data is the serialized string from the client</param>
-        public void OnMessage(MessageEventArgs e)
+        protected override void OnMessage(MessageEventArgs e)
         {
             //alright, fun fact, there doesn't seem to be any way of singleing out a certian client except in here or in one of the other On_____ methods
             //cool

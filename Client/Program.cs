@@ -25,7 +25,7 @@ namespace Client
 
             
             string ip = "192.168.184.128", port = "8002";
-            WebSocket ws = new WebSocket(ip, port);
+            WebSocket ws = new WebSocket("ws://192.168.184.128:8002/communicator");
 
 
             ws.Connect();
