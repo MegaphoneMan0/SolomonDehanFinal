@@ -19,14 +19,9 @@ namespace Client.Controller
     class Controller : WebSocketBehavior
     {
 
-        public System.Timers.Timer aTimer = new System.Timers.Timer();
+        //public System.Timers.Timer aTimer = new System.Timers.Timer();
 
 
-
-        /// <summary>
-        /// Data object which holds the products list
-        /// </summary>
-        public DatabaseProxy list { get; set; }
 
 
 
@@ -40,9 +35,9 @@ namespace Client.Controller
         }
         
 
-        public void UpdateBid(Product product, Bid bid)
+        public void UpdateBid( Bid bid)
         {
-            Message newMessage = new Message(MessageType.New_Bid, product, bid);
+            Message newMessage = new Message(MessageType.New_Bid, bid);
             sendMessageToServer(newMessage);
         }
 
@@ -114,89 +109,11 @@ namespace Client.Controller
 
         public void replaceCurrentList(List<Product> newList)
         {
-            DatabaseProxy newData = new DatabaseProxy();
-            newData.productList = newList;
-            list = newData;
-            /*
-            for(int i = 0; i < newList.Count; i++)
-            {
-                list.productList[i] = newList[i];
-            }
-            */
+            Data.DatabaseProxy.productList = newList;
+            
         }
 
 
-
-        /*
-        /// <summary>
-        /// This will set the active timer, which will trigger OnTimedEvent. OnTimedEvent should also set the next timer
-        /// </summary>
-        /// <param name="amountOfTime">the amount of time till the bid is up in milliseconds</param>
-        private void SetTimer(int amountOfTime)
-        {
-
-            aTimer = new System.Timers.Timer(amountOfTime);
-            // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = false;
-            aTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// this event is tripped whenever aTimer goes off
-        /// </summary>
-        /// <param name="source">who knows</param>
-        /// <param name="e">*shrug*</param>
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-
-            //the timer's up, let's do this
-            Console.WriteLine("One of the bid timers is up");
-
-            SetMostCurrentTimer();
-
-
-        }//onTimedEvent
-
-        /// <summary>
-        /// This is just because I had to use this exact same giant block of code twice. Looks cleaner this way.
-        /// All it does is set a "nextTimer" to the highest possible value, then checks which timer in all of the bids is the lowest.
-        /// This method is called whenever a new bid is added or whenever the current timer goes off. 
-        /// </summary>
-        private void SetMostCurrentTimer()
-        {
-            int nextTimer = 2147483500;
-            bool nothing = false;//if this bool is still false by the end, it means there was nothing and we need to just get rid of the timer
-
-            //determine the next timer
-            foreach (Bid b in Database.getAllBids())
-            {
-                double timeSpanInMill = b.getTimer();
-                int intTimeSpan = Convert.ToInt32(timeSpanInMill);
-
-                if ((intTimeSpan < nextTimer) & (intTimeSpan > 0))
-                {
-                    nextTimer = intTimeSpan;
-                    nothing = true;
-                }//if
-
-            }//foreach
-
-            if (nothing)
-            {
-                aTimer.Dispose();
-
-                SetTimer(nextTimer);
-            }//if
-            else
-            {
-                aTimer.Dispose();
-
-            }//else
-        }
-
-
-    */
 
 
     }//class

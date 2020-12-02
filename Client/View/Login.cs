@@ -13,9 +13,7 @@ namespace Client.View
 {
     public partial class uxLoginForm : Form, UserVerifier
     {
-        /// <summary>
-        /// the interface from the controller
-        /// </summary>
+        
         private UserVerifier userVerifier;
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace Client.View
             string userName = uxUsernameBox.Text;
             string password = uxPasswordBox.Text;
 
-            bool verification = userVerifier.VerifyUser(userName, password);
+            bool verification = VerifyUser(userName, password);
 
             if (verification)
             {

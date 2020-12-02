@@ -11,7 +11,7 @@ namespace Client.Data
     /// <summary>
     /// The database that contains most of the information the controller needs
     /// </summary>
-    public class DatabaseProxy
+    public static class DatabaseProxy
     {
         //parameters
 
@@ -20,7 +20,7 @@ namespace Client.Data
         /// <summary>
         /// a list of available products that clients can bid on. Only includes products available for bidding
         /// </summary>
-        public List<Product> productList = new List<Product>();
+        public static List<Product> productList = new List<Product>();
 
 
 
@@ -31,7 +31,7 @@ namespace Client.Data
         /// returns all products in the database proxy
         /// </summary>
         /// <returns>the productList</returns>
-        public List<Product> getAll()
+        public static List<Product> getAll()
         {
             return productList;
         }

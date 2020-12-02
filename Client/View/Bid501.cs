@@ -18,7 +18,8 @@ namespace Client
         public Bid501()
         {
             InitializeComponent();
-            uxListBox.DataSource = Client.Controller..
+            uxListBox.DataSource = Data.DatabaseProxy.productList;
+            uxListBox.DisplayMember = "productID";
         }
 
         private UpdateBid updateBid;
@@ -31,23 +32,34 @@ namespace Client
             Product sample = new Product();
             Bid newBid = new Bid();
             double bidAMT = Convert.ToDouble(uxInput);
-            if(sample.getBid().getBid() < bidAMT)
+            List<Bid> bidList = sample.getBidList();
+            Bid topBid = bidList[(bidList.Count-1)];
+            if(topBid.getBid() < bidAMT)
             {
                 newBid.setBid(bidAMT);
                 newBid.setProduct(sample);
-                sample.setBid(newBid);
-                UpdateBid(sample, newBid);
+                UpdateBid(newBid);
             }
         }
 
         private void uxListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Product curPro= new Product();
+            string current = uxListBox.SelectedItem.ToString();
+            for(int i = 0; i < DatabaseProxy.productList.Count; i++)
+            {
+                if(DatabaseProxy.productList[i].getID().Equals(current))
+                {
+                    curPro = DatabaseProxy.productList[i];
+                }
+            }
 
+            uxProductName.Text = curPro.getID();
         }
 
-        public bool UpdateBid(Product product, Bid bid)
+        public bool UpdateBid(Bid bid)
         {
-            return updateBid.UpdateBid(product, bid);
+            return updateBid.UpdateBid(bid);
         }
     }
 }
