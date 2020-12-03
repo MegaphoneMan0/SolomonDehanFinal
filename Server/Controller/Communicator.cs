@@ -64,19 +64,22 @@ namespace Server.Controller
             //ALRIGHT
             //WE NEED TO REFACTOR THIS TO BE ABLE TO SEND TO CERTAIN CLIENTS IF MESSAGETYPE IS WIN_LOSE_NOTI
 
-            if (message.getMessageType() == MessageType.Win_Lose_Noti)
+            if (Sessions != null)
             {
-                string cID = message.getClientID();
-                string msg = JsonConvert.SerializeObject(message);
-                Sessions.SendTo(cID,msg);
-            }//if
+                if (message.getMessageType() == MessageType.Win_Lose_Noti)
+                {
+                    string cID = message.getClientID();
+                    string msg = JsonConvert.SerializeObject(message);
+                    Sessions.SendTo(cID, msg);
+                }//if
 
-            else
-            {
-                //this is if it needs to be sent to all, cool, who cares
-                string msg = JsonConvert.SerializeObject(message);
-                Sessions.Broadcast(msg);
-            }//else
+                else
+                {
+                    //this is if it needs to be sent to all, cool, who cares
+                    string msg = JsonConvert.SerializeObject(message);
+                    Sessions.Broadcast(msg);
+                }//else
+            }
                 
         }//sendToClients
 
