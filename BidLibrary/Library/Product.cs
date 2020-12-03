@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,20 +15,20 @@ namespace BidLibrary.Library
         /// <summary>
         /// the identifying string for the product. Duplicate products are not currently allowed, so this is also just the name of the product
         /// </summary>
-        private string productID;
+        [JsonProperty] private string productID;
 
         /// <summary>
         /// a list of bids with the highest bid at the end. Each bid is from a unique client, no client should be on the list multiple times
         /// </summary>
-        private List<Bid> bidList;
+        [JsonProperty] private List<Bid> bidList;
 
-        
-        
+
+
 
         /// <summary>
         /// the amount of time left on to bid
         /// </summary>
-        private double bidTimer;
+        [JsonProperty] private double bidTimer;
 
         //methods
 

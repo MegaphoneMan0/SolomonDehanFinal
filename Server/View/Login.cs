@@ -45,8 +45,7 @@ namespace Server.View
             uxServer = new uxServerForm(new Controller.Controller());
             Controller.Controller c = new Controller.Controller(uxServer);
             userVerifier = c;
-            initialProductsLoader = c;
-            initialProductsLoader.LoadInitialProducts();
+            
             Text = s;
             //uxServer = usf;
 

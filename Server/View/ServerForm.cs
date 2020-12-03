@@ -115,25 +115,22 @@ namespace Server
             formState = state;
             if(formState == State.Adding_A_Product)
             {
-                BindingList<Product> products = Database.returnAllProducts();
-                List<string> productNames = new List<string>();
-                foreach (Product p in products)
+                if (this.IsHandleCreated)
                 {
-                    productNames.Add(p.getID());
+                    this.Invoke(new Action(() => products.ResetBindings()
+                    ));
                 }
-                uxProductListBox.DataSource = productNames;
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
 
                 if (this.IsHandleCreated)
                 {
-                    this.Invoke(new Action(() =>
-                    ))
+                    this.Invoke(new Action(() => clients.ResetBindings()
+                    ));
                 }
 
-                //this.Invoke(new Action(() =>
-                //{ refresh(); }));
+                
 
             }//else if
             else

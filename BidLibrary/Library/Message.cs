@@ -17,7 +17,7 @@ namespace BidLibrary.Library
 
         [JsonProperty] private string password;
 
-        [JsonProperty] private List<Product> products;
+        [JsonProperty] private IList<Product> products;
 
         [JsonProperty] private Bid newBid;
 
@@ -108,7 +108,7 @@ namespace BidLibrary.Library
 
         public List<Product> getProducts()
         {
-            return products;
+            return products.ToList();
         }
 
         public Bid getNewBid()

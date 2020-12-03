@@ -12,7 +12,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts, TimesUp
+    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, TimesUp
     {
         /*
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
@@ -230,28 +230,7 @@ namespace Server.Controller
             return products;
         }
 
-        /// <summary>
-        /// This method is called from the login screen when it's constructed to load the initial products from the file at the given address
-        /// </summary>
-        public void LoadInitialProducts()
-        {
-            //this needs to load the products from a file into the database. How? WHO KNOWS
-            //this is based of the example on the microsoft docs
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
-
-            foreach(string s in lines)
-            {
-                Product product = new Product(s);
-                
-                //make a random between 1,000,000 and max
-                Random rand = new Random();
-                int random = rand.Next(1000000, int.MaxValue);
-
-                product.setTimer(random);
-                Database.addProduct(product);
-            }//foreach
-
-        }
+        
 
         /// <summary>
         /// This checks all of the bids for a product and notifies the corresponding clients of their success or failure

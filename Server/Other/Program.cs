@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
+using BidLibrary.Library;
+using Server.Model;
 
 namespace Server
 {
@@ -48,7 +49,7 @@ namespace Server
             int portNum = Convert.ToInt32(port);
 
 
-            
+            LoadInitialProducts();
 
             //Controller.Controller c = new Controller.Controller();
 
@@ -61,6 +62,28 @@ namespace Server
 
             
         }//main
+
+        static public void LoadInitialProducts()
+        {
+            //this needs to load the products from a file into the database. How? WHO KNOWS
+            //this is based of the example on the microsoft docs
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
+
+            foreach (string s in lines)
+            {
+                Product product = new Product(s);
+
+                //make a random between 1,000,000 and max
+                Random rand = new Random();
+                int random = rand.Next(1000000, int.MaxValue);
+
+                product.setTimer(random);
+                Database.addProduct(product);
+            }//foreach
+
+        }
+
+
 
         // From http://www.csharp-examples.net/inputbox/
         public static DialogResult InputBox(string title, string promptText, ref string value)

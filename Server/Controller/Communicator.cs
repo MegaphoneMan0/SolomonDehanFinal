@@ -72,9 +72,6 @@ namespace Server.Controller
                 
         }//sendToClients
 
-       
-        //THIS MAY CAUSE ISSUES, IDK HOW TO DO THE OVERRIDE THINGY SO IT'S GREEN UNDERLINED IDK MAN
-
         /// <summary>
         /// This method is run whenever the communicator recieves a message from a client
         /// </summary>
@@ -164,7 +161,7 @@ namespace Server.Controller
 
             Message message = new Message(MessageType.Product_List_Information,updatedProducts.ToList());
 
-            string msg = JsonConvert.SerializeObject(message);
+            string msg = JsonConvert.SerializeObject(message,Formatting.Indented);
 
             Send(msg);
 
