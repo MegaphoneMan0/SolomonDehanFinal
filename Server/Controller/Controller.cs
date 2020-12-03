@@ -14,6 +14,7 @@ namespace Server.Controller
 {
     class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, LoadInitialProducts, TimesUp
     {
+        /*
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
         //SHIT
         //ALRIGHT, I NEED TO FIND HOW I DID IT EARLIER THIS YEAR. PRETTY SURE I CAN REPLICATE THAT... SORT OF
@@ -25,12 +26,7 @@ namespace Server.Controller
         
         //lol, jk, no timers necessary
         //creating the thingy on the form
-
-
-
-
-
-
+        */
 
 
 
@@ -45,8 +41,11 @@ namespace Server.Controller
         /// </summary>
         private Communicator communicator; 
 
+
+        //methods
+
         /// <summary>
-        /// default constructor
+        /// default constructor with the observer
         /// </summary>
         public Controller(Observer o)
         {
@@ -54,6 +53,9 @@ namespace Server.Controller
             communicator = new Communicator(this);
         }
 
+        /// <summary>
+        /// default constructor without the observer
+        /// </summary>
         public Controller()
         {
 
@@ -85,7 +87,6 @@ namespace Server.Controller
             }//if
 
             //this isn't done, I need to do something with the observer to update the server form
-            observer.Update(State.Adding_A_Product);
             observer.Update(State.Adding_A_Product);
 
 
@@ -252,6 +253,10 @@ namespace Server.Controller
 
         }
 
+        /// <summary>
+        /// This checks all of the bids for a product and notifies the corresponding clients of their success or failure
+        /// </summary>
+        /// <param name="product"></param>
         public void TimesUp(Product product)
         {
             //throw new NotImplementedException();
@@ -289,14 +294,6 @@ namespace Server.Controller
 
 
         }//timesup
-
-
-
-
-
-
-
-
 
 
 
@@ -379,11 +376,6 @@ namespace Server.Controller
         }
 
         */
-
-
-
-
-
 
 
 

@@ -36,7 +36,8 @@ namespace Server.Model
         /// <summary>
         /// a list of clients that are connected to the server
         /// </summary>
-        public static BindingList<Client> clientLibrary = new BindingList<Client>();
+        public static BindingList<Client> clientLibrary = new BindingList<Client>() { AllowNew = true, AllowEdit = true};
+        
 
         /// <summary>
         /// a list of bids associated with the products in the productlibrary

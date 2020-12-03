@@ -55,11 +55,6 @@ namespace Server
             uxLoginForm lf = new uxLoginForm(String.Format("{0}:{1}", localIP, port));
 
 
-            
-
-
-            
-
             Application.Run(lf);
 
             

@@ -37,18 +37,7 @@ namespace Server.Controller
         private Controller c;
 
 
-        //methods
-
-        /*
-        /// <summary>
-        /// default constructor
-        /// </summary>
-        public Communicator(ReadMessage RM, UpdateClientList UCL)
-        {
-            readMessageHandler = RM;
-            updateClientListHandler = UCL;
-        }//communicator
-        */
+        
         public Communicator(Controller controller)
         {
             c = controller;

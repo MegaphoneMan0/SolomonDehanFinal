@@ -36,13 +36,14 @@ namespace Server.View
 
         private void uxAddButton_Click(object sender, EventArgs e)
         {
+            if (uxProductsToAddBox.SelectedItem != null)
+            {
+                Product newProduct = new Product(uxProductsToAddBox.SelectedItem.ToString());
 
-            Product newProduct = new Product(uxProductsToAddBox.SelectedItem.ToString());
+                productUpdaterHandler.UpdateProduct(newProduct);
 
-            productUpdaterHandler.UpdateProduct(newProduct);
-
-            productsThatCanBeAdded.Remove(newProduct.getID());
-
+                productsThatCanBeAdded.Remove(newProduct.getID());
+            }
             this.Close();
 
         }

@@ -42,7 +42,7 @@ namespace Server.View
         public uxLoginForm(string s)
         {
             InitializeComponent();
-            uxServer = new uxServerForm();
+            uxServer = new uxServerForm(new Controller.Controller());
             Controller.Controller c = new Controller.Controller(uxServer);
             userVerifier = c;
             initialProductsLoader = c;
@@ -63,10 +63,6 @@ namespace Server.View
 
             //start the server
             wss.Start();
-
-
-
-
         }
 
         /// <summary>
@@ -85,8 +81,8 @@ namespace Server.View
             if (verification)
             {
                 
-
                 this.Hide();
+
                 uxServer.ShowDialog();
 
                 //serverForm.ShowDialog(); 

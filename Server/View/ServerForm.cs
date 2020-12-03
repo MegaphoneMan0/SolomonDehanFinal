@@ -21,18 +21,17 @@ namespace Server
 
         private TimesUp TimesUpHandler;
 
-        //default constructor
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public uxServerForm()
         {
-            //uxClientListBox = new ListBox();
+
             InitializeComponent();
 
             formState = State.Monitoring;
 
-            
-
             BindingList<Client> clients = Database.returnAllClients();
-            clients.ListChanged += Clients_ListChanged;
             
             uxClientListBox.DataSource = clients;
 
@@ -51,8 +50,10 @@ namespace Server
 
         }
 
-        
-
+        /// <summary>
+        /// Constructor that takes a TimesUp interface
+        /// </summary>
+        /// <param name="timesUp"></param>
         public uxServerForm(TimesUp timesUp)
         {
             InitializeComponent();
@@ -60,22 +61,23 @@ namespace Server
             TimesUpHandler = timesUp;
 
             formState = State.Monitoring;
-            BindingList<Product> products = Database.returnAllProducts();
-            BindingList<string> productNames = new BindingList<string>();
-            foreach(Product p in products)
+
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
+
+            List<string> productList = new List<string>();
+            foreach (string s in lines)
             {
-                productNames.Add(p.getID());
-            }
-            uxProductListBox.DataSource = productNames;
-
-
+                productList.Add(s);
+            }//foreach
 
             
+            uxProductListBox.DataSource = productList;
+
 
 
 
             BindingList<Client> clients = Database.returnAllClients();
-            clients.ListChanged += Clients_ListChanged;
+            //clients.ListChanged += Clients_ListChanged;
             uxClientListBox.DataSource = clients;
 
 
@@ -84,21 +86,11 @@ namespace Server
 
         }//constructor
 
-
-        private void Clients_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            
-
-
-
-        }
-
-
-        private void refreshForm()
-        {
-        }
-
-
+        /// <summary>
+        /// handler for when the add button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddButton_Click(object sender, EventArgs e)
         {
             formState = State.Adding_A_Product;
@@ -109,13 +101,9 @@ namespace Server
         }//button click
 
         /// <summary>
-        /// this is called once a product has been added to the database
+        /// This is the method contained within the Observer interface. It performs certain actions depending on the state that it is passed
         /// </summary>
-        public void addProduct()
-        {
-            formState = State.Monitoring;
-        }//addProduct
-
+        /// <param name="state"></param>
         public void Update(State state)
         {
             formState = state;
@@ -132,13 +120,10 @@ namespace Server
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
 
-                BindingList<Client> clients = Database.returnAllClients();
-                List<string> clientNames = new List<string>();
-                foreach (Client c in clients)
-                {
-                    clientNames.Add(c.getID());
-                }
-                uxClientListBox.DataSource = clientNames;
+                uxClientListBox.DataSource = Database.clientLibrary;
+
+                //this.Invoke(new Action(() =>
+                //{ refresh(); }));
 
             }//else if
             else
@@ -167,6 +152,19 @@ namespace Server
             }//else
         }
 
+        /// <summary>
+        /// this does nothing, but I'm keeping it in case I need it
+        /// </summary>
+        private void refresh()
+        {
+            uxClientListBox.DataSource = Database.clientLibrary;
+        }
+
+        /// <summary>
+        /// this is the button push method to stop bidding. It uses an interface to contact the controller
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxStopBidding_Click(object sender, EventArgs e)
         {
             Product product = Database.searchProduct(uxProductListBox.SelectedItem.ToString());
