@@ -131,10 +131,15 @@ namespace Server
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
-                
 
-                uxClientListBox.DataSource = Database.clientLibrary;
-                
+                BindingList<Client> clients = Database.returnAllClients();
+                List<string> clientNames = new List<string>();
+                foreach (Client c in clients)
+                {
+                    clientNames.Add(c.getID());
+                }
+                uxClientListBox.DataSource = clientNames;
+
             }//else if
             else
             {
