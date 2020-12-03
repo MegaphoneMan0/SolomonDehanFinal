@@ -29,10 +29,15 @@ namespace Server
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.uxAddButton = new System.Windows.Forms.Button();
             this.uxProductListBox = new System.Windows.Forms.ListBox();
             this.uxClientListBox = new System.Windows.Forms.ListBox();
             this.uxStopBidding = new System.Windows.Forms.Button();
+            this.databaseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.databaseBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // uxAddButton
@@ -58,6 +63,7 @@ namespace Server
             this.uxClientListBox.FormattingEnabled = true;
             this.uxClientListBox.Location = new System.Drawing.Point(251, 12);
             this.uxClientListBox.Name = "uxClientListBox";
+            this.uxClientListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.uxClientListBox.Size = new System.Drawing.Size(232, 329);
             this.uxClientListBox.TabIndex = 2;
             // 
@@ -71,6 +77,14 @@ namespace Server
             this.uxStopBidding.UseVisualStyleBackColor = true;
             this.uxStopBidding.Click += new System.EventHandler(this.uxStopBidding_Click);
             // 
+            // databaseBindingSource
+            // 
+            this.databaseBindingSource.DataSource = typeof(Server.Model.Database);
+            // 
+            // databaseBindingSource1
+            // 
+            this.databaseBindingSource1.DataSource = typeof(Server.Model.Database);
+            // 
             // uxServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -82,6 +96,8 @@ namespace Server
             this.Controls.Add(this.uxAddButton);
             this.Name = "uxServerForm";
             this.Text = "ServerForm";
+            ((System.ComponentModel.ISupportInitialize)(this.databaseBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -92,6 +108,8 @@ namespace Server
         private System.Windows.Forms.ListBox uxProductListBox;
         private System.Windows.Forms.ListBox uxClientListBox;
         private System.Windows.Forms.Button uxStopBidding;
+        private System.Windows.Forms.BindingSource databaseBindingSource;
+        private System.Windows.Forms.BindingSource databaseBindingSource1;
     }
 }
 

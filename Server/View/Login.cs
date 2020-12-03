@@ -43,26 +43,16 @@ namespace Server.View
         {
             InitializeComponent();
             uxServer = new uxServerForm();
+            
+
             Controller.Controller c = new Controller.Controller(uxServer);
             userVerifier = c;
             initialProductsLoader = c;
             initialProductsLoader.LoadInitialProducts();
             Text = s;
-            //uxServer = usf;
 
 
-            //I THINK this will work
-            //starting a webSocketServer at port 8000
-            WebSocketServer wss = new WebSocketServer(8000);//localIP
-            wss.AddWebSocketService("/communicator", () => {
-                Communicator server = new Communicator(c);
-                return server;
-            }
-            );
-
-
-            //start the server
-            wss.Start();
+            
 
 
 
@@ -86,8 +76,8 @@ namespace Server.View
             {
                 
 
-                this.Hide();
-                uxServer.ShowDialog();
+                //this.Hide();
+                //uxServer.ShowDialog();
 
                 //serverForm.ShowDialog(); 
                 this.Close();

@@ -51,7 +51,7 @@ namespace Server.Controller
         public Controller(Observer o)
         {
             observer = o;
-            communicator = new Communicator(this);
+            communicator = new Communicator();
         }
 
         public Controller()

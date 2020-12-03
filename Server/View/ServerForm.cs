@@ -29,13 +29,14 @@ namespace Server
 
             formState = State.Monitoring;
 
-            
+            TimesUpHandler = new Controller.Controller();
 
-            BindingList<Client> clients = Database.returnAllClients();
-            clients.ListChanged += Clients_ListChanged;
+            //BindingList<Client> clients = Database.returnAllClients();
+            //clients.ListChanged += Clients_ListChanged;
             
-            uxClientListBox.DataSource = clients;
-
+            uxClientListBox.DataSource = Database.clientLibrary;
+            uxClientListBox.DisplayMember = "Client";
+            //uxClientListBox.ValueMember = "Client";
 
 
 
@@ -69,35 +70,35 @@ namespace Server
             uxProductListBox.DataSource = productNames;
 
 
+            uxClientListBox.DataSource = Database.clientLibrary;
+            uxClientListBox.DisplayMember = "Client";
+            uxClientListBox.ValueMember = "Client";
 
-            
 
-
+            /*
 
             BindingList<Client> clients = Database.returnAllClients();
             clients.ListChanged += Clients_ListChanged;
             uxClientListBox.DataSource = clients;
 
 
-
+            */
 
 
         }//constructor
 
+        /*
 
         private void Clients_ListChanged(object sender, ListChangedEventArgs e)
         {
             
-
-
-
         }
 
 
         private void refreshForm()
         {
         }
-
+        */
 
         private void uxAddButton_Click(object sender, EventArgs e)
         {
@@ -131,10 +132,13 @@ namespace Server
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
-                
-
+                uxClientListBox.DataSource = null;
+                uxClientListBox.DisplayMember = null;
                 uxClientListBox.DataSource = Database.clientLibrary;
-                
+                uxClientListBox.DisplayMember = "Client";
+                //uxClientListBox.ValueMember = "Client";
+
+
             }//else if
             else
             {

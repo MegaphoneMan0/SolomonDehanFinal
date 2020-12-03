@@ -49,9 +49,14 @@ namespace Server.Controller
             updateClientListHandler = UCL;
         }//communicator
         */
-        public Communicator(Controller controller)
+        public Communicator()
         {
-            c = controller;
+            c = new Controller();
+        }
+
+        public Communicator(uxServerForm serverForm)
+        {
+            c = new Controller(serverForm);
         }
 
        
@@ -176,13 +181,20 @@ namespace Server.Controller
 
             Send(msg);
 
+
+
+            //check if any clients have disconnected
+
+
+
+
         }//OnClose
 
         /// <summary>
         /// This method is run when a connection from a client is closed
         /// </summary>
         /// <param name="e">event arguments from the client</param>
-        public void OnClose(MessageEventArgs e)
+        public void OnClose(string ID)
         {
 
             Database.removeClient(ID);

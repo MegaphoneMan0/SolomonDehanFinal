@@ -55,12 +55,24 @@ namespace Server
             uxLoginForm lf = new uxLoginForm(String.Format("{0}:{1}", localIP, port));
 
 
-            
+            uxServerForm serverForm = new uxServerForm();
+
+            //I THINK this will work
+            //starting a webSocketServer at port 8000
+            WebSocketServer wss = new WebSocketServer(8000);//localIP
+            wss.AddWebSocketService("/communicator", () => {
+                Communicator server = new Communicator(serverForm);
+                return server;
+            }
+            );
 
 
-            
+            //start the server
+            wss.Start();
+
 
             Application.Run(lf);
+            Application.Run(serverForm);
 
             
 
