@@ -18,7 +18,7 @@ using Client.View;
 
 namespace Client.Controller
 {
-    class Controller : WebSocketBehavior, UserVerifier
+    class Controller : WebSocketBehavior, UserVerifier, UpdateBid
     {
 
         /// <summary>
@@ -112,6 +112,14 @@ namespace Client.Controller
                 case MessageType.Credential_Information_Verification:
                     
                     bool v = message.getCredentialVerification();
+                    if (v)
+                    {
+                        observer.Update(Client.State.loginPageTrue);
+                    }
+                    else
+                    {
+                        observer.Update(Client.State.loginPageFalse);
+                    }
                     returnedCredentials(v);
                     break;
                 case MessageType.Product_List_Information:
@@ -145,8 +153,9 @@ namespace Client.Controller
             
         }
 
-
-
-
+        bool UpdateBid.UpdateBid(Bid bid)
+        {
+            throw new NotImplementedException();
+        }
     }//class
 }//namespace

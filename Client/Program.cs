@@ -39,19 +39,22 @@ namespace Client
             */
             //ws://192.168.184.128:8000/
             
-            string ip = "192.168.184.128", port = "800";
+            //string ip = "192.168.184.128", port = "800";
             using (WebSocket ws = new WebSocket("ws://10.130.48.21:8000/communicator"))
             {
                 Uri s = ws.Url;
                 Console.WriteLine("current URL we are trying  " + s.ToString());
                 // var exampleSocket = new WebSocket("wss://192.168.184.128:8000/communicator");
+                
+                ws.Connect();
                 if (ws.IsAlive)
                 {
                     Console.WriteLine("CONNECTED TO THE SERVER");
                 }
-                ws.Connect();
-                Controller.Controller c = new Controller.Controller(ws);
-                Application.Run(new uxLoginForm(c));
+                //Controller.Controller c = new Controller.Controller(ws);
+                Application.Run(new uxLoginForm(ws));
+                //Controller.Controller c = new Controller.Controller(ws);
+                //Application.Run(new uxLoginForm(c));
             }
             
 

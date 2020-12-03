@@ -10,21 +10,34 @@ using System.Windows.Forms;
 using BidLibrary.Library;
 using Client.Controller;
 using Client.Data;
+using Client.View;
 
 namespace Client
 {
-    public partial class Bid501 : Form , UpdateBid
+    public partial class Bid501 : Form , Observer
     {
+
+        private State formState;
         public Bid501()
         {
             InitializeComponent();
             uxListBox.DataSource = Data.DatabaseProxy.productList;
             uxListBox.DisplayMember = "productID";
+            Update(State.intialConnect);
         }
 
-        private UpdateBid updateBid;
-      
-        
+       
+
+        public void Update(State state)
+        {
+            formState = state;
+            if (formState == State.updating)
+            {
+                uxListBox.DataSource = Data.DatabaseProxy.productList;
+                uxListBox.DisplayMember = "productID";
+            }
+
+        }
 
         private void bidButton_Click(object sender, EventArgs e)
         {
@@ -55,11 +68,17 @@ namespace Client
             }
 
             uxProductName.Text = curPro.getID();
+            uxRemainingTime.Text = curPro.getTimer().ToString();
+            uxStatusLabel.Text = "Active";
+            List<Bid> bids = curPro.getBidList();
+            uxBids.Text = bids.Count.ToString();
+            uxMinBid.Text = "$"+ bids[bids.Count - 1].ToString();
+
         }
 
         public bool UpdateBid(Bid bid)
         {
-            return updateBid.UpdateBid(bid);
+            return UpdateBid(bid);
         }
     }
 }

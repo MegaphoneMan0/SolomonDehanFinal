@@ -12,7 +12,8 @@ namespace Client
         intialConnect,
         loginPageTrue,
         loginPageFalse,
-        waitingForUpdates
+        waitingForUpdates,
+        updating
 
 
 

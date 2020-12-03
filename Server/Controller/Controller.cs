@@ -86,6 +86,7 @@ namespace Server.Controller
 
             //this isn't done, I need to do something with the observer to update the server form
             observer.Update(State.Adding_A_Product);
+            observer.Update(State.Adding_A_Product);
 
 
 
