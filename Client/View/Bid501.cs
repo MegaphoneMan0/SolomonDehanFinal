@@ -42,24 +42,34 @@ namespace Client.View
         private void bidButton_Click(object sender, EventArgs e)
         {
             //Product sample = uxListBox.SelectedItem;
-            Product sample = new Product();
+            //Product sample = new Product();
+            Product curPro = new Product();
+
+            string current = uxListBox.SelectedItem.ToString();
+            for (int i = 0; i < DatabaseProxy.productList.Count; i++)
+            {
+                if (DatabaseProxy.productList[i].getID().Equals(current))
+                {
+                    curPro = DatabaseProxy.productList[i];
+                }
+            }
             Bid newBid = new Bid();
             double bidAMT = Convert.ToDouble(uxInput.Text);
-            List<Bid> bidList = sample.getBidList();
+            List<Bid> bidList = curPro.getBidList();
             if(bidList != null)
             {
                 Bid topBid = bidList[(bidList.Count - 1)];
                 if (topBid.getBid() < bidAMT)
                 {
                     newBid.setBid(bidAMT);
-                    newBid.setProduct(sample);
+                    newBid.setProduct(curPro);
                     uBid.UpdateBid(newBid);
                 }
             }
             else
             {
                 newBid.setBid(bidAMT);
-                newBid.setProduct(sample);
+                newBid.setProduct(curPro);
                 uBid.UpdateBid(newBid);
             }
             
@@ -83,7 +93,7 @@ namespace Client.View
                 }
 
                 uxProductName.Text = curPro.getID();
-                uxRemainingTime.Text = curPro.getTimer().ToString();
+                uxRemainingTime.Text = "Time Remaining: " +curPro.getTimer().ToString();
                 uxStatusLabel.Text = "Active";
                 List<Bid> bids = curPro.getBidList();
                 if (bids == null)
@@ -93,7 +103,7 @@ namespace Client.View
                 }
                 else
                 {
-                    uxBids.Text = bids.Count.ToString();
+                    uxBids.Text = "Bids: "+ bids.Count.ToString();
                     uxMinBid.Text = "$" + bids[bids.Count - 1].ToString();
                 }
                 
