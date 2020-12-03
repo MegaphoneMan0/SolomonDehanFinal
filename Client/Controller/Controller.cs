@@ -103,14 +103,14 @@ namespace Client.Controller
 
            
 
-            Console.WriteLine("reading message");
+            
             MessageType messageType = message.getMessageType();
 
 
             switch (messageType)
             {
                 case MessageType.Credential_Information_Verification:
-                    
+                    Console.WriteLine("reading credentials message");
                     bool v = message.getCredentialVerification();
                     if (v)
                     {
@@ -123,7 +123,7 @@ namespace Client.Controller
                     returnedCredentials(v);
                     break;
                 case MessageType.Product_List_Information:
-
+                    Console.WriteLine("reading product list message");
                     replaceCurrentList(message.getProducts());
                     break;
 
