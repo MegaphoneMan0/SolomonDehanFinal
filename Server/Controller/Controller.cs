@@ -160,8 +160,8 @@ namespace Server.Controller
                 case MessageType.New_Bid:
                     
                     //the new bid is already verified to be good
-                    Product newProduct = message.getProducts().First<Product>();
                     Bid newBid = message.getNewBid();
+                    Product newProduct = newBid.getProduct();
 
                     //first, let's get the existing product from our database
                     Product existingProduct = Database.searchProduct(newProduct.getID());

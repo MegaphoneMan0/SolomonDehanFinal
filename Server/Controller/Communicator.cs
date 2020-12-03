@@ -69,7 +69,7 @@ namespace Server.Controller
                     Sessions.Broadcast(msg);
                 }//else
             }
-                
+            CheckForDisconnects();
         }//sendToClients
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Server.Controller
                 //we do nothing!
             }//else
 
-            
+            CheckForDisconnects();
         }//OnMessage
         
         /// <summary>
@@ -165,13 +165,44 @@ namespace Server.Controller
 
             Send(msg);
 
+
+            CheckForDisconnects();
+
+
+
+
         }//OnClose
+
+        /// <summary>
+        /// this method checks all of the clients against the active sessions, and removes the clients that are no longer active
+        /// </summary>
+        public void CheckForDisconnects()
+        {
+            //check for clients that no longer exist
+            foreach (Client c in Database.returnAllClients())
+            {
+                string id = c.getID();
+                bool isActive = false;
+                foreach (IWebSocketSession wss in Sessions.Sessions)
+                {
+                    if (wss.ID.Equals(id))
+                    {
+                        isActive = true;
+                    }//if
+                }//foreach
+
+                if (!isActive)
+                {
+                    OnClose(id);
+                }//if
+            }//foreach
+        }//method
 
         /// <summary>
         /// This method is run when a connection from a client is closed
         /// </summary>
         /// <param name="e">event arguments from the client</param>
-        public void OnClose(MessageEventArgs e)
+        public void OnClose(string s)
         {
 
             Database.removeClient(ID);

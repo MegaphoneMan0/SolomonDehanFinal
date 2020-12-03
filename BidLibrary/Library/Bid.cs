@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +15,18 @@ namespace BidLibrary.Library
         /// <summary>
         /// the product that this Bid is for
         /// </summary>
-        private Product product;
+        [JsonProperty] private Product product;
 
 
         /// <summary>
         /// the amount of the bid
         /// </summary>
-        private double highestBid;
+        [JsonProperty] private double highestBid;
 
         /// <summary>
         /// the ID of the client who placed this bid
         /// </summary>
-        private string highestBidder;
+        [JsonProperty] private string highestBidder;
 
 
         //methods
