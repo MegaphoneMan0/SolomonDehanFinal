@@ -59,7 +59,7 @@ namespace Client.Controller
 
         public void sendMessageToServer(Message message)
         {
-            Console.WriteLine("password before serial: " + message.getPassword());
+            //Console.WriteLine("password before serial: " + message.getPassword());
             var msg = JsonConvert.SerializeObject(message);
             // Message othertest = (Message)JsonConvert.DeserializeObject(msg);
             // Console.WriteLine("this is the deserialized password: " + othertest.getPassword());
@@ -70,7 +70,7 @@ namespace Client.Controller
             }
             
             Message test = JsonConvert.DeserializeObject<Message>(msg);
-            Console.WriteLine("this is the deserialized password: "+test.getPassword());
+            //Console.WriteLine("this is the deserialized password: "+test.getPassword());
             // Sessions.Broadcast(msg);
 
 
@@ -149,13 +149,10 @@ namespace Client.Controller
 
         public void replaceCurrentList(List<Product> newList)
         {
-            Data.DatabaseProxy.productList = newList;
+            DatabaseProxy.productList = newList;
             
         }
 
-        bool UpdateBid.UpdateBid(Bid bid)
-        {
-            throw new NotImplementedException();
-        }
+        
     }//class
 }//namespace

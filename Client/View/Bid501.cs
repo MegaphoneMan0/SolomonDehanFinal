@@ -10,23 +10,24 @@ using System.Windows.Forms;
 using BidLibrary.Library;
 using Client.Controller;
 using Client.Data;
-using Client.View;
 
-namespace Client
+namespace Client.View
 {
     public partial class Bid501 : Form , Observer
     {
-
+        private UpdateBid uBid;
         private State formState;
         public Bid501()
         {
             InitializeComponent();
-            uxListBox.DataSource = Data.DatabaseProxy.productList;
-            uxListBox.DisplayMember = "productID";
+            uxListBox.DataSource = DatabaseProxy.productList;
             Update(State.intialConnect);
         }
 
-       
+        public void setUB(UpdateBid ub)
+        {
+            uBid = ub;
+        }
 
         public void Update(State state)
         {
@@ -34,7 +35,6 @@ namespace Client
             if (formState == State.updating)
             {
                 uxListBox.DataSource = Data.DatabaseProxy.productList;
-                uxListBox.DisplayMember = "productID";
             }
 
         }
@@ -46,39 +46,62 @@ namespace Client
             Bid newBid = new Bid();
             double bidAMT = Convert.ToDouble(uxInput.Text);
             List<Bid> bidList = sample.getBidList();
-            Bid topBid = bidList[(bidList.Count-1)];
-            if(topBid.getBid() < bidAMT)
+            if(bidList != null)
+            {
+                Bid topBid = bidList[(bidList.Count - 1)];
+                if (topBid.getBid() < bidAMT)
+                {
+                    newBid.setBid(bidAMT);
+                    newBid.setProduct(sample);
+                    uBid.UpdateBid(newBid);
+                }
+            }
+            else
             {
                 newBid.setBid(bidAMT);
                 newBid.setProduct(sample);
-                UpdateBid(newBid);
+                uBid.UpdateBid(newBid);
             }
+            
         }
 
         private void uxListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Product curPro= new Product();
+
+
+
             string current = uxListBox.SelectedItem.ToString();
-            for(int i = 0; i < DatabaseProxy.productList.Count; i++)
+            if (current != null)
             {
-                if(DatabaseProxy.productList[i].getID().Equals(current))
+                for (int i = 0; i < DatabaseProxy.productList.Count; i++)
                 {
-                    curPro = DatabaseProxy.productList[i];
+                    if (DatabaseProxy.productList[i].getID().Equals(current))
+                    {
+                        curPro = DatabaseProxy.productList[i];
+                    }
                 }
+
+                uxProductName.Text = curPro.getID();
+                uxRemainingTime.Text = curPro.getTimer().ToString();
+                uxStatusLabel.Text = "Active";
+                List<Bid> bids = curPro.getBidList();
+                if (bids == null)
+                {
+                    uxBids.Text = "0";
+                    uxMinBid.Text = "$0";
+                }
+                else
+                {
+                    uxBids.Text = bids.Count.ToString();
+                    uxMinBid.Text = "$" + bids[bids.Count - 1].ToString();
+                }
+                
+                
             }
 
-            uxProductName.Text = curPro.getID();
-            uxRemainingTime.Text = curPro.getTimer().ToString();
-            uxStatusLabel.Text = "Active";
-            List<Bid> bids = curPro.getBidList();
-            uxBids.Text = bids.Count.ToString();
-            uxMinBid.Text = "$"+ bids[bids.Count - 1].ToString();
-
         }
 
-        public bool UpdateBid(Bid bid)
-        {
-            return UpdateBid(bid);
-        }
+        
     }
 }

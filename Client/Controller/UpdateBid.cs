@@ -11,7 +11,7 @@ namespace Client.Controller
     public interface UpdateBid
     {
         
-        bool UpdateBid(Bid bid);
+        void UpdateBid(Bid bid);
 
     }
 }

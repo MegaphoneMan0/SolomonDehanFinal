@@ -1,5 +1,5 @@
 ﻿
-namespace Client
+namespace Client.View
 {
     partial class Bid501
     {

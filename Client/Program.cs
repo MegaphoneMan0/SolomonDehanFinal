@@ -52,7 +52,10 @@ namespace Client
                     Console.WriteLine("CONNECTED TO THE SERVER");
                 }
                 //Controller.Controller c = new Controller.Controller(ws);
-                Application.Run(new uxLoginForm(ws));
+                uxLoginForm form = new uxLoginForm();
+                Controller.Controller c = new Controller.Controller(ws, form);
+                form.setUV(c, c);
+                Application.Run(form);
                 //Controller.Controller c = new Controller.Controller(ws);
                 //Application.Run(new uxLoginForm(c));
             }

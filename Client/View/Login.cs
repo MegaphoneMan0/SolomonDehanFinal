@@ -16,6 +16,7 @@ namespace Client.View
     {
         private State formState;
         private UserVerifier userVerifier;
+        private UpdateBid uBid;
         private Bid501 bidForm;
 
         /// <summary>
@@ -27,14 +28,19 @@ namespace Client.View
             InitializeComponent();
             Update(State.intialConnect);
         }
-        public uxLoginForm(WebSocket ws)
+        public uxLoginForm()
         {
             InitializeComponent();
-            bidForm = new Bid501();
-            Controller.Controller c = new Controller.Controller(ws, this);
             
-            userVerifier = c;
+
+            
             Update(State.intialConnect);
+        }
+
+       public void setUV(UserVerifier uv, UpdateBid ub)
+        {
+            userVerifier = uv;
+            uBid = ub;
         }
 
 
@@ -43,13 +49,20 @@ namespace Client.View
             formState = state;
             if(formState == State.loginPageTrue)
             {
-                
-                this.Hide();
-                bidForm.ShowDialog();
-                this.Close();
+                Console.WriteLine("LOGIN SUCCESS");
+                this.Invoke(new Action(() =>
+                {
+                    bidForm = new Bid501();
+                    bidForm.setUB(uBid);
+                    this.Hide();
+                    bidForm.ShowDialog();
+                    this.Close();
+                }));
+
             }
             else if(formState == State.loginPageFalse)
             {
+                Console.WriteLine("LOGIN FAIL");
                 MessageBox.Show("Username-Password combination is incorrect. Please try again.");
                 Update(State.intialConnect);
             }
