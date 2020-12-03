@@ -104,5 +104,10 @@ namespace BidLibrary.Library
         }//setTimer
 
 
+        public override string ToString()
+        {
+            return productID;
+        }
+
     }
 }

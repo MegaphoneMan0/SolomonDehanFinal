@@ -21,6 +21,11 @@ namespace Server
 
         private TimesUp TimesUpHandler;
 
+        private BindingList<Product> products = Database.returnAllProducts();
+
+        private BindingList<Client> clients = Database.returnAllClients();
+
+
         /// <summary>
         /// default constructor
         /// </summary>
@@ -31,7 +36,7 @@ namespace Server
 
             formState = State.Monitoring;
 
-            BindingList<Client> clients = Database.returnAllClients();
+            
             
             uxClientListBox.DataSource = clients;
 
@@ -46,7 +51,8 @@ namespace Server
                 productList.Add(s);
             }//foreach
 
-            uxProductListBox.DataSource = productList;
+            uxProductListBox.DataSource = products;
+            
 
         }
 
@@ -120,7 +126,11 @@ namespace Server
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
 
-                uxClientListBox.DataSource = Database.clientLibrary;
+                if (this.IsHandleCreated)
+                {
+                    this.Invoke(new Action(() =>
+                    ))
+                }
 
                 //this.Invoke(new Action(() =>
                 //{ refresh(); }));
