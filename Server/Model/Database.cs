@@ -176,9 +176,10 @@ namespace Server.Model
         /// adds a client to the client library
         /// </summary>
         /// <param name="c">a string to identify the client</param>
-        public static void addClient(string c)
+        public static void addClient(string c)//, WebSocketSharp.WebSocket ws)
         {
             Client clientToAdd = new Client(c);
+            //clientToAdd.ws = ws;
             clientLibrary.Add(clientToAdd);
         }
 

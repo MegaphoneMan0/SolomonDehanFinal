@@ -172,18 +172,30 @@ namespace Server.Controller
                     //existingProduct.setBid(newBid);
                     List<Bid> bidList = existingProduct.getBidList();
 
-                    foreach(Bid bid in bidList)
+                    if (bidList != null)
                     {
-                        if (bid.getBidder().Equals(message.getClientID()))
-                        {
-                            bidList.Remove(bid);
-                            bidList.Add(newBid);
-                        }//if
-                    }//foreach
 
+                        foreach (Bid bid in bidList)
+                        {
+                            if (bid.getBidder().Equals(message.getClientID()))
+                            {
+                                bidList.Remove(bid);
+                                bidList.Add(newBid);
+                            }//if
+                        }//foreach
+                    }
+                    else
+                    {
+                        bidList = new List<Bid>();
+                        bidList.Add(newBid);
+                    }
 
                     //swank, time to log that bid in the bid library
                     Database.addBid(newBid);
+
+
+                    existingProduct.setBid(bidList);
+                    
 
                     //now we need to create a message containing the new bid to send out to our clients.
                     //this is going to be basically the same as when we send the whole product list

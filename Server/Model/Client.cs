@@ -28,6 +28,9 @@ namespace Server.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
 
+        //public WebSocketSharp.WebSocket ws { get; set; }
+
+
         //methods
 
         /// <summary>

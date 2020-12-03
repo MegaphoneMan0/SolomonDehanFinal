@@ -69,7 +69,7 @@ namespace Server.Controller
                     Sessions.Broadcast(msg);
                 }//else
             }
-            CheckForDisconnects();
+            //CheckForDisconnects();
         }//sendToClients
 
         /// <summary>
@@ -113,7 +113,12 @@ namespace Server.Controller
                 //checking if it is a newBid to be communicated to all, or just a client verification
                 if (returnMessage.getMessageType() == MessageType.Product_List_Information)
                 {
-                    Sessions.Broadcast(reply);
+                    Send(reply);
+                    foreach (IWebSocketSession ws in Sessions.Sessions)
+                    {
+                        ws.Context.WebSocket.Send(reply);
+                    }
+
                 }//if
                 else if(returnMessage.getMessageType() == MessageType.Credential_Information_Verification)
                 {
@@ -131,7 +136,7 @@ namespace Server.Controller
                 //we do nothing!
             }//else
 
-            CheckForDisconnects();
+            //CheckForDisconnects();
         }//OnMessage
         
         /// <summary>
@@ -166,7 +171,7 @@ namespace Server.Controller
             Send(msg);
 
 
-            CheckForDisconnects();
+            //CheckForDisconnects();
 
 
 
@@ -179,7 +184,7 @@ namespace Server.Controller
         public void CheckForDisconnects()
         {
             //check for clients that no longer exist
-            foreach (Client c in Database.returnAllClients())
+            foreach (Client c in Database.returnAllClients().ToList())
             {
                 string id = c.getID();
                 bool isActive = false;
