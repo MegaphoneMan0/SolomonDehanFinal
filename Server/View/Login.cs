@@ -54,7 +54,7 @@ namespace Server.View
             //starting a webSocketServer at port 8000
             WebSocketServer wss = new WebSocketServer(8000);//localIP
             wss.AddWebSocketService("/communicator", () => {
-                Communicator server = new Communicator(c);
+                Communicator server = new Communicator(c,c);
                 return server;
             }
             );

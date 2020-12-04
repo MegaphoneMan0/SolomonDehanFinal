@@ -1,4 +1,5 @@
 ﻿using BidLibrary.Library;
+using Server.Controller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +29,7 @@ namespace Server.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        //public WebSocketSharp.WebSocket ws { get; set; }
+        public Communicator webSocketSession;
 
 
         //methods

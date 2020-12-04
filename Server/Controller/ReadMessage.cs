@@ -14,7 +14,7 @@ namespace Server.Controller
         /// </summary>
         /// <param name="message">the message that needs interpreting</param>
         /// <returns>the message (if its credential verification) or null if it's a new bid</returns>
-        Message ReadMessage(Message message);
+        void ReadMessage(Message message, Communicator communicator);
         
 
     }

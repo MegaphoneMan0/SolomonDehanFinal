@@ -12,7 +12,7 @@ using Server.View;
 
 namespace Server.Controller
 {
-    class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, TimesUp
+    public class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, TimesUp
     {
         /*
         //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
@@ -50,7 +50,7 @@ namespace Server.Controller
         public Controller(Observer o)
         {
             observer = o;
-            communicator = new Communicator(this);
+            communicator = new Communicator(this,this);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Server.Controller
         /// </summary>
         /// <param name="message">the message that is being read</param>
         /// <returns>the message (if its credential verification) or null if it's a new bid</returns>
-        public Message ReadMessage(Message message)
+        public void ReadMessage(Message message,Communicator comm)
         {
             //reads a message and reacts appropriatly 
 
@@ -154,7 +154,8 @@ namespace Server.Controller
                         newMessage = new Message(MessageType.Credential_Information_Verification, userName, password, false);
                     }//else
 
-                    return newMessage;
+                    comm.sendMessageToClients(newMessage);
+                    //return newMessage;
                     break;
 
                 case MessageType.New_Bid:
@@ -210,14 +211,16 @@ namespace Server.Controller
                     //copying a lot of this out of an earlier lab, lets hope it flies
                    // SetMostCurrentTimer();
 
-                    observer.Update(State.Recieved_New_Bid);
-                    return newMessage;
+                    //observer.Update(State.Recieved_New_Bid);
+                    comm.sendMessageToClients(newMessage);
+
+                    //return newMessage;
                     break;
 
                 default:
 
                     //if the message isn't one of these two type we do nothing
-                    return null;
+                    //return null;
                     break;
 
 
@@ -289,87 +292,7 @@ namespace Server.Controller
 
 
 
-        //the timer stuff that lol don't actually need
-
-
-        /*
-        /// <summary>
-        /// This will set the active timer, which will trigger OnTimedEvent. OnTimedEvent should also set the next timer
-        /// </summary>
-        /// <param name="amountOfTime">the amount of time till the bid is up in milliseconds</param>
-        private void SetTimer(int amountOfTime)
-        {
-
-            aTimer = new System.Timers.Timer(amountOfTime);
-            // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = false;
-            aTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// this event is tripped whenever aTimer goes off
-        /// </summary>
-        /// <param name="source">who knows</param>
-        /// <param name="e">*shrug*</param>
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-
-            //the timer's up, let's do this
-            Console.WriteLine("One of the bid timers is up");
-
-            SetMostCurrentTimer();
-
-
-            //now need to notify the clients
-
-            //remove product and send updated list
-
-
-
-        }//onTimedEvent
-
-        /// <summary>
-        /// This is just because I had to use this exact same giant block of code twice. Looks cleaner this way.
-        /// All it does is set a "nextTimer" to the highest possible value, then checks which timer in all of the bids is the lowest.
-        /// This method is called whenever a new bid is added or whenever the current timer goes off. 
-        /// </summary>
-        private void SetMostCurrentTimer()
-        {
-            int nextTimer = 2147483500;
-            bool nothing = false;//if this bool is still false by the end, it means there was nothing and we need to just get rid of the timer
-
-            //determine the next timer
-            foreach (Product p in Database.returnAllProducts())
-            {
-                double timeSpanInMill = p.getTimer();
-                int intTimeSpan = Convert.ToInt32(timeSpanInMill);
-
-                if ((intTimeSpan < nextTimer) & (intTimeSpan > 0))
-                {
-                    nextTimer = intTimeSpan;
-                    nothing = true;
-                }//if
-
-            }//foreach
-
-            if (nothing)
-            {
-                aTimer.Dispose();
-
-                SetTimer(nextTimer);
-            }//if
-            else
-            {
-                aTimer.Dispose();
-
-            }//else
-        }
-
-        */
-
-
-
+        
 
 
     }//class

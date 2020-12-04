@@ -17,7 +17,7 @@ namespace BidLibrary.Library
 
         [JsonProperty] private string password;
 
-        [JsonProperty] private IList<Product> products;
+        [JsonProperty] private List<Product> products;
 
         [JsonProperty] private Bid newBid;
 

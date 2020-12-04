@@ -20,30 +20,31 @@ namespace Server.Controller
     /// <summary>
     /// handles communicating information to and from connected clients
     /// </summary>
-    class Communicator : WebSocketBehavior
+    public class Communicator : WebSocketBehavior
     {
         //properties
 
         /// <summary>
         /// interface that allows the communicator to call the "readmessage" method from the controller  
         /// </summary>
-        //private ReadMessage readMessageHandler;
+        private ReadMessage readMessageHandler;
 
         /// <summary>
         /// interface that updates the client list whenever OnClose or OnOpen 
         /// </summary>
-        //private UpdateClientList updateClientListHandler;
+        private UpdateClientList updateClientListHandler;
 
-        private Controller c;
+        //private Controller c;
 
 
-        
-        public Communicator(Controller controller)
+
+        public Communicator(ReadMessage readMessage, UpdateClientList update)
         {
-            c = controller;
+            readMessageHandler = readMessage;
+            updateClientListHandler = update;
         }
 
-       
+
         /// <summary>
         /// This method will use websockets to send a message to one or all clients
         /// </summary>
@@ -53,22 +54,14 @@ namespace Server.Controller
             //ALRIGHT
             //WE NEED TO REFACTOR THIS TO BE ABLE TO SEND TO CERTAIN CLIENTS IF MESSAGETYPE IS WIN_LOSE_NOTI
 
-            if (Sessions != null)
-            {
-                if (message.getMessageType() == MessageType.Win_Lose_Noti)
-                {
-                    string cID = message.getClientID();
-                    string msg = JsonConvert.SerializeObject(message);
-                    Sessions.SendTo(cID, msg);
-                }//if
+            string reply = JsonConvert.SerializeObject(message);
 
-                else
-                {
-                    //this is if it needs to be sent to all, cool, who cares
-                    string msg = JsonConvert.SerializeObject(message);
-                    Sessions.Broadcast(msg);
-                }//else
-            }
+            Action<bool> action;
+            action = ShowSendResult;
+
+            Console.WriteLine(ID);
+            SendAsync(reply, action);
+
             //CheckForDisconnects();
         }//sendToClients
 
@@ -78,14 +71,7 @@ namespace Server.Controller
         /// <param name="e">e.Data is the serialized string from the client</param>
         protected override void OnMessage(MessageEventArgs e)
         {
-            /*
-            //alright, fun fact, there doesn't seem to be any way of singleing out a certian client except in here or in one of the other On_____ methods
-            //cool
-            //so we need to refactor sendMessageToClients to just return the serialized string. Not what I wanted but it'll work
-            //actually, I think that isn't even needed anymore.
-            //I'll just have read message return the string, or null if it doesn't need it
-            //sendmessage can go back to being the session.broacast bit that it was before
-            */
+
 
             Client thisClient = Database.searchClient(ID);
 
@@ -98,44 +84,14 @@ namespace Server.Controller
             Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
 
             Console.WriteLine(newMessage.getUserName());
-            
-            Message returnMessage = c.ReadMessage(newMessage);
 
-            
+            readMessageHandler.ReadMessage(newMessage, this);
 
-            //if the return message is not null then we need to send the reply
-            if(returnMessage != null)
-            {
-                //re-serializing
-                
-                string reply = JsonConvert.SerializeObject(returnMessage);
 
-                //checking if it is a newBid to be communicated to all, or just a client verification
-                if (returnMessage.getMessageType() == MessageType.Product_List_Information)
-                {
-                    Send(reply);
-                    Sessions.Broadcast(reply);
-
-                }//if
-                else if(returnMessage.getMessageType() == MessageType.Credential_Information_Verification)
-                {
-                    Send(reply);
-
-                }//else if
-                else
-                {
-                    //uncertain if anything needs to go here, leaving it for now
-                }//else        
-                
-            }//if
-            else
-            {
-                //we do nothing!
-            }//else
 
             //CheckForDisconnects();
         }//OnMessage
-        
+
         /// <summary>
         /// This method is run when a connection from a client is opened
         /// </summary>
@@ -149,21 +105,21 @@ namespace Server.Controller
             Database.addClient(ID);
 
             Console.WriteLine("SOMEONE CONNECTED");
-            
+
 
             //get a list of session IDs
             List<string> sessionList = Sessions.ActiveIDs.ToList();
 
 
 
-            BindingList<Product> updatedProducts = c.UpdateClientList(sessionList);
+            BindingList<Product> updatedProducts = updateClientListHandler.UpdateClientList(sessionList);
 
             //now, we need to send the client the product list in the database. This is done with the return of updateClientList
             //first, we serialize
 
-            Message message = new Message(MessageType.Product_List_Information,updatedProducts.ToList());
+            Message message = new Message(MessageType.Product_List_Information, updatedProducts.ToList());
 
-            string msg = JsonConvert.SerializeObject(message,Formatting.Indented);
+            string msg = JsonConvert.SerializeObject(message, Formatting.Indented);
 
             Send(msg);
 
@@ -174,6 +130,16 @@ namespace Server.Controller
 
 
         }//OnClose
+
+
+        private void ShowSendResult(bool b)
+        {
+            Console.WriteLine(b);
+        }
+
+
+
+        //garbage collector methods
 
         /// <summary>
         /// this method checks all of the clients against the active sessions, and removes the clients that are no longer active
@@ -219,7 +185,7 @@ namespace Server.Controller
                 vs.Add(i.ID);
             }//foreach
 
-            c.UpdateClientList(vs);
+            updateClientListHandler.UpdateClientList(vs);
 
             //in this case we can ignore the return of UpdateClientList
 
@@ -233,4 +199,8 @@ namespace Server.Controller
 
 
     }
+
+
+    
+
 }
