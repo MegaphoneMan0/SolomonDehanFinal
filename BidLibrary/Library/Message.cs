@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace BidLibrary.Library
 
         [JsonProperty] private string password;
 
-        [JsonProperty] private List<Product> products;
+        [JsonProperty] private BindingList<Product> products;
 
         [JsonProperty] private Bid newBid;
 
@@ -63,7 +64,7 @@ namespace BidLibrary.Library
             credentialVerification = verification;
         }
 
-        public Message(MessageType mType, List<Product> lProduct)
+        public Message(MessageType mType, BindingList<Product> lProduct)
         {
             type = mType;
             userName = null;
@@ -106,9 +107,9 @@ namespace BidLibrary.Library
             return password;
         }
 
-        public List<Product> getProducts()
+        public BindingList<Product> getProducts()
         {
-            return products.ToList();
+            return products;
         }
 
         public Bid getNewBid()
@@ -134,7 +135,7 @@ namespace BidLibrary.Library
         /// <summary>
         /// THE BIG BOI CONSTRUCTOR
         /// </summary>
-        [JsonConstructor] public Message(MessageType mType, string userN, string pass, List<Product> productList, Bid bid, bool credV, string ID, bool winLose )
+        [JsonConstructor] public Message(MessageType mType, string userN, string pass, BindingList<Product> productList, Bid bid, bool credV, string ID, bool winLose )
         {
             type = mType;
             userName = userN;

@@ -135,6 +135,8 @@ namespace Client.Controller
                 case MessageType.Product_List_Information:
                     Console.WriteLine("reading product list message");
                     replaceCurrentList(message.getProducts());
+                    observer.Update(Client.State.updating);
+                    observer2.Update(Client.State.updating);
                     break;
 
 
@@ -157,7 +159,7 @@ namespace Client.Controller
 
 
 
-        public void replaceCurrentList(List<Product> newList)
+        public void replaceCurrentList(BindingList<Product> newList)
         {
             DatabaseProxy.productList = newList;
             

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,8 @@ namespace Client.Data
         /// <summary>
         /// a list of available products that clients can bid on. Only includes products available for bidding
         /// </summary>
-        public static List<Product> productList = new List<Product>();
-
+        public static BindingList<Product> productList = new BindingList<Product>();
+        
 
 
 
@@ -31,7 +32,7 @@ namespace Client.Data
         /// returns all products in the database proxy
         /// </summary>
         /// <returns>the productList</returns>
-        public static List<Product> getAll()
+        public static BindingList<Product> getAll()
         {
             return productList;
         }

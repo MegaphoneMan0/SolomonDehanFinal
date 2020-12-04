@@ -17,10 +17,11 @@ namespace Client.View
     {
         private UpdateBid uBid;
         private State formState;
+        private BindingList<Product> pList = DatabaseProxy.productList;
         public Bid501()
         {
             InitializeComponent();
-            uxListBox.DataSource = DatabaseProxy.productList;
+            uxListBox.DataSource = pList;
             Update(State.intialConnect);
         }
 
@@ -34,7 +35,11 @@ namespace Client.View
             formState = state;
             if (formState == State.updating)
             {
-                uxListBox.DataSource = Data.DatabaseProxy.productList;
+                if (this.IsHandleCreated)
+                {
+                    this.Invoke(new Action(() => pList.ResetBindings()
+                        ));
+                }
             }
 
         }
