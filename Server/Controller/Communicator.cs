@@ -114,10 +114,7 @@ namespace Server.Controller
                 if (returnMessage.getMessageType() == MessageType.Product_List_Information)
                 {
                     Send(reply);
-                    foreach (IWebSocketSession ws in Sessions.Sessions)
-                    {
-                        ws.Context.WebSocket.Send(reply);
-                    }
+                    Sessions.Broadcast(reply);
 
                 }//if
                 else if(returnMessage.getMessageType() == MessageType.Credential_Information_Verification)
