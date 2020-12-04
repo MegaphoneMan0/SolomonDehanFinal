@@ -25,6 +25,7 @@ namespace Client.Controller
         /// a list of observers that update based on the form
         /// </summary>
         private Observer observer;
+        private Observer observer2;
 
         //public event string MessageRecieved;
 
@@ -33,9 +34,10 @@ namespace Client.Controller
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         private WebSocket ws;
 
-        public Controller(WebSocket socket, Observer o)
+        public Controller(WebSocket socket, Observer o, Observer x)
         {
             observer = o;
+            observer2 = x;
             ws = socket;
             ws.OnMessage += (sender, e) => ReadMessage(e.Data);
             
@@ -50,8 +52,9 @@ namespace Client.Controller
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
             sendMessageToServer(newMessage);
             observer.Update(Client.State.loginPageWFR);
-            
-            
+            observer2.Update(Client.State.loginPageWFR);
+
+
         }
         
 
@@ -120,10 +123,12 @@ namespace Client.Controller
                     if (v)
                     {
                         observer.Update(Client.State.loginPageTrue);
+                        observer2.Update(Client.State.loginPageTrue);
                     }
                     else
                     {
                         observer.Update(Client.State.loginPageFalse);
+                        observer2.Update(Client.State.loginPageFalse);
                     }
                     returnedCredentials(v);
                     break;

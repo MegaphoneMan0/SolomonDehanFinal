@@ -16,15 +16,16 @@ namespace Client.View
     {
         private State formState;
         private UserVerifier userVerifier;
-        private UpdateBid uBid;
+       // private UpdateBid uBid;
         private Bid501 bidForm;
 
         /// <summary>
         /// constructor
         /// </summary>
-        public uxLoginForm(UserVerifier uv)
+        public uxLoginForm(UserVerifier uv, Bid501 bf)
         {
             userVerifier = uv;
+            bidForm = bf;
             InitializeComponent();
             Update(State.intialConnect);
         }
@@ -37,10 +38,11 @@ namespace Client.View
             Update(State.intialConnect);
         }
 
-       public void setUV(UserVerifier uv, UpdateBid ub)
+       public void setUV(UserVerifier uv, Bid501 bf)
         {
+            bidForm = bf;
             userVerifier = uv;
-            uBid = ub;
+            //uBid = ub;
         }
 
 
@@ -52,11 +54,10 @@ namespace Client.View
                 Console.WriteLine("LOGIN SUCCESS");
                 this.Invoke(new Action(() =>
                 {
-                    bidForm = new Bid501();
-                    bidForm.setUB(uBid);
+                    
                     this.Hide();
                     bidForm.ShowDialog();
-                    this.Close();
+                    //this.Close();
                 }));
 
             }

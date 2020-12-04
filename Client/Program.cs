@@ -21,30 +21,12 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            /*
-            using(var ws = new WebSocket("ws://192.168.184.128:8000/"))
-            {
-                ws.OnMessage += async (sender, e) =>
-                {
-
-                    await Task.FromResult<object>(null);
-                    Console.WriteLine(e.Data);
-                };
-
-                ws.Connect();
-                ws.Send("This is a test message");
-                Controller.Controller c = new Controller.Controller(ws);
-                Application.Run(new uxLoginForm(c));
-            }
-            */
-            //ws://192.168.184.128:8000/
-            
-            //string ip = "192.168.184.128", port = "800";
+           
             using (WebSocket ws = new WebSocket("ws://10.130.48.166:8000/communicator"))
             {
                 Uri s = ws.Url;
                 Console.WriteLine("current URL we are trying  " + s.ToString());
-                // var exampleSocket = new WebSocket("wss://192.168.184.128:8000/communicator");
+               
                 
                 ws.Connect();
                 if (ws.IsAlive)
@@ -53,8 +35,12 @@ namespace Client
                 }
                 //Controller.Controller c = new Controller.Controller(ws);
                 uxLoginForm form = new uxLoginForm();
-                Controller.Controller c = new Controller.Controller(ws, form);
-                form.setUV(c, c);
+                Bid501 bidForm = new Bid501();
+                
+                Controller.Controller c = new Controller.Controller(ws, form, bidForm);
+                
+                bidForm.setUB(c);
+                form.setUV(c, bidForm);
                 Application.Run(form);
                 //Controller.Controller c = new Controller.Controller(ws);
                 //Application.Run(new uxLoginForm(c));
