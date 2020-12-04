@@ -12,13 +12,13 @@ using System.Net;
 using System.Net.Sockets;
 using WebSocketSharp;
 using Newtonsoft.Json;
-using WebSocketSharp.Server;
+//using WebSocketSharp.Server;
 using WebSocket = WebSocketSharp.WebSocket;
 using Client.View;
 
 namespace Client.Controller
 {
-    class Controller : WebSocketBehavior, UserVerifier, UpdateBid
+    class Controller : UserVerifier, UpdateBid
     {
 
         /// <summary>
@@ -26,16 +26,20 @@ namespace Client.Controller
         /// </summary>
         private Observer observer;
 
+        //public event string MessageRecieved;
 
         private bool returned = false;
         private bool verified = false;
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         private WebSocket ws;
-            public Controller(WebSocket socket, Observer o)
+
+        public Controller(WebSocket socket, Observer o)
         {
             observer = o;
             ws = socket;
             ws.OnMessage += (sender, e) => ReadMessage(e.Data);
+            
+
         }
 
 
@@ -101,9 +105,10 @@ namespace Client.Controller
         {
             Message message = JsonConvert.DeserializeObject<Message>(msg);
 
-           
+            Console.WriteLine(message.getMessageType());
 
-            
+
+
             MessageType messageType = message.getMessageType();
 
 
