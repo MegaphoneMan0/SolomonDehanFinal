@@ -60,6 +60,7 @@ namespace Server.Controller
             action = ShowSendResult;
 
             Console.WriteLine(ID);
+            Console.WriteLine(message.getMessageType());
             SendAsync(reply, action);
 
             //CheckForDisconnects();
@@ -83,7 +84,6 @@ namespace Server.Controller
 
             Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
 
-            Console.WriteLine(newMessage.getUserName());
 
             readMessageHandler.ReadMessage(newMessage, this);
 
@@ -117,12 +117,15 @@ namespace Server.Controller
             //now, we need to send the client the product list in the database. This is done with the return of updateClientList
             //first, we serialize
 
-            Message message = new Message(MessageType.Product_List_Information, updatedProducts.ToList());
+            Message message = new Message(MessageType.Product_List_Information, updatedProducts);
 
             string msg = JsonConvert.SerializeObject(message, Formatting.Indented);
 
-            Send(msg);
+            Action<bool> action;
+            action = ShowSendResult;
 
+            
+            SendAsync(msg, action);
 
             //CheckForDisconnects();
 
@@ -139,38 +142,13 @@ namespace Server.Controller
 
 
 
-        //garbage collector methods
-
-        /// <summary>
-        /// this method checks all of the clients against the active sessions, and removes the clients that are no longer active
-        /// </summary>
-        public void CheckForDisconnects()
-        {
-            //check for clients that no longer exist
-            foreach (Client c in Database.returnAllClients().ToList())
-            {
-                string id = c.getID();
-                bool isActive = false;
-                foreach (IWebSocketSession wss in Sessions.Sessions)
-                {
-                    if (wss.ID.Equals(id))
-                    {
-                        isActive = true;
-                    }//if
-                }//foreach
-
-                if (!isActive)
-                {
-                    OnClose(id);
-                }//if
-            }//foreach
-        }//method
+        
 
         /// <summary>
         /// This method is run when a connection from a client is closed
         /// </summary>
         /// <param name="e">event arguments from the client</param>
-        public void OnClose(string s)
+        protected override void OnClose(CloseEventArgs e)
         {
 
             Database.removeClient(ID);
