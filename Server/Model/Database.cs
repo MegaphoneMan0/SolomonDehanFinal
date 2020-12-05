@@ -104,15 +104,6 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Returns the userLibrary in it's entirety
-        /// </summary>
-        /// <returns></returns>
-        public static List<User> returnAllUsers()
-        {
-            return userLibrary;
-        }//returnAllUsers
-
-        /// <summary>
         /// returns the product library
         /// </summary>
         /// <returns>the product library as a list of products</returns>

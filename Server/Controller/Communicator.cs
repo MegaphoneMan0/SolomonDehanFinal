@@ -58,10 +58,17 @@ namespace Server.Controller
             Action<bool> action;
             action = ShowSendResult;
 
-            Console.WriteLine(ID);
-            Console.WriteLine(message.getMessageType());
-            SendAsync(reply, action);
+            if (message.getMessageType() == MessageType.Win_Lose_Noti)
+            {
+                Sessions.SendToAsync(message.getClientID(), reply, action);
+            }
+            else
+            {
 
+                Console.WriteLine(ID);
+                Console.WriteLine(message.getMessageType());
+                SendAsync(reply, action);
+            }
             //CheckForDisconnects();
         }//sendToClients
 
