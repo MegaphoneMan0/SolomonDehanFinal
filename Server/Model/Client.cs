@@ -26,8 +26,6 @@ namespace Server.Model
         /// </summary>
         private List<Product> currentBids;
 
-        public Communicator webSocketSession;
-
 
         //methods
 
