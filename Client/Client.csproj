@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\UpdateBid.cs" />
+    <Compile Include="Controller\SetNewObs.cs" />
     <Compile Include="Data\DatabaseProxy.cs" />
     <Compile Include="State.cs" />
     <Compile Include="View\Bid501.cs">

@@ -21,32 +21,36 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           
-            using (WebSocket ws = new WebSocket("ws://10.130.48.166:8000/communicator"))
-            {
-                Uri s = ws.Url;
-                Console.WriteLine("current URL we are trying  " + s.ToString());
-               
-                
-                ws.Connect();
-                if (ws.IsAlive)
-                {
-                    Console.WriteLine("CONNECTED TO THE SERVER");
-                }
-                //Controller.Controller c = new Controller.Controller(ws);
-                uxLoginForm form = new uxLoginForm();
-                
-                
-                Controller.Controller c = new Controller.Controller(ws, form);
-                
-                //c.setNewObs(bidForm);
-                //bidForm.setUB(c);
 
-                form.setUV(c, c);
+            //using (WebSocket ws = new WebSocket("ws://10.130.48.166:8000/communicator"))
+            // {
+            /*
+                 ws.Connect();
+                 if (ws.IsAlive)
+                 {
+                     Console.WriteLine("CONNECTED TO THE SERVER");
+                 }*/
+            //Controller.Controller c = new Controller.Controller(ws);
+            uxLoginForm form = new uxLoginForm();
+            //Bid501 form = new Bid501();
+                
+                Controller.Controller c = new Controller.Controller( form);
+
+            //c.setNewObs(bidForm);
+            //form.setUB(c);
+           
+                form.setUV(c, c, c);
                 Application.Run(form);
                 //Controller.Controller c = new Controller.Controller(ws);
                 //Application.Run(new uxLoginForm(c));
-            }
+           // }
+            
+          /*
+           * 
+           * 
+           * 
+           * 
+           */
             
 
 

@@ -66,12 +66,18 @@ namespace Client.View
             if(bidList != null)
             {
                 Bid topBid = bidList[(bidList.Count - 1)];
+                
                 if (topBid.getBid() < bidAMT)
                 {
                     newBid.setBid(bidAMT);
                     newBid.setProduct(curPro);
                     uBid.UpdateBid(newBid);
                 }
+                else
+                {
+                    MessageBox.Show("Bid is not higher than current high bid");
+                }
+
             }
             else
             {
@@ -119,6 +125,11 @@ namespace Client.View
 
         }
 
-        
+        private void uxLoad_Click(object sender, EventArgs e)
+        {
+            pList = DatabaseProxy.productList;
+            uxListBox.DataSource = pList;
+            Update(State.updating);
+        }
     }
 }
