@@ -14,22 +14,7 @@ namespace Server.Controller
 {
     public class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, TimesUp
     {
-        /*
-        //I TOTALLY FORGOT ABOUT THE TIMERS AND ALL THAT
-        //SHIT
-        //ALRIGHT, I NEED TO FIND HOW I DID IT EARLIER THIS YEAR. PRETTY SURE I CAN REPLICATE THAT... SORT OF
-        //FUCK
-
-        //aight, the max amount of time that we can support is a bit longer that 24 days
-        //effectively, we could probably get away with bit a bit longer than that, but that's the safe bound
-        //public System.Timers.Timer aTimer = new System.Timers.Timer();
-        
-        //lol, jk, no timers necessary
-        //creating the thingy on the form
-        */
-
-
-
+    
 
         /// <summary>
         /// a list of observers that update based on the form

@@ -15,9 +15,21 @@ namespace Client.View
 {
     public partial class Bid501 : Form , Observer
     {
+        /// <summary>
+        /// a variable to keep track of the UpdateBid object
+        /// </summary>
         private UpdateBid uBid;
+        /// <summary>
+        /// a variable to keep track of the state of the controller
+        /// </summary>
         private State formState;
+        /// <summary>
+        /// a BindingList of products to keep the view in sync with the server
+        /// </summary>
         private BindingList<Product> pList = DatabaseProxy.productList;
+        /// <summary>
+        /// A default constructor for the Bid501 View
+        /// </summary>
         public Bid501()
         {
             InitializeComponent();
@@ -26,12 +38,16 @@ namespace Client.View
             Update(State.intialConnect);
             
         }
-
+        /// <summary>
+        /// Sets the UpdateBid variable to the given value
+        /// </summary>
         public void setUB(UpdateBid ub)
         {
             uBid = ub;
         }
-
+        /// <summary>
+        /// updates the view based on the updates controller state
+        /// </summary>
         public void Update(State state)
         {
             formState = state;
@@ -46,10 +62,11 @@ namespace Client.View
 
         }
 
+        /// <summary>
+        /// Creates and checks the validity of a new bid based on the information in the view
+        /// </summary>
         private void bidButton_Click(object sender, EventArgs e)
         {
-            //Product sample = uxListBox.SelectedItem;
-            //Product sample = new Product();
             Product curPro = new Product();
 
             string current = uxListBox.SelectedItem.ToString();
@@ -88,6 +105,9 @@ namespace Client.View
             
         }
 
+        /// <summary>
+        /// Changes information on the form based on a change of the selected item in the listbox
+        /// </summary>
         private void uxListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Product curPro= new Product();
@@ -124,7 +144,9 @@ namespace Client.View
             }
 
         }
-
+        /// <summary>
+        /// Refreshes the listbox when the buttons is pressed
+        /// </summary>
         private void uxLoad_Click(object sender, EventArgs e)
         {
             pList = DatabaseProxy.productList;

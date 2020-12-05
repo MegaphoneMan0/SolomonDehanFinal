@@ -9,7 +9,7 @@ namespace Client.View
     public interface Observer
     {
         /// <summary>
-        /// 
+        /// An observer to track the state of the controller
         /// </summary>
         /// <param name="state">an enum describing the state of the view</param>
         void Update(State state);

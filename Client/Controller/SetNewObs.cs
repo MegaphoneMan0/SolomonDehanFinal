@@ -9,7 +9,9 @@ namespace Client.Controller
 {
     public interface SetNewObs
     {
-        
+        /// <summary>
+        /// Interface to integrate the SetNewObs method
+        /// </summary>
         void SetNewObs(Observer x);
 
     }

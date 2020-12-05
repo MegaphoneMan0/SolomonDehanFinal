@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    /// <summary>
+    /// an enum of states to keep track of what the controller is supposed to be doing
+    /// </summary
     public enum State
     {
         loginPageWFR,
