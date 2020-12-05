@@ -86,7 +86,10 @@ namespace BidLibrary.Library
             product = prod;
         }//setBid
 
-
+        public override string ToString()
+        {
+            return highestBid.ToString();
+        }
 
 
 

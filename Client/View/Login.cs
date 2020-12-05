@@ -17,6 +17,7 @@ namespace Client.View
         private State formState;
         private UserVerifier userVerifier;
         private UpdateBid uBid;
+        private SetNewObs setObs;
         //private UpdateBid bidForm;
 
         /// <summary>
@@ -38,11 +39,12 @@ namespace Client.View
             Update(State.intialConnect);
         }
 
-       public void setUV(UserVerifier uv, UpdateBid ub)
+       public void setUV(UserVerifier uv, UpdateBid ub, SetNewObs sno)
         {
             //bidForm = bf;
             userVerifier = uv;
             uBid = ub;
+            setObs = sno;
         }
 
 
@@ -56,6 +58,7 @@ namespace Client.View
                 {
                     Bid501 bidForm = new Bid501();
                     bidForm.setUB(uBid);
+                    setObs.SetNewObs(bidForm);
                     this.Hide();
                     bidForm.Update(State.updating);
                     bidForm.ShowDialog();

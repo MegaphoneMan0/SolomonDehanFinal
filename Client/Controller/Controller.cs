@@ -18,45 +18,46 @@ using Client.View;
 
 namespace Client.Controller
 {
-    class Controller : UserVerifier, UpdateBid
+    class Controller : UserVerifier, UpdateBid, SetNewObs
     {
 
         /// <summary>
         /// a list of observers that update based on the form
         /// </summary>
         private Observer observer;
-        //private Observer observer2;
 
-        //public System.Timers.Timer aTimer = new System.Timers.Timer();
-        private WebSocket ws;
+        private WebSocket ws = new WebSocket("ws://10.130.48.166:8000/communicator");
+
 
         public event ServerMessage MessageRecieved;
 
         public delegate void ServerMessage(string message);
 
-        public Controller(WebSocket socket, Observer o)
+        public Controller(Observer o)
         {
-            observer = o;
-           // observer2 = x;
-            ws = socket;
             ws.OnMessage += (sender, e) =>
             {
                 MessageRecieved(e.Data);
             };
 
             MessageRecieved += ReadMessage;
+            ws.Connect();
+            if (ws.IsAlive)
+            {
+                Console.WriteLine("CONNECTED TO THE SERVER");
+            }
+            observer = o;
+           
+            
 
         }
+        
 
-
-
-        /*
-
-        public void setNewObs(Observer x)
+        public void SetNewObs(Observer x)
         {
-            observer2 = x;
+            observer = x;
         }
-        */
+        
 
 
         public void VerifyUser(string username, string password)
@@ -64,7 +65,6 @@ namespace Client.Controller
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
             sendMessageToServer(newMessage);
             observer.Update(Client.State.loginPageWFR);
-            //observer2.Update(Client.State.loginPageWFR);
 
 
         }
@@ -78,39 +78,17 @@ namespace Client.Controller
 
         public void sendMessageToServer(Message message)
         {
-            //Console.WriteLine("password before serial: " + message.getPassword());
             var msg = JsonConvert.SerializeObject(message);
-            // Message othertest = (Message)JsonConvert.DeserializeObject(msg);
-            // Console.WriteLine("this is the deserialized password: " + othertest.getPassword());
-            //double far = 2.14;
-           //string msg = JsonConvert.SerializeObject(far);
+            
             if (ws.IsAlive) {
                 ws.Send(msg); 
             }
             
-            Message test = JsonConvert.DeserializeObject<Message>(msg);
-            //Console.WriteLine("this is the deserialized password: "+test.getPassword());
-            // Sessions.Broadcast(msg);
+            //Message test = JsonConvert.DeserializeObject<Message>(msg);
 
 
         }
 
-        /*
-
-        protected override void OnMessage(MessageEventArgs e)
-        {
-            Console.WriteLine("on message");
-            string msg = e.Data;
-
-            Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
-
-            ReadMessage(newMessage);
-
-           
-
-
-        }
-        */
         /// <summary>
         /// reads the message from the client and reacts depending on the message type
         /// </summary>
@@ -135,12 +113,10 @@ namespace Client.Controller
                     if (v)
                     {
                         observer.Update(Client.State.loginPageTrue);
-                        //observer2.Update(Client.State.loginPageTrue);
                     }
                     else
                     {
                         observer.Update(Client.State.loginPageFalse);
-                        //observer2.Update(Client.State.loginPageFalse);
                     }
                     
                     break;
@@ -148,7 +124,6 @@ namespace Client.Controller
                     Console.WriteLine("reading product list message");
                     replaceCurrentList(message.getProducts());
                     observer.Update(Client.State.updating);
-                    //observer2.Update(Client.State.updating);
                     break;
 
 

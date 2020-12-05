@@ -38,6 +38,7 @@ namespace Client.View
             this.uxStatusLabel = new System.Windows.Forms.Label();
             this.uxRemainingTime = new System.Windows.Forms.Label();
             this.uxProductName = new System.Windows.Forms.Label();
+            this.uxLoad = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bidButton
@@ -117,11 +118,22 @@ namespace Client.View
             this.uxProductName.TabIndex = 9;
             this.uxProductName.Text = "Product Name";
             // 
+            // uxLoad
+            // 
+            this.uxLoad.Location = new System.Drawing.Point(525, 369);
+            this.uxLoad.Name = "uxLoad";
+            this.uxLoad.Size = new System.Drawing.Size(75, 23);
+            this.uxLoad.TabIndex = 10;
+            this.uxLoad.Text = "Refresh";
+            this.uxLoad.UseVisualStyleBackColor = true;
+            this.uxLoad.Click += new System.EventHandler(this.uxLoad_Click);
+            // 
             // Bid501
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(695, 450);
+            this.Controls.Add(this.uxLoad);
             this.Controls.Add(this.uxProductName);
             this.Controls.Add(this.uxRemainingTime);
             this.Controls.Add(this.uxStatusLabel);
@@ -149,6 +161,7 @@ namespace Client.View
         private System.Windows.Forms.Label uxStatusLabel;
         private System.Windows.Forms.Label uxRemainingTime;
         private System.Windows.Forms.Label uxProductName;
+        private System.Windows.Forms.Button uxLoad;
     }
 }
 
