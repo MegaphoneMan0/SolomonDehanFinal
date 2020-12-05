@@ -41,16 +41,12 @@ namespace Client
                 
                 bidForm.setUB(c);
                 form.setUV(c, bidForm);
+
+
                 Application.Run(form);
                 //Controller.Controller c = new Controller.Controller(ws);
                 //Application.Run(new uxLoginForm(c));
             }
-            
-
-
-
-
-
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Server.Controller
 
             //create a new message with all of the products
             BindingList<Product> products = Database.returnAllProducts();
-            Message newMessage = new Message(MessageType.Product_List_Information, products.ToList());
+            Message newMessage = new Message(MessageType.Product_List_Information, products);
 
             //send out the updated list if there are any connected clients
             if (Database.returnAllClients().Count > 0)
@@ -202,7 +202,7 @@ namespace Server.Controller
                     //this is going to be basically the same as when we send the whole product list
                     BindingList<Product> products = Database.returnAllProducts();
 
-                    newMessage = new Message(MessageType.Product_List_Information, products.ToList());
+                    newMessage = new Message(MessageType.Product_List_Information, products);
 
 
 

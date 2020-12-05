@@ -31,29 +31,9 @@ namespace Server
         /// </summary>
         public uxServerForm()
         {
-
             InitializeComponent();
-
-            formState = State.Monitoring;
-
-            
-            
             uxClientListBox.DataSource = clients;
-
-
-
-
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
-
-            List<string> productList = new List<string>();
-            foreach (string s in lines)
-            {
-                productList.Add(s);
-            }//foreach
-
             uxProductListBox.DataSource = products;
-            
-
         }
 
         /// <summary>
@@ -63,33 +43,9 @@ namespace Server
         public uxServerForm(TimesUp timesUp)
         {
             InitializeComponent();
-
             TimesUpHandler = timesUp;
-
-            formState = State.Monitoring;
-
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\Products\InitialProducts.txt");
-
-            List<string> productList = new List<string>();
-            foreach (string s in lines)
-            {
-                productList.Add(s);
-            }//foreach
-
-            
-            uxProductListBox.DataSource = productList;
-
-
-
-
-            BindingList<Client> clients = Database.returnAllClients();
-            //clients.ListChanged += Clients_ListChanged;
+            uxProductListBox.DataSource = products;
             uxClientListBox.DataSource = clients;
-
-
-
-
-
         }//constructor
 
         /// <summary>
@@ -100,9 +56,8 @@ namespace Server
         private void uxAddButton_Click(object sender, EventArgs e)
         {
             formState = State.Adding_A_Product;
-
-            uxAddProductForm productFrom = new uxAddProductForm(new Controller.Controller(this));
-            productFrom.ShowDialog();
+            uxAddProductForm productForm = new uxAddProductForm(new Controller.Controller(this));
+            productForm.ShowDialog();
 
         }//button click
 
