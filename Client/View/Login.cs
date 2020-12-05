@@ -16,16 +16,16 @@ namespace Client.View
     {
         private State formState;
         private UserVerifier userVerifier;
-       // private UpdateBid uBid;
-        private Bid501 bidForm;
+        private UpdateBid uBid;
+        //private UpdateBid bidForm;
 
         /// <summary>
         /// constructor
         /// </summary>
-        public uxLoginForm(UserVerifier uv, Bid501 bf)
+        public uxLoginForm(UserVerifier uv,  UpdateBid ub)
         {
             userVerifier = uv;
-            bidForm = bf;
+            uBid = ub;
             InitializeComponent();
             Update(State.intialConnect);
         }
@@ -38,11 +38,11 @@ namespace Client.View
             Update(State.intialConnect);
         }
 
-       public void setUV(UserVerifier uv, Bid501 bf)
+       public void setUV(UserVerifier uv, UpdateBid ub)
         {
-            bidForm = bf;
+            //bidForm = bf;
             userVerifier = uv;
-            //uBid = ub;
+            uBid = ub;
         }
 
 
@@ -54,9 +54,12 @@ namespace Client.View
                 Console.WriteLine("LOGIN SUCCESS");
                 this.Invoke(new Action(() =>
                 {
-                    
+                    Bid501 bidForm = new Bid501();
+                    bidForm.setUB(uBid);
                     this.Hide();
+                    bidForm.Update(State.updating);
                     bidForm.ShowDialog();
+                    
                     //this.Close();
                 }));
 
@@ -85,19 +88,7 @@ namespace Client.View
 
             userVerifier.VerifyUser(userName, password);
             Update(State.loginPageWFR);
-            /*
-            if (verification)
-            {
-                Bid501 serverForm = new Bid501();
-                this.Hide();
-                serverForm.ShowDialog();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Username-Password combination is incorrect. Please try again.");
-            }
-            */
+         
         }
     }
 }

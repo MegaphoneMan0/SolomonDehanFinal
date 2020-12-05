@@ -21,8 +21,10 @@ namespace Client.View
         public Bid501()
         {
             InitializeComponent();
+            pList = DatabaseProxy.productList;
             uxListBox.DataSource = pList;
             Update(State.intialConnect);
+            
         }
 
         public void setUB(UpdateBid ub)

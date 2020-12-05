@@ -25,26 +25,27 @@ namespace Client.Controller
         /// a list of observers that update based on the form
         /// </summary>
         private Observer observer;
-        private Observer observer2;
+        //private Observer observer2;
 
-        //public event string MessageRecieved;
-
-        private bool returned = false;
-        private bool verified = false;
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         private WebSocket ws;
 
-        public Controller(WebSocket socket, Observer o, Observer x)
+        public Controller(WebSocket socket, Observer o)
         {
             observer = o;
-            observer2 = x;
+           // observer2 = x;
             ws = socket;
             ws.OnMessage += (sender, e) => ReadMessage(e.Data);
             
 
         }
+        /*
 
-
+        public void setNewObs(Observer x)
+        {
+            observer2 = x;
+        }
+        */
 
 
         public void VerifyUser(string username, string password)
@@ -52,7 +53,7 @@ namespace Client.Controller
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
             sendMessageToServer(newMessage);
             observer.Update(Client.State.loginPageWFR);
-            observer2.Update(Client.State.loginPageWFR);
+            //observer2.Update(Client.State.loginPageWFR);
 
 
         }
@@ -123,20 +124,20 @@ namespace Client.Controller
                     if (v)
                     {
                         observer.Update(Client.State.loginPageTrue);
-                        observer2.Update(Client.State.loginPageTrue);
+                        //observer2.Update(Client.State.loginPageTrue);
                     }
                     else
                     {
                         observer.Update(Client.State.loginPageFalse);
-                        observer2.Update(Client.State.loginPageFalse);
+                        //observer2.Update(Client.State.loginPageFalse);
                     }
-                    returnedCredentials(v);
+                    
                     break;
                 case MessageType.Product_List_Information:
                     Console.WriteLine("reading product list message");
                     replaceCurrentList(message.getProducts());
                     observer.Update(Client.State.updating);
-                    observer2.Update(Client.State.updating);
+                    //observer2.Update(Client.State.updating);
                     break;
 
 
@@ -152,11 +153,7 @@ namespace Client.Controller
         }
 
 
-        public void returnedCredentials(bool v)
-        {
-            verified = v;
-        }
-
+    
 
 
         public void replaceCurrentList(BindingList<Product> newList)

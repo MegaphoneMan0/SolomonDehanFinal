@@ -35,12 +35,14 @@ namespace Client
                 }
                 //Controller.Controller c = new Controller.Controller(ws);
                 uxLoginForm form = new uxLoginForm();
-                Bid501 bidForm = new Bid501();
                 
-                Controller.Controller c = new Controller.Controller(ws, form, bidForm);
                 
-                bidForm.setUB(c);
-                form.setUV(c, bidForm);
+                Controller.Controller c = new Controller.Controller(ws, form);
+                
+                //c.setNewObs(bidForm);
+                //bidForm.setUB(c);
+
+                form.setUV(c, c);
                 Application.Run(form);
                 //Controller.Controller c = new Controller.Controller(ws);
                 //Application.Run(new uxLoginForm(c));
