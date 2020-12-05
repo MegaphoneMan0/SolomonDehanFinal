@@ -39,11 +39,12 @@ namespace Server.View
         /// <summary>
         /// constructor with IP given
         /// </summary>
-        public uxLoginForm(string s)
+        //public uxLoginForm(string s,Controller.Controller controller, Communicator comm) 
+        public uxLoginForm(string s, TimesUp timesUp, SendMessageToClients smtc)
         {
             InitializeComponent();
-            uxServer = new uxServerForm(new Controller.Controller());
-            Controller.Controller c = new Controller.Controller(uxServer);
+            uxServer = new uxServerForm(timesUp,smtc);
+            Controller.Controller c = new Controller.Controller(uxServer, smtc);
             userVerifier = c;
             
             Text = s;

@@ -20,7 +20,7 @@ namespace Server.Controller
     /// <summary>
     /// handles communicating information to and from connected clients
     /// </summary>
-    public class Communicator : WebSocketBehavior
+    public class Communicator : WebSocketBehavior, SendMessageToClients
     {
         //properties
 
@@ -34,7 +34,6 @@ namespace Server.Controller
         /// </summary>
         private UpdateClientList updateClientListHandler;
 
-        //private Controller c;
 
 
 
@@ -73,23 +72,16 @@ namespace Server.Controller
         protected override void OnMessage(MessageEventArgs e)
         {
 
-
             Client thisClient = Database.searchClient(ID);
-
+            Console.WriteLine(ID);
             //e.RawData.ToString();
 
             string msg = e.Data;
 
-
-
             Message newMessage = JsonConvert.DeserializeObject<Message>(msg);
-
 
             readMessageHandler.ReadMessage(newMessage, this);
 
-
-
-            //CheckForDisconnects();
         }//OnMessage
 
         /// <summary>

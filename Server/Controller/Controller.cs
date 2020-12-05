@@ -14,8 +14,7 @@ namespace Server.Controller
 {
     public class Controller : ReadMessage, UserVerifier, UpdateClientList, ProductUpdater, TimesUp
     {
-    
-
+        
         /// <summary>
         /// a list of observers that update based on the form
         /// </summary>
@@ -24,7 +23,7 @@ namespace Server.Controller
         /// <summary>
         /// the communicator which handles communication between the server and connected clients
         /// </summary>
-        private Communicator communicator; 
+        private SendMessageToClients SendMessageToClientsHandler; 
 
 
         //methods
@@ -32,10 +31,10 @@ namespace Server.Controller
         /// <summary>
         /// default constructor with the observer
         /// </summary>
-        public Controller(Observer o)
+        public Controller(Observer o, SendMessageToClients sendMessageToClients)
         {
             observer = o;
-            communicator = new Communicator(this,this);
+            SendMessageToClientsHandler = sendMessageToClients;
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace Server.Controller
             //send out the updated list if there are any connected clients
             if (Database.returnAllClients().Count > 0)
             {
-                communicator.sendMessageToClients(newMessage);
+                SendMessageToClientsHandler.sendMessageToClients(newMessage);
             }//if
 
             //this isn't done, I need to do something with the observer to update the server form
@@ -147,6 +146,7 @@ namespace Server.Controller
                     
                     //the new bid is already verified to be good
                     Bid newBid = message.getNewBid();
+                    newBid.setBidder(comm.ID);
                     Product newProduct = newBid.getProduct();
 
                     //first, let's get the existing product from our database
@@ -161,9 +161,9 @@ namespace Server.Controller
                     if (bidList != null)
                     {
 
-                        foreach (Bid bid in bidList)
+                        foreach (Bid bid in bidList.ToList())
                         {
-                            if (bid.getBidder().Equals(message.getClientID()))
+                            if (bid.getBidder().Equals(comm.ID))
                             {
                                 bidList.Remove(bid);
                                 bidList.Add(newBid);
@@ -230,8 +230,6 @@ namespace Server.Controller
             return products;
         }
 
-        
-
         /// <summary>
         /// This checks all of the bids for a product and notifies the corresponding clients of their success or failure
         /// </summary>
@@ -258,7 +256,7 @@ namespace Server.Controller
                 string clientID = highestBid.getBidder();
                 Message message = new Message(MessageType.Win_Lose_Noti, true, clientID);
 
-                communicator.sendMessageToClients(message);
+                SendMessageToClientsHandler.sendMessageToClients(message);
 
                 //next all of the LOSERS
 
@@ -266,7 +264,7 @@ namespace Server.Controller
                 {
                     string cID = b.getBidder();
                     Message mes = new Message(MessageType.Win_Lose_Noti, false, cID);
-                    communicator.sendMessageToClients(mes);
+                    SendMessageToClientsHandler.sendMessageToClients(mes);
                 }//foreach
             }//if
             
