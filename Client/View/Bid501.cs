@@ -59,6 +59,14 @@ namespace Client.View
                         ));
                 }
             }
+            else if(formState == State.loginPageTrue)
+            {
+                MessageBox.Show("You won the Bid!");
+            }
+            else if(formState == State.loginPageFalse)
+            {
+                MessageBox.Show("You lost the bid");
+            }
 
         }
 

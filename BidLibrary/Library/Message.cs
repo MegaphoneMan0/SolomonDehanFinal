@@ -142,6 +142,14 @@ namespace BidLibrary.Library
         }
 
         /// <summary>
+        /// Returns the winOrLose of the message
+        /// </summary>
+        public bool getWinLose()
+        {
+            return winOrLose;
+        }
+
+        /// <summary>
         /// Returns the password of the message
         /// </summary>
         public string getPassword()
