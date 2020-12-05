@@ -1,4 +1,5 @@
 ﻿using BidLibrary.Library;
+using Server.Controller;
 using Server.Model;
 using Server.View;
 using System;
@@ -21,6 +22,8 @@ namespace Server
 
         private TimesUp TimesUpHandler;
 
+        private SendMessageToClients sendMessageToClients;
+
         private BindingList<Product> products = Database.returnAllProducts();
 
         private BindingList<Client> clients = Database.returnAllClients();
@@ -40,10 +43,11 @@ namespace Server
         /// Constructor that takes a TimesUp interface
         /// </summary>
         /// <param name="timesUp"></param>
-        public uxServerForm(TimesUp timesUp)
+        public uxServerForm(TimesUp timesUp, SendMessageToClients smtc)
         {
             InitializeComponent();
             TimesUpHandler = timesUp;
+            sendMessageToClients = smtc;
             uxProductListBox.DataSource = products;
             uxClientListBox.DataSource = clients;
         }//constructor
@@ -56,7 +60,7 @@ namespace Server
         private void uxAddButton_Click(object sender, EventArgs e)
         {
             formState = State.Adding_A_Product;
-            uxAddProductForm productForm = new uxAddProductForm(new Controller.Controller(this));
+            uxAddProductForm productForm = new uxAddProductForm(new Controller.Controller(this,sendMessageToClients));
             productForm.ShowDialog();
 
         }//button click
