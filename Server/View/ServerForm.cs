@@ -30,16 +30,6 @@ namespace Server
 
 
         /// <summary>
-        /// default constructor
-        /// </summary>
-        public uxServerForm()
-        {
-            InitializeComponent();
-            uxClientListBox.DataSource = clients;
-            uxProductListBox.DataSource = products;
-        }
-
-        /// <summary>
         /// Constructor that takes a TimesUp interface
         /// </summary>
         /// <param name="timesUp"></param>
@@ -78,7 +68,7 @@ namespace Server
                 {
                     this.Invoke(new Action(() => products.ResetBindings()
                     ));
-                }
+                }//if
             }//if
             else if(formState == State.Recieved_New_Client | formState == State.Lost_Client)
             {
@@ -87,24 +77,9 @@ namespace Server
                 {
                     this.Invoke(new Action(() => clients.ResetBindings()
                     ));
-                }
-
-                
-
+                }//if
             }//else if
-            else
-            {
-                
-            }//else
-        }
-
-        /// <summary>
-        /// this does nothing, but I'm keeping it in case I need it
-        /// </summary>
-        private void refresh()
-        {
-            uxClientListBox.DataSource = Database.clientLibrary;
-        }
+        }//update
 
         /// <summary>
         /// this is the button push method to stop bidding. It uses an interface to contact the controller

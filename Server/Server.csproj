@@ -67,7 +67,6 @@
     <Compile Include="View\AddProductForm.Designer.cs">
       <DependentUpon>AddProductForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\LoadInitialProducts.cs" />
     <Compile Include="View\Login.cs">
       <SubType>Form</SubType>
     </Compile>

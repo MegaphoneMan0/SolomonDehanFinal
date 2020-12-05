@@ -13,13 +13,7 @@ namespace Server.View
 {
     public partial class uxAddProductForm : Form
     {
-        public uxAddProductForm(ProductUpdater PU)
-        {
-            productUpdaterHandler = PU;
-            InitializeComponent();
-            uxProductsToAddBox.DataSource = productsThatCanBeAdded;
-        }
-
+        
         //just hard coded these into the listbox's "items" property
         
         private static List<string> productsThatCanBeAdded = new List<string>()
@@ -30,9 +24,14 @@ namespace Server.View
             "The entire Russian government"
         };
         
-
         private ProductUpdater productUpdaterHandler;
 
+        public uxAddProductForm(ProductUpdater PU)
+        {
+            productUpdaterHandler = PU;
+            InitializeComponent();
+            uxProductsToAddBox.DataSource = productsThatCanBeAdded;
+        }
 
         private void uxAddButton_Click(object sender, EventArgs e)
         {

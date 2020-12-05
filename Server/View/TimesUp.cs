@@ -9,7 +9,10 @@ namespace Server.View
 {
     public interface TimesUp
     {
-
+        /// <summary>
+        /// TimesUp is for when the server admin
+        /// </summary>
+        /// <param name="product"></param>
         void TimesUp(Product product);
 
 

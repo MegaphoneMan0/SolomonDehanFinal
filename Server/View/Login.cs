@@ -19,22 +19,9 @@ namespace Server.View
         /// </summary>
         private UserVerifier userVerifier;
 
-        private LoadInitialProducts initialProductsLoader;
-
         private uxServerForm uxServer;
 
-        /// <summary>
-        /// constructor
-        /// </summary>
-        public uxLoginForm(UserVerifier uv, LoadInitialProducts LIP)
-        {
-            InitializeComponent();
-
-            userVerifier = uv;
-            initialProductsLoader = LIP;
-            initialProductsLoader.LoadInitialProducts();
-
-        }
+        
 
         /// <summary>
         /// constructor with IP given
@@ -46,12 +33,10 @@ namespace Server.View
             uxServer = new uxServerForm(timesUp,smtc);
             Controller.Controller c = new Controller.Controller(uxServer, smtc);
             userVerifier = c;
-            
             Text = s;
-            //uxServer = usf;
 
+            initialProductsLoader.LoadInitialProducts();
 
-            //I THINK this will work
             //starting a webSocketServer at port 8000
             WebSocketServer wss = new WebSocketServer(8000);//localIP
             wss.AddWebSocketService("/communicator", () => {
@@ -60,10 +45,9 @@ namespace Server.View
             }
             );
 
-
             //start the server
             wss.Start();
-        }
+        }//login constructor
 
         /// <summary>
         /// an event handler for when a user clicks the login button
@@ -80,19 +64,15 @@ namespace Server.View
 
             if (verification)
             {
-                
                 this.Hide();
-
                 uxServer.ShowDialog();
-
-                //serverForm.ShowDialog(); 
                 this.Close();
-            }
+            }//if
             else
             {
                 MessageBox.Show("Username-Password combination is incorrect. Please try again.");
-            }
+            }//else
 
-        }
-    }
-}
+        }//login button clicked
+    }//class
+}//namespace
