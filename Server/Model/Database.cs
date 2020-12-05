@@ -31,7 +31,7 @@ namespace Server.Model
         /// <summary>
         /// a list of available products that clients can bid on. Only includes products available for bidding
         /// </summary>
-        private static BindingList<Product> productLibrary = new BindingList<Product>();
+        public static BindingList<Product> productLibrary = new BindingList<Product>();
 
         /// <summary>
         /// a list of clients that are connected to the server

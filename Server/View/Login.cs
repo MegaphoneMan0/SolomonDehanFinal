@@ -27,26 +27,18 @@ namespace Server.View
         /// constructor with IP given
         /// </summary>
         //public uxLoginForm(string s,Controller.Controller controller, Communicator comm) 
-        public uxLoginForm(string s, TimesUp timesUp, SendMessageToClients smtc)
+        public uxLoginForm(string s, Controller.Controller timesUp, SendMessageToClients smtc)
         {
             InitializeComponent();
             uxServer = new uxServerForm(timesUp,smtc);
-            Controller.Controller c = new Controller.Controller(uxServer, smtc);
-            userVerifier = c;
+            timesUp.SetObs(uxServer);
+            userVerifier = timesUp;
             Text = s;
 
-            initialProductsLoader.LoadInitialProducts();
 
-            //starting a webSocketServer at port 8000
-            WebSocketServer wss = new WebSocketServer(8000);//localIP
-            wss.AddWebSocketService("/communicator", () => {
-                Communicator server = new Communicator(c,c);
-                return server;
-            }
-            );
+            //initialProductsLoader.LoadInitialProducts();
 
-            //start the server
-            wss.Start();
+            
         }//login constructor
 
         /// <summary>

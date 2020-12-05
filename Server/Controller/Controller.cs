@@ -37,6 +37,16 @@ namespace Server.Controller
             SendMessageToClientsHandler = sendMessageToClients;
         }
 
+        public void SetClientHandler(SendMessageToClients sendMessageToClients)
+        {
+            SendMessageToClientsHandler = sendMessageToClients;
+        }
+
+        public void SetObs(Observer o)
+        {
+            observer = o;
+        }
+
         /// <summary>
         /// default constructor without the observer
         /// </summary>

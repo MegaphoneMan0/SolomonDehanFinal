@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using BidLibrary.Library;
 using Server.Model;
+using System.ComponentModel;
 
 namespace Server
 {
@@ -49,11 +50,30 @@ namespace Server
             int portNum = Convert.ToInt32(port);
 
 
-            LoadInitialProducts();
+            //LoadInitialProducts();
+            Database.productLibrary = new BindingList<Product>()
+                {
+                new Product("Cruzan Rum"),
+                    new Product("Spiderman"),
+                    new Product("Final project")
+            };
 
-            //Controller.Controller c = new Controller.Controller();
+            Controller.Controller c = new Controller.Controller();
+            Communicator comm = new Communicator(c, c);
+            c.SetClientHandler(comm);
+            uxLoginForm lf = new uxLoginForm(String.Format("{0}:{1}", localIP, port),c,comm);
+            
+            
+            //starting a webSocketServer at port 8000
+            WebSocketServer wss = new WebSocketServer(8000);//localIP
+            wss.AddWebSocketService("/communicator", () => {
+                
+                return comm;
+            }
+            );
 
-            uxLoginForm lf = new uxLoginForm(String.Format("{0}:{1}", localIP, port));
+            //start the server
+            wss.Start();
 
 
             Application.Run(lf);
