@@ -130,6 +130,17 @@ namespace Client.Controller
                     replaceCurrentList(message.getProducts());
                     observer.Update(Client.State.updating);
                     break;
+                case MessageType.Win_Lose_Noti:
+                    if (message.getWinLose())
+                    {
+                        observer.Update(Client.State.loginPageTrue);
+                    }
+                    else
+                    {
+                        observer.Update(Client.State.loginPageFalse);
+                    }
+                    
+                    break;
 
                 default:
 
