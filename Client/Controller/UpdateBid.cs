@@ -10,7 +10,9 @@ namespace Client.Controller
 {
     public interface UpdateBid
     {
-        
+        /// <summary>
+        /// an interface to integrate the UpdateBid method
+        /// </summary>
         void UpdateBid(Bid bid);
 
     }

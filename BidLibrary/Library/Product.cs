@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BidLibrary.Library
 {
-    //jack
+   
     public class Product
     {
         //parameters

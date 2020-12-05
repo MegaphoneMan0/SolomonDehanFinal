@@ -12,7 +12,6 @@ using System.Net;
 using System.Net.Sockets;
 using WebSocketSharp;
 using Newtonsoft.Json;
-//using WebSocketSharp.Server;
 using WebSocket = WebSocketSharp.WebSocket;
 using Client.View;
 
@@ -26,6 +25,9 @@ namespace Client.Controller
         /// </summary>
         private Observer observer;
 
+        /// <summary>
+        /// The websocket used to connect to server
+        /// </summary>
         private WebSocket ws = new WebSocket("ws://10.130.48.166:8000/communicator");
 
 
@@ -33,6 +35,9 @@ namespace Client.Controller
 
         public delegate void ServerMessage(string message);
 
+        /// <summary>
+        /// The default controller constructor with uses the given observer form
+        /// </summary>
         public Controller(Observer o)
         {
             ws.OnMessage += (sender, e) =>
@@ -51,15 +56,19 @@ namespace Client.Controller
             
 
         }
-        
 
+        /// <summary>
+        /// changes the form to the given observer
+        /// </summary>
         public void SetNewObs(Observer x)
         {
             observer = x;
         }
-        
 
 
+        /// <summary>
+        /// creates a message to be sent to the server to verify the given username and password
+        /// </summary>
         public void VerifyUser(string username, string password)
         {
             Message newMessage = new Message(MessageType.Credential_Information, username, password);
@@ -68,14 +77,19 @@ namespace Client.Controller
 
 
         }
-        
 
+        /// <summary>
+        /// creates a message to be sent to the server to update a product with the given bid
+        /// </summary>
         public void UpdateBid( Bid bid)
         {
             Message newMessage = new Message(MessageType.New_Bid, bid);
             sendMessageToServer(newMessage);
         }
 
+        /// <summary>
+        /// serializes a given message and sends it to the server
+        /// </summary>
         public void sendMessageToServer(Message message)
         {
             var msg = JsonConvert.SerializeObject(message);
@@ -83,28 +97,19 @@ namespace Client.Controller
             if (ws.IsAlive) {
                 ws.Send(msg); 
             }
-            
-            //Message test = JsonConvert.DeserializeObject<Message>(msg);
-
 
         }
 
         /// <summary>
-        /// reads the message from the client and reacts depending on the message type
+        /// reads the message from the server and reacts depending on the message type
         /// </summary>
         /// <param name="message">the message that is being read</param>
-        /// <returns></returns>
         public void ReadMessage(string msg)
         {
             Message message = JsonConvert.DeserializeObject<Message>(msg);
 
             Console.WriteLine(message.getMessageType());
-
-
-
             MessageType messageType = message.getMessageType();
-
-
             switch (messageType)
             {
                 case MessageType.Credential_Information_Verification:
@@ -126,22 +131,17 @@ namespace Client.Controller
                     observer.Update(Client.State.updating);
                     break;
 
-
                 default:
 
-                    
                     //return null;
                     break;
-
-
             }
 
         }
 
-
-    
-
-
+        /// <summary>
+        /// replaces the static proxy-database with an updated data list
+        /// </summary>
         public void replaceCurrentList(BindingList<Product> newList)
         {
             DatabaseProxy.productList = newList;

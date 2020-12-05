@@ -14,14 +14,25 @@ namespace Client.View
 {
     public partial class uxLoginForm : Form, Observer
     {
+        /// <summary>
+        /// a variable to keep track of the state of the controller
+        /// </summary>
         private State formState;
+        /// <summary>
+        /// a variable to keep track of the UserVerifier object
+        /// </summary>
         private UserVerifier userVerifier;
+        /// <summary>
+        /// a variable to keep track of the UpdateBid object
+        /// </summary>
         private UpdateBid uBid;
+        /// <summary>
+        /// a variable to keep track of the SetNewObs object
+        /// </summary>
         private SetNewObs setObs;
-        //private UpdateBid bidForm;
 
         /// <summary>
-        /// constructor
+        /// constructor when given 2 differnet objects to initialize the local variables with
         /// </summary>
         public uxLoginForm(UserVerifier uv,  UpdateBid ub)
         {
@@ -30,24 +41,28 @@ namespace Client.View
             InitializeComponent();
             Update(State.intialConnect);
         }
+
+        /// <summary>
+        /// A default empty constructor
+        /// </summary>
         public uxLoginForm()
         {
             InitializeComponent();
-            
-
-            
             Update(State.intialConnect);
         }
-
-       public void setUV(UserVerifier uv, UpdateBid ub, SetNewObs sno)
+        /// <summary>
+        /// sets the local variables to the given variables for future use
+        /// </summary>
+        public void setUV(UserVerifier uv, UpdateBid ub, SetNewObs sno)
         {
-            //bidForm = bf;
             userVerifier = uv;
             uBid = ub;
             setObs = sno;
         }
 
-
+        /// <summary>
+        /// Updates the local state to the given state and changes the form accordingly
+        /// </summary>
         public void Update(State state)
         {
             formState = state;

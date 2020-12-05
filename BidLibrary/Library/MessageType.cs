@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BidLibrary.Library
 {
-    //john
+    /// <summary>
+    /// an enum to keep track of the message types
+    /// </summary>
     public enum MessageType
     {
 
