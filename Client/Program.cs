@@ -38,7 +38,9 @@ namespace Client
                 
                 
                 Controller.Controller c = new Controller.Controller(ws, form);
-                
+
+                ws.OnMessage += (sender,e) => c.ReadMessage(e.Data);
+
                 //c.setNewObs(bidForm);
                 //bidForm.setUB(c);
 

@@ -30,15 +30,26 @@ namespace Client.Controller
         //public System.Timers.Timer aTimer = new System.Timers.Timer();
         private WebSocket ws;
 
+        public event ServerMessage MessageRecieved;
+
+        public delegate void ServerMessage(string message);
+
         public Controller(WebSocket socket, Observer o)
         {
             observer = o;
            // observer2 = x;
             ws = socket;
-            ws.OnMessage += (sender, e) => ReadMessage(e.Data);
-            
+            ws.OnMessage += (sender, e) =>
+            {
+                MessageRecieved(e.Data);
+            };
+
+            MessageRecieved += ReadMessage;
 
         }
+
+
+
         /*
 
         public void setNewObs(Observer x)

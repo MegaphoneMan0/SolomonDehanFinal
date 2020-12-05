@@ -75,7 +75,7 @@ namespace Server.Controller
 
 
             Client thisClient = Database.searchClient(ID);
-
+            Console.WriteLine(ID);
             //e.RawData.ToString();
 
             string msg = e.Data;

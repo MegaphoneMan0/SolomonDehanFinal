@@ -90,27 +90,7 @@ namespace Server
             }//else if
             else
             {
-                //we'll do both, why not
-                /*
-                BindingList<Product> products = Database.returnAllProducts();
-                List<string> productNames = new List<string>();
-                foreach (Product p in products)
-                {
-                    productNames.Add(p.getID());
-                }
-                uxProductListBox = new ListBox();
-                uxProductListBox.DataSource = productNames;
-
-                BindingList<Client> clients = Database.returnAllClients();
-                List<string> clientNames = new List<string>();
-                foreach (Client c in clients)
-                {
-                    clientNames.Add(c.getID());
-                }
-                uxClientListBox = new ListBox();
-                uxClientListBox.DataSource = clientNames;
-
-                */
+                
             }//else
         }
 
