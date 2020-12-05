@@ -12,7 +12,7 @@ namespace Server.Model
     /// <summary>
     /// An object that represents the clients connected to the server
     /// </summary>
-    class Client : INotifyPropertyChanged
+    class Client 
     {
         //parameters
 
@@ -25,9 +25,6 @@ namespace Server.Model
         /// A list of Products that the client currently has a Bid on
         /// </summary>
         private List<Product> currentBids;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
 
         public Communicator webSocketSession;
 

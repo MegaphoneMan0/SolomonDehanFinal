@@ -9,7 +9,10 @@ namespace Server.Controller
 {
     public interface SendMessageToClients
     {
-
+        /// <summary>
+        /// A method which will send the given Message to all connected clients
+        /// </summary>
+        /// <param name="message"></param>
         void sendMessageToClients(Message message);
 
     }
