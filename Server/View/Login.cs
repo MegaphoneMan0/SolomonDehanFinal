@@ -19,11 +19,6 @@ namespace Server.View
         /// </summary>
         private UserVerifier userVerifier;
 
-        /// <summary>
-        /// Loads the initialproducts in to the database
-        /// </summary>
-        private LoadInitialProducts initialProductsLoader;
-
         private uxServerForm uxServer;
 
         
